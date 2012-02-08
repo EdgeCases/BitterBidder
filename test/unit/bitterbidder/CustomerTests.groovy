@@ -8,7 +8,7 @@ import org.junit.*
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Customer)
+@TestFor()
 class CustomerTests {
 
     void testSomething() {
@@ -18,19 +18,20 @@ class CustomerTests {
 
     @Test
     void test_Email_WhenValid_NoValidationError(){
-
+        fail "Implement me"
     }
 
     @Test
     void test_Email_WhenNullOrEmpty_HasValidationErrors(){
-
+        fail "Implement me"
     }
     @Test
     void test_Email_WhenNoAtSign_HasValidationError(){
-
+        fail "Implement me"
     }
 
     @Test
-    void test_Email_WhenNoDotDomain_HasValidationError(){}
-
+    void test_Email_WhenNoDotDomain_HasValidationError(){
+        fail "Implement me"
+    }
 }
