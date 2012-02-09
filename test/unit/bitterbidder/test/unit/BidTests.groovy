@@ -1,9 +1,7 @@
-package bitterbidder
+package bitterbidder.test.unit
 
-
-
-import grails.test.mixin.*
-import org.junit.*
+import bitterbidder.Bid
+import grails.test.mixin.TestFor
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
