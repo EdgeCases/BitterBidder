@@ -1,5 +1,6 @@
 package bitterbidder.test.unit
 
+
 import bitterbidder.Bid
 import grails.test.mixin.TestFor
 

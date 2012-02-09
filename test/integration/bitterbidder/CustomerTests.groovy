@@ -1,4 +1,5 @@
-package bitterbidder.test.integration;
+package bitterbidder.test.integration
+
 
 import static org.junit.Assert.*
 import org.junit.*
