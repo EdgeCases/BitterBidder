@@ -7,7 +7,7 @@ import org.junit.Test
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
 @TestFor()
-class CustomerTests {
+class CustomerTests extends GroovyTestCase {
 
     void testSomething() {
        fail "Implement me"
