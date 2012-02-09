@@ -1,7 +1,10 @@
-package bitterbidder.test.integration;
+package test.integration.domain;
 
-import static org.junit.Assert.*
-import org.junit.*
+
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import static org.junit.Assert.fail
 
 class CustomerTests {
 

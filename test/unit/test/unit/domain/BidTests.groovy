@@ -1,13 +1,13 @@
-package bitterbidder.test.unit
+package test.unit.domain;
 
-import bitterbidder.Listing
+import bitterbidder.Bid
 import grails.test.mixin.TestFor
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
  */
-@TestFor(Listing)
-class ListingTests {
+@TestFor(Bid)
+class BidTests {
 
     void testSomething() {
         fail "Implement me"

@@ -1,4 +1,4 @@
-package bitterbidder.test.unit
+package test.unit.domain;
 
 import grails.test.mixin.TestFor
 import org.junit.Test
