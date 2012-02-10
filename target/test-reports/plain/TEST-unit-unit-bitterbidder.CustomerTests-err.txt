@@ -1,1 +1,0 @@
---Output from test_Email_WhenNull_ValidationErrorOccurs--

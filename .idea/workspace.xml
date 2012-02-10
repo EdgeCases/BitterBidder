@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="360afaa4-e4a0-4b0c-ad16-88e639d162a8" name="Default" comment="">
+    <list default="true" id="360afaa4-e4a0-4b0c-ad16-88e639d162a8" name="Default" comment="Merge branch 'master' of https://github.com/EdgeCases/BitterBidder&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;&#9;BitterBidder.iml&#10;&#9;test/integration/test/integration/domain/CustomerTests.groovy&#10;&#9;test/unit/BidTests.groovy&#10;&#9;test/unit/CustomerTests.groovy&#10;&#9;test/unit/ListingTests.groovy&#10;&#9;test/unit/bitterbidder/test/unit/BidTests.groovy&#10;&#9;test/unit/bitterbidder/test/unit/CustomerTests.groovy&#10;&#9;test/unit/test/unit/domain/BidTests.groovy&#10;&#9;test/unit/test/unit/domain/CustomerTests.groovy&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/integration/test/integration/domain/BidTests.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/test/unit/domain/BidTests.groovy" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/unit/test/unit/domain/ListingTests.groovy" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\BitterBidder-grailsPlugins.iml" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\ApplicationResources$_run_closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\ApplicationResources$_run_closure1_closure2.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\ApplicationResources.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BootStrap$_closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BootStrap$_closure2.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BootStrap.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BuildConfig$_run_closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BuildConfig$_run_closure1_closure2.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BuildConfig$_run_closure1_closure3.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BuildConfig$_run_closure1_closure4.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BuildConfig$_run_closure1_closure5.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\BuildConfig.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\Config$_run_closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\Config$_run_closure1_closure3.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\Config$_run_closure1_closure4.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\Config$_run_closure2.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\Config.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure2.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure4.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure4_closure7.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure5.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure5_closure8.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure6.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure6_closure9.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource$_run_closure3_closure6_closure9_closure10.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\DataSource.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\UrlMappings$__clinit__closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\UrlMappings$__clinit__closure1_closure2.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\UrlMappings$__clinit__closure1_closure2_closure3.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\UrlMappings.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\application.properties" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\bitterbidder\Bid$__clinit__closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\bitterbidder\Bid.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\bitterbidder\Customer$__clinit__closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\bitterbidder\Customer.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\bitterbidder\Listing$__clinit__closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\bitterbidder\Listing.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\resources$_run_closure1.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\classes\resources.class" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\stacktrace.log" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\TEST-unit-unit-bitterbidder.CustomerTests.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\TESTS-TestSuites.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\html\all.html" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\html\bitterbidder\0_CustomerTests.html" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\html\failed.html" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\html\index.html" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\html\stylesheet.css" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\plain\TEST-unit-unit-bitterbidder.CustomerTests-err.txt" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\plain\TEST-unit-unit-bitterbidder.CustomerTests-out.txt" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\target\test-reports\plain\TEST-unit-unit-bitterbidder.CustomerTests.txt" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\test\unit\BidTests.groovy" afterPath="" />
+      <change type="DELETED" beforePath="D:\dev\msse\web\BitterBidder\test\unit\ListingTests.groovy" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BitterBidder.iml" afterPath="$PROJECT_DIR$/BitterBidder.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/integration/bitterbidder/CustomerTests.groovy" afterPath="$PROJECT_DIR$/test/integration/bitterbidder/CustomerTests.groovy" />
-      <change type="MOVED" beforePath="D:\dev\msse\web\BitterBidder\test\unit\bitterbidder\test\unit\BidTests.groovy" afterPath="$PROJECT_DIR$/test/unit/BidTests.groovy" />
-      <change type="MOVED" beforePath="D:\dev\msse\web\BitterBidder\test\unit\bitterbidder\test\unit\CustomerTests.groovy" afterPath="$PROJECT_DIR$/test/unit/CustomerTests.groovy" />
-      <change type="MOVED" beforePath="D:\dev\msse\web\BitterBidder\test\unit\bitterbidder\test\unit\ListingTests.groovy" afterPath="$PROJECT_DIR$/test/unit/ListingTests.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/bitterbidder/Bid.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/bitterbidder/Bid.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/bitterbidder/Customer.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/bitterbidder/Customer.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/domain/bitterbidder/Listing.groovy" afterPath="$PROJECT_DIR$/grails-app/domain/bitterbidder/Listing.groovy" />
+      <change type="MOVED" beforePath="D:\dev\msse\web\BitterBidder\test\integration\bitterbidder\CustomerTests.groovy" afterPath="$PROJECT_DIR$/test/integration/test/integration/domain/CustomerTests.groovy" />
+      <change type="MOVED" beforePath="D:\dev\msse\web\BitterBidder\test\unit\CustomerTests.groovy" afterPath="$PROJECT_DIR$/test/unit/test/unit/domain/CustomerTests.groovy" />
     </list>
     <ignored path="BitterBidder.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -19,6 +81,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/BitterBidder$All_in_BitterBidder.ic" NAME="All in BitterBidder Coverage Results" MODIFIED="1328847811644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -26,6 +91,21 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <line_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/test/unit/test/unit/domain/ListingTests.groovy" line="71" class="test.unit.domain.ListingTests" package="">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="false" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_any>
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -66,65 +146,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Customer.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Customer.groovy">
+      <file leaf-file-name="BidTests.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/integration/test/integration/domain/BidTests.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="6" selection-start="28" selection-end="28" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="11" column="30" selection-start="276" selection-end="276" vertical-scroll-proportion="-5.9130435">
+              <folding>
+                <element signature="e#33#65#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bid.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Bid.groovy">
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Listing.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Listing.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="9" column="7" selection-start="155" selection-end="155" vertical-scroll-proportion="2.637931">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="CustomerTests.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/integration/bitterbidder/CustomerTests.groovy">
+        <entry file="file://$PROJECT_DIR$/test/integration/test/integration/domain/CustomerTests.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="6" selection-start="99" selection-end="99" vertical-scroll-proportion="3.0869565">
-              <folding />
+            <state line="6" column="33" selection-start="104" selection-end="104" vertical-scroll-proportion="-4.4347825">
+              <folding>
+                <element signature="e#35#57#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BidTests.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/unit/BidTests.groovy">
+      <file leaf-file-name="CustomerTests.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/unit/test/unit/domain/CustomerTests.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CustomerTests.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/unit/CustomerTests.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="98" selection-start="228" selection-end="228" vertical-scroll-proportion="0.24242425">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ListingTests.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/unit/ListingTests.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="29" selection-start="305" selection-end="305" vertical-scroll-proportion="-10.347826">
-              <folding />
+            <state line="11" column="0" selection-start="262" selection-end="273" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#27#59#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,6 +208,12 @@
         <option value="$PROJECT_DIR$/test/unit/BidTests.groovy" />
         <option value="$PROJECT_DIR$/test/unit/CustomerTests.groovy" />
         <option value="$PROJECT_DIR$/test/unit/ListingTests.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/domain/bitterbidder/Customer.groovy" />
+        <option value="$PROJECT_DIR$/test/unit/test/unit/domain/CustomerTests.groovy" />
+        <option value="$PROJECT_DIR$/test/unit/test/unit/domain/ListingTests.groovy" />
+        <option value="$PROJECT_DIR$/test/unit/test/unit/domain/BidTests.groovy" />
+        <option value="$PROJECT_DIR$/test/integration/test/integration/domain/BidTests.groovy" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -157,6 +222,37 @@
     <option name="y" value="-8" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Error handling</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>JUnit issues</id>
+          </State>
+          <State>
+            <id>TestNG</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -185,6 +281,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -213,33 +310,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BitterBidder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BitterBidder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="integration" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bitterbidder" />
+              <option name="myItemId" value="grails-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -256,10 +327,17 @@
               <option name="myItemId" value="grails-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bitterbidder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -267,7 +345,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="editing.templates" />
+    <property name="options.lastSelected" value="Errors" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -282,7 +360,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Grails.test_Email_WhenNull_ValidationErrorOccurs()">
+  <component name="RunManager" selected="JUnit.All in BitterBidder">
     <configuration default="false" name="Email_WhenNull_ValidationErrorOccurs()" type="GrailsRunConfigurationType" factoryName="Grails" temporary="true">
       <module name="BitterBidder" />
       <setting name="vmparams" value="" />
@@ -325,6 +403,60 @@
         <option name="Make" enabled="false" />
       </method>
     </configuration>
+    <configuration default="false" name="test_Name_WhenInvalid_ListingIsInvalid()" type="GrailsRunConfigurationType" factoryName="Grails" temporary="true">
+      <module name="BitterBidder" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="test-app unit: test.unit.domain.Listing.test_Name_WhenInvalid_ListingIsInvalid -echoOut" />
+      <setting name="depsClasspath" value="true" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="true" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
+      <method>
+        <option name="Make" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="false" name="All in BitterBidder" type="JUnit" factoryName="JUnit" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="BitterBidder" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Cover" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <module name="" />
       <setting name="vmparams" value="" />
@@ -333,17 +465,6 @@
       <setting name="passParentEnv" value="true" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <setting name="launchBrowser" value="true" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -364,24 +485,6 @@
       </method>
     </configuration>
     <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" adl_options="" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" browser_family="FIREFOX" class_name="" debugger_sdk="Module SDK" html_or_swf_file_path="" launcher_type="OSDefault" main_class_name="" method_name="" module_name="" output_log_level="" package_name="" player_path="FlashPlayer.exe" port="0" run_mode="HtmlOrSwfFile" run_trusted="true" scope="Class" socket_policy_port="0" url_to_launch="http://">
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -415,6 +518,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -482,11 +603,13 @@
         <option name="Make" enabled="false" />
       </method>
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Grails.Grails:BitterBidder" />
-      <item index="1" class="java.lang.String" itemvalue="Grails.Email_WhenNull_ValidationErrorOccurs()" />
-      <item index="2" class="java.lang.String" itemvalue="Grails.Test_Email_WhenNull_ValidationErrorOccurs()" />
-      <item index="3" class="java.lang.String" itemvalue="Grails.test_Email_WhenNull_ValidationErrorOccurs()" />
+    <list size="6">
+      <item index="0" class="java.lang.String" itemvalue="Grails.Email_WhenNull_ValidationErrorOccurs()" />
+      <item index="1" class="java.lang.String" itemvalue="Grails.Test_Email_WhenNull_ValidationErrorOccurs()" />
+      <item index="2" class="java.lang.String" itemvalue="Grails.test_Email_WhenNull_ValidationErrorOccurs()" />
+      <item index="3" class="java.lang.String" itemvalue="Grails.Grails:BitterBidder" />
+      <item index="4" class="java.lang.String" itemvalue="Grails.test_Name_WhenInvalid_ListingIsInvalid()" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.All in BitterBidder" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -525,13 +648,13 @@
     <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.8242321" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39816514" sideWeight="0.822294" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4293578" sideWeight="0.16639742" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -542,8 +665,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24886191" sideWeight="0.67064846" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.698786" sideWeight="0.17576791" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.76450515" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -609,54 +732,82 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Customer.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Listing.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="6" selection-start="28" selection-end="28" vertical-scroll-proportion="0.07439825">
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unit/test/unit/domain/BidTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="28" selection-end="28" vertical-scroll-proportion="0.0" />
+        <state line="68" column="0" selection-start="1210" selection-end="1210" vertical-scroll-proportion="-18.695652">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Customer.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="58" selection-start="237" selection-end="237" vertical-scroll-proportion="-3.1627908">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/unit/test/unit/domain/ListingTests.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="41" selection-start="327" selection-end="349" vertical-scroll-proportion="-8.869565">
+          <folding>
+            <element signature="e#27#54#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Bid.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="36" selection-start="108" selection-end="108" vertical-scroll-proportion="-1.9767442">
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
         <state />
       </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/bitterbidder/Listing.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/test/integration/test/integration/domain/CustomerTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/BidTests.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="31" selection-end="31" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="6" column="33" selection-start="104" selection-end="104" vertical-scroll-proportion="-4.4347825">
+          <folding>
+            <element signature="e#35#57#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/ListingTests.groovy">
+    <entry file="file://$PROJECT_DIR$/test/unit/test/unit/domain/CustomerTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="29" selection-start="305" selection-end="305" vertical-scroll-proportion="-10.347826">
-          <folding />
+        <state line="11" column="0" selection-start="262" selection-end="273" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#27#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/integration/bitterbidder/CustomerTests.groovy">
+    <entry file="file://$PROJECT_DIR$/test/integration/test/integration/domain/BidTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="6" selection-start="99" selection-end="99" vertical-scroll-proportion="3.0869565">
-          <folding />
+        <state line="11" column="30" selection-start="276" selection-end="276" vertical-scroll-proportion="-5.9130435">
+          <folding>
+            <element signature="e#33#65#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/unit/CustomerTests.groovy">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="98" selection-start="228" selection-end="228" vertical-scroll-proportion="0.24242425">
+        <state line="9" column="7" selection-start="155" selection-end="155" vertical-scroll-proportion="2.637931">
           <folding />
         </state>
       </provider>
