@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BitterBidder.iml" filepath="$PROJECT_DIR$/BitterBidder.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BitterBidder-grailsPlugins.iml" filepath="$PROJECT_DIR$/BitterBidder-grailsPlugins.iml" />
     </modules>
   </component>
 </project>

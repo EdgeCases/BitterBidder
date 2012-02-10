@@ -41,14 +41,11 @@
     <orderEntry type="library" name="grails-2.0.0" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (BitterBidder)">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/antlr/antlr/jars/antlr-2.7.6.jar!/" />
-        </CLASSES>
+        <CLASSES />
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="BitterBidder-grailsPlugins" />
   </component>
 </module>
 
