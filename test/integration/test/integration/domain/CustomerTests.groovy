@@ -4,6 +4,9 @@ package test.integration.domain;
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import bitterbidder.Customer
+import org.springframework.test.annotation.ExpectedException
+import grails.test.mixin.TestFor
 
 class CustomerTests extends GroovyTestCase{
 
@@ -18,17 +21,13 @@ class CustomerTests extends GroovyTestCase{
     }
 
     @Test
-    void testSomething() {
-        fail "Implement me"
-    }
-
-    @Test
     void test_Save_WhenEmailIsUnique_CustomerIsSaved(){
         //arrange
         //assume
         //act
         //assert
-    }
+        //arrange
+     }
 
     @Test
     void test_Save_WhenEmailIsUnique_CustomerHasNoValidationErrors(){
@@ -38,6 +37,7 @@ class CustomerTests extends GroovyTestCase{
         //assert
     }
     @Test
+
     void test_Save_WhenEmailIsNotUnique_CustomerIsNull(){
         //arrange
         //assume
@@ -48,8 +48,14 @@ class CustomerTests extends GroovyTestCase{
     @Test
     void test_Save_WhenEmailIsNotUnique_CustomerHasValidationErrors(){
         //arrange
-        //assume
+        Customer customer1 = new Customer(emailAddress: 'customer@email.com', password: 'password')
+        Customer customer2 = new Customer(emailAddress: 'customer@email.com', password: 'password')
+
         //act
+        customer1.save()
+        customer2.save()
+
         //assert
+        assertNotNull (customer2.errors["emailAddress"])
     }
 }
