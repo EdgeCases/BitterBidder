@@ -1,61 +1,45 @@
 package test.integration.domain;
 
-
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
 import bitterbidder.Customer
-import org.springframework.test.annotation.ExpectedException
-import grails.test.mixin.TestFor
 
 class CustomerTests extends GroovyTestCase{
 
-    @Before
+    final static duplicateCustomer1EmailAddress = 'customer1@email.com'
+    final static password = 'password'
+    final static uniqueCustomer1EmailAddress = 'customer1@email.com'
+    final static uniqueCustomer2EmailAddress = 'customer2@email.com'
+
+    private duplicateCustomer1
+    private uniqueCustomer1
+    private uniqueCustomer2
+
     void setUp() {
         // Setup logic here
+        duplicateCustomer1 = new Customer(emailAddress: duplicateCustomer1EmailAddress, password: password)
+        uniqueCustomer1 = new Customer(emailAddress: uniqueCustomer1EmailAddress, password: password)
+        uniqueCustomer2 = new Customer(emailAddress: uniqueCustomer2EmailAddress, password: password)
     }
 
-    @After
     void tearDown() {
         // Tear down logic here
     }
 
-    @Test
     void test_Save_WhenEmailIsUnique_CustomerIsSaved(){
-        //arrange
-        //assume
         //act
+        uniqueCustomer1.save()
+        uniqueCustomer2.save()
+        
         //assert
-        //arrange
+        assertNotNull(Customer.findByEmailAddress(uniqueCustomer1EmailAddress))
+        assertNotNull(Customer.findByEmailAddress(uniqueCustomer2EmailAddress))
      }
 
-    @Test
-    void test_Save_WhenEmailIsUnique_CustomerHasNoValidationErrors(){
-        //arrange
-        //assume
+    void test_Save_WhenEmailIsNotUnique_CustomerIsNotSaved(){
         //act
-        //assert
-    }
-    @Test
-
-    void test_Save_WhenEmailIsNotUnique_CustomerIsNull(){
-        //arrange
-        //assume
-        //act
-        //assert
-    }
-
-    @Test
-    void test_Save_WhenEmailIsNotUnique_CustomerHasValidationErrors(){
-        //arrange
-        Customer customer1 = new Customer(emailAddress: 'customer@email.com', password: 'password')
-        Customer customer2 = new Customer(emailAddress: 'customer@email.com', password: 'password')
-
-        //act
-        customer1.save()
-        customer2.save()
+        uniqueCustomer1.save()
+        duplicateCustomer1.save()
 
         //assert
-        assertNotNull (customer2.errors["emailAddress"])
+        assertNotNull (duplicateCustomer1.errors["emailAddress"])
     }
 }
