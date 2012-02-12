@@ -12,11 +12,15 @@ import org.junit.*
 @TestMixin(GrailsUnitTestMixin)
 class BidTests {
 
-    def validBidder
-    def validListing
+    final static validCustomerEmail = 'customer@email.com'
+    final static validPassword = 'password'
+    final static emptyString = "";
+
+    private def validBidder
+    private def validListing
 
     void setUp() {
-        validBidder = new Customer()
+        validBidder = new Customer(emailAddress: validCustomerEmail, password: validPassword)
         mockForConstraintsTests(Customer,[validBidder])
         
         validListing = new Listing(name: "some great item")
@@ -65,14 +69,24 @@ class BidTests {
     @Test
     void test_Listing_WhenInvalid_BidIsInvalid() {
         //arrange
-        def bid = new Bid(listing: listing)
+        def invalidListing = new Listing(name: "this description is just going to be way too long; I mean, it's a ridiculously long description and completely inappropriate for normal use")
+        mockForConstraintsTests Listing,[invalidListing]
+        
+        def validBidder = new Customer()
+        mockForConstraintsTests Customer, [validBidder]
+
+        def bid = new Bid(bidder: validBidder, amount: 1.5, listing: invalidListing)
         mockForConstraintsTests(Bid,[bid])
 
         //act
+        bid.save()
         bid.validate()
 
         //assert
-        //assert 'nullable' == bid.errors['amount']
+        assert bid.hasErrors()
+        //the above assert fails, why?
+        //we are creating a bid with an invalid listing (name too long)
+        //but we don't get any errors
     }
 
     @Test
@@ -98,10 +112,10 @@ class BidTests {
 
         def bid = new Bid(bidder: invalidBidder, amount: 1.5,listing: alisting)
         mockForConstraintsTests(Bid,[bid])
-
-        bid.save()
-
+        
         //act
+        bid.save()        
+        
         //assert
         assert bid.hasErrors()
 

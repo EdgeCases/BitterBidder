@@ -7,7 +7,9 @@ class Listing {
     Customer seller
     Float startingPrice
     Customer winner
+
     static hasMany = [bids:Bid]
+
     static constraints = {
         description (nullable: true, size: 0..255)
         name (size: 1..63)
