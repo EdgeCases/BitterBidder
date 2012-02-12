@@ -23,9 +23,14 @@ class BidTests {
     @Test
     void test_Amount_WhenNull_BidIsInvalid() {
         //arrange
+        def bid = new Bid()
+        mockForConstraintsTests(Bid,[bid])
+        
         //act
+        bid.validate()
+        
         //assert
-        fail "Not implemented"
+        assert 'nullable' == bid.errors['amount']
     }
 
     @Test
@@ -38,10 +43,14 @@ class BidTests {
 
     @Test
     void test_Listing_WhenNull_BidIsInvalid() {
-        //arrange
+        def bid = new Bid()
+        mockForConstraintsTests(Bid,[bid])
+
         //act
+        bid.validate()
+
         //assert
-        fail "Not implemented"
+        assert 'nullable' == bid.errors['listing']
     }
 
     @Test
@@ -51,6 +60,7 @@ class BidTests {
         //assert
         fail "Not implemented"
     }
+    
     @Test
     void test_Bidder_WhenNull_BidIsInvalid() {
         //arrange
