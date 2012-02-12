@@ -12,8 +12,15 @@ import org.junit.*
 @TestMixin(GrailsUnitTestMixin)
 class BidTests {
 
+    def validBidder
+    def validListing
+
     void setUp() {
-        // Setup logic here
+        validBidder = new Customer()
+        mockForConstraintsTests(Customer,[validBidder])
+        
+        validListing = new Listing(name: "some great item")
+        mockForConstraintsTests(Listing,[validListing])
     }
 
     void tearDown() {
@@ -36,9 +43,11 @@ class BidTests {
     @Test
     void test_DateTime_WhenNull_BidIsInvalid() {
         //arrange
+        def bid = new Bid()
+        mockForConstraintsTests(Bid,[bid])
+
         //act
-        //assert
-        fail "Not implemented"
+        bid.validate()
     }
 
     @Test
@@ -56,24 +65,48 @@ class BidTests {
     @Test
     void test_Listing_WhenInvalid_BidIsInvalid() {
         //arrange
+        def bid = new Bid(listing: listing)
+        mockForConstraintsTests(Bid,[bid])
+
         //act
+        bid.validate()
+
         //assert
-        fail "Not implemented"
+        //assert 'nullable' == bid.errors['amount']
     }
-    
+
     @Test
     void test_Bidder_WhenNull_BidIsInvalid() {
-        //arrange
+        def bid = new Bid()
+        mockForConstraintsTests(Bid,[bid])
+
         //act
+        bid.validate()
+
         //assert
-        fail "Not implemented"
+        assert 'nullable' == bid.errors['bidder']
     }
 
     @Test
     void test_Bidder_WhenInvalid_BidIsInvalid() {
         //arrange
+        def invalidBidder = new Customer(password: "short")
+        mockForConstraintsTests(Customer,[invalidBidder])
+        
+        def alisting = new Listing(name: "a great product")
+        mockForConstraintsTests(Listing,[alisting])
+
+        def bid = new Bid(bidder: invalidBidder, amount: 1.5,listing: alisting)
+        mockForConstraintsTests(Bid,[bid])
+
+        bid.save()
+
         //act
         //assert
-        fail "Not implemented"
+        assert bid.hasErrors()
+
+        //bid.errors.allErrors.each {
+        //    print it
+        //}
     }
 }
