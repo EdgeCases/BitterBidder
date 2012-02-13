@@ -5,7 +5,9 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import static org.junit.Assert.fail
-import org.omg.CORBA.Environment
+import org.junit.After
+import org.junit.Assume
+
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
@@ -16,7 +18,8 @@ class ListingTests {
     Customer validCustomer
     Customer invalidCustomer;
     Listing defaultListing
-
+    private Boolean False = Boolean.FALSE;
+    private Boolean True = Boolean.TRUE;
 
     @Before
     void setUp() {
@@ -25,27 +28,121 @@ class ListingTests {
         invalidCustomer = new Customer(emailAddress: null, password: "secret");
         defaultListing = new Listing(
                                 description: "A test listing",
-                                seller: null,
+                                seller: validCustomer,
                                 winner: validCustomer,
-                                endDateTime: new Date()+1,
+                                endDateTime: new Date(),
                                 name: "Default", 
                                 startingPrice: 10)
     }
 
+    @After
     void tearDown() {
-        // Tear down logic here
+        validCustomer = null;
+        invalidCustomer=null;
+        defaultListing=null;
     }
 
     @Test
-    void test_Seller_WhenNull_ListingIsInvalid() {
-        //arrange        
-        def listing = defaultListing;
+    void test_ValidListing_HasNoValidationErrors() {
 
-        //act
-        listing.save(true);
+        //arrange
+        defaultListing.endDateTime = new Date()+1
+        //act && assume
+        Assume.assumeTrue(defaultListing.validate());
 
         //assert
-        Assert.assertTrue(listing.errors.getFieldError("seller").rejectedValue.equals(null));
+        assert defaultListing.errors.errorCount==0
+    }
+    
+    @Test
+    void test_Name_WhenLongerThanMax_ListingIsInvalid() {
+
+        //arrange
+        defaultListing.name = "a".padLeft(64, "b");
+        
+        //act
+        Assume.assumeTrue(defaultListing.validate()==false);
+
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+    }
+
+    @Test
+    void test_Name_WhenNull_ListingIsInvalid() {
+        //arrange
+        defaultListing.name = null;
+
+        //act
+        Assume.assumeTrue(defaultListing.validate()==false);
+
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+    }
+
+    @Test
+    void test_Name_WhenBlank_ListingIsInvalid() {
+
+        //arrange
+        defaultListing.name = "";
+        println defaultListing.name.length()
+        //act
+        Assume.assumeTrue(defaultListing.validate()==false);
+
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+    }
+
+    @Test
+    void test_Name_WhenEmpty_ListingIsInvalid() {
+        //arrange
+        defaultListing.name = "              ";
+        println defaultListing.name.length()
+        //act
+        Assume.assumeTrue(defaultListing.validate()==false);
+
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+    }
+    
+    @Test
+    void test_EndDateTime_WhenNull_ListingIsInvalid() {
+
+        //arrange
+        defaultListing.endDateTime = null;
+        //act
+        Assume.assumeTrue(defaultListing.validate()==false);
+
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("endDateTime"));
+    }
+
+    @Test
+    void test_EndDateTime_WhenDateIsInThePast_ListingIsInvalid() {
+        //arrange
+        def cal = Calendar.instance;
+        cal.setTime(defaultListing.endDateTime)
+        cal.add(Calendar.MILLISECOND, -1);
+        def inThePast = cal.time;
+        defaultListing.endDateTime = inThePast;
+        
+        //act
+        Assume.assumeTrue(defaultListing.endDateTime!=null)
+        Assume.assumeTrue(defaultListing.validate()==false);
+       
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("endDateTime"));
+    }
+    
+    @Test
+    void test_Seller_WhenNull_ListingIsInvalid() {
+        //arrange        
+        defaultListing.seller =null;
+
+        //act
+        defaultListing.save(true);
+
+        //assert
+        Assert.assertTrue(defaultListing.errors.getFieldError("seller").rejectedValue.equals(null));
     }
 
     @Test
@@ -77,49 +174,6 @@ class ListingTests {
         //assert
         fail "Not implemented"
     }
-
-    @Test
-    void test_Description_WhenLongerThanMax_ListingIsInvalid() {
-        //arrange
-        //act
-        //assert
-        fail "Not implemented"
-    }
-
-    @Test
-    void test_Description_WhenShorterThanMin_ListingIsInvalid() {
-        //arrange
-        //act
-        //assert
-        fail "Not implemented"
-    }
-
-    @Test
-    void test_Date_WhenInvalid_ListingIsInvalid() {
-        //arrange
-        //act
-        //assert
-        fail "Not implemented"
-    }
-
-    @Test
-    void test_Name_WhenInvalid_ListingIsInvalid() {
-        //arrange
-        def listing = new Listing(name: "name")
-
-        //act & assert
-        //null
-        SaveAndAssert({listing.name=null}, "name", "name cannot be invaild");
-        //all spaces
-        SaveAndAssert({listing.name="    "}, "name", "name cannot be invaild");
-        //tabs
-        SaveAndAssert({listing.name="       "}, "name", "name cannot be invaild");
-
-        fail "Not implemented"
-    }
-
-    void SaveAndAssert(Closure closure, String fieldName, String message) {
-            }
-
+        
 }
 
