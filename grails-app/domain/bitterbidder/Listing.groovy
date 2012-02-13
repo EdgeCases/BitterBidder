@@ -15,7 +15,8 @@ class Listing {
 
     static constraints = {
         description (nullable: true, size: 0..255)
-        name (size: 1..63)
+        name (size: 1..63, empty:false, blank: false)
         winner (nullable: true)
+        endDateTime(min: new Date());
     }
 }
