@@ -74,6 +74,7 @@ class BidTests {//extends GrailsUnitTestCase{
 
     @Test   // B-2
     void test_Listing_WhenNull_BidIsInvalid() {
+        //arrange
         def bid = new Bid()
         mockForConstraintsTests(Bid,[bid])
 
@@ -87,24 +88,32 @@ class BidTests {//extends GrailsUnitTestCase{
     @Test   // B-2
     void test_Listing_WhenInvalid_BidIsInvalid() {
         //arrange
-        def invalidListing = new Listing(name: "this description is just going to be way too long; I mean, it's a ridiculously long description and completely inappropriate for normal use")
-        mockForConstraintsTests Listing,[invalidListing]
+        //NOTE: order seems to matter
+        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
+        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
+        mockDomain Customer, [seller, bidder]
         
-        def validBidder = new Customer()
-        mockForConstraintsTests Customer, [validBidder]
+        def listingName = """this listing name is just going to be way too long;
+                                I mean, it's a ridiculously long description and
+                                completely inappropriate for normal use"""
 
-        def bid = new Bid(bidder: validBidder, amount: 1.5, listing: invalidListing)
-        mockForConstraintsTests(Bid,[bid])
+        def invalidListing = new Listing(endDateTime: new Date(), name: listingName, startingPrice: 1.23, seller: seller)
+        mockDomain Listing, [invalidListing]
+
+        def bid = new Bid(listing: invalidListing, bidder: bidder, amount: 1.23)
+        mockDomain Bid, [bid]
+
+        seller.save()
+        bidder.save()
+        invalidListing.save()
 
         //act
-        bid.save()
         bid.validate()
+        bid.save()
 
         //assert
-        assert bid.hasErrors()
-        //the above assert fails, why?
-        //we are creating a bid with an invalid listing (name too long)
-        //but we don't get any errors
+        assert null != bid.bidder
+        assert null == bid.listing.description
     }
 
     @Test   // B-3
