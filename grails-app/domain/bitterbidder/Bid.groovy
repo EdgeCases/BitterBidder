@@ -8,7 +8,7 @@ class Bid {
 
     static constraints = {
         amount(validator: { val, obj ->
-            def value
+            def isgood = true
         })
     }
 }
