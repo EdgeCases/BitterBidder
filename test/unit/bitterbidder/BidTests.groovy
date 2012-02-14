@@ -6,13 +6,14 @@ import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
 import org.h2.util.DateTimeUtils
+import grails.test.GrailsUnitTestCase
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestMixin(GrailsUnitTestMixin)
 @TestFor(Bid)
-class BidTests {
+class BidTests {//extends GrailsUnitTestCase{
 
     final static validCustomerEmail = 'customer@email.com'
     final static validPassword = 'password'
@@ -49,26 +50,26 @@ class BidTests {
     @Test   // B-1
     void test_DateTime_WhenNull_BidIsInvalid() {
         //arrange
+        //NOTE: order seems to matter
         def seller = new Customer(emailAddress: "seller@email.com", password: "password")
-
         def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
+        mockDomain(Customer, [seller, bidder])
 
         def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.23, seller: seller)
+        mockDomain(Listing, [listing])
 
         def bid = new Bid(listing: listing, bidder: bidder, amount: 1.23)
+        mockDomain(Bid, [bid])
 
-        mockDomain(Customer, [seller, bidder])
         seller.save()
         bidder.save()
-        mockDomain(Listing, [listing])
         listing.save()
-        mockDomain(Bid, [bid])
 
         //act
         bid.save()
 
         //assert
-        assert bid.dateCreated != null  // still not working
+        assert bid.dateCreated != null
     }
 
     @Test   // B-2
