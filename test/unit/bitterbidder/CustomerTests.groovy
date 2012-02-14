@@ -38,7 +38,7 @@ class CustomerTests {
         assert validationResult
     }
 
-    @Test
+    @Test   // C-1
     void test_Email_WhenNullOrEmpty_CustomerIsInvalid(){
         //arrange
         def customer = new Customer()
@@ -51,7 +51,7 @@ class CustomerTests {
         assert "nullable" == customer.errors["emailAddress"]
     }
 
-    @Test
+    @Test   // C-3
     void test_Email_WhenNoAtSign_CustomerIsInvalid(){
         //arrange
         def customer = new Customer(emailAddress: "email.com", password: validPassword)
@@ -64,7 +64,7 @@ class CustomerTests {
         assert "email" == customer.errors["emailAddress"]
     }
 
-    @Test
+    @Test   // C-3
     void test_Email_WhenNoDotDomain_CustomerIsInvalid(){
         //arrange
         def customer = new Customer(emailAddress: "customer@email", password: validPassword)
@@ -77,7 +77,7 @@ class CustomerTests {
         assert "email" == customer.errors["emailAddress"]
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenGreaterThanMax_CustomerIsInvalid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: "longpassword")
@@ -90,7 +90,7 @@ class CustomerTests {
         assert "size" == customer.errors["password"]
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenLessThanMin_CustomerIsInvalid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: "short")
@@ -103,7 +103,7 @@ class CustomerTests {
         assert "size" == customer.errors["password"]
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenEqualsToMax_CustomerIsValid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: validPassword)
@@ -116,7 +116,7 @@ class CustomerTests {
         assert validationResults
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenEqualsToMin_CustomerIsValid(){
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: "paswrd")
@@ -129,7 +129,7 @@ class CustomerTests {
         assert validationResults
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenLengthInValidRange_CustomerIsValid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: "passwrd")
@@ -142,7 +142,7 @@ class CustomerTests {
         assert validationResults
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenNull_CustomerIsInvalid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail)
@@ -155,7 +155,7 @@ class CustomerTests {
         assert "nullable" == customer.errors["password"]
     }
 
-    @Test
+    @Test   // C-4
     void test_Password_WhenEmpty_CustomerIsInvalid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: emptyString)
@@ -168,7 +168,7 @@ class CustomerTests {
         assert "blank" == customer.errors["password"]
     }
 
-    @Test
+    @Test   // C-1
     void test_Created_WhenCustomerSaved_DateCreatedIsValid() {
         //arrange
         def customer = new Customer(emailAddress: validCustomerEmail, password: validPassword)

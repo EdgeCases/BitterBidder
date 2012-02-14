@@ -15,7 +15,7 @@ class BidIntegrationTests {
         // Tear down logic here
     }
 
-    @Test
+    @Test   // B-5
     void test_Save_WhenAmountIsGreaterThanLastBidThreshold_SavesSuccessfully() {
         //arrange
         //act
@@ -23,7 +23,7 @@ class BidIntegrationTests {
         fail "Not implemented"
     }
 
-    @Test
+    @Test   // B-6
     void test_Save_WhenBidNotAssociatedWithListing_SaveFails() {
         //arrange
         //act
@@ -31,8 +31,8 @@ class BidIntegrationTests {
         fail "Not implemented"
     }
 
-    @Test
-    void test_Save_WhenAmountIsLessThanLastBidThreshold_SavesSuccessfully() {
+    @Test   // B-5
+    void test_Save_WhenAmountIsLessThanLastBidThreshold_SaveFails() {
         //arrange
         //act
         //assert

@@ -5,11 +5,13 @@ import static org.junit.Assert.*
 import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
+import org.h2.util.DateTimeUtils
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestMixin(GrailsUnitTestMixin)
+@TestFor(Bid)
 class BidTests {
 
     final static validCustomerEmail = 'customer@email.com'
@@ -31,7 +33,7 @@ class BidTests {
         // Tear down logic here
     }
 
-    @Test
+    @Test   // B-1
     void test_Amount_WhenNull_BidIsInvalid() {
         //arrange
         def bid = new Bid()
@@ -44,17 +46,32 @@ class BidTests {
         assert 'nullable' == bid.errors['amount']
     }
 
-    @Test
+    @Test   // B-1
     void test_DateTime_WhenNull_BidIsInvalid() {
         //arrange
-        def bid = new Bid()
-        mockForConstraintsTests(Bid,[bid])
+        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
+
+        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
+
+        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.23, seller: seller)
+
+        def bid = new Bid(listing: listing, bidder: bidder, amount: 1.23)
+
+        mockDomain(Customer, [seller, bidder])
+        seller.save()
+        bidder.save()
+        mockDomain(Listing, [listing])
+        listing.save()
+        mockDomain(Bid, [bid])
 
         //act
-        bid.validate()
+        bid.save()
+
+        //assert
+        assert bid.dateCreated != null  // still not working
     }
 
-    @Test
+    @Test   // B-2
     void test_Listing_WhenNull_BidIsInvalid() {
         def bid = new Bid()
         mockForConstraintsTests(Bid,[bid])
@@ -66,7 +83,7 @@ class BidTests {
         assert 'nullable' == bid.errors['listing']
     }
 
-    @Test
+    @Test   // B-2
     void test_Listing_WhenInvalid_BidIsInvalid() {
         //arrange
         def invalidListing = new Listing(name: "this description is just going to be way too long; I mean, it's a ridiculously long description and completely inappropriate for normal use")
@@ -89,7 +106,7 @@ class BidTests {
         //but we don't get any errors
     }
 
-    @Test
+    @Test   // B-3
     void test_Bidder_WhenNull_BidIsInvalid() {
         def bid = new Bid()
         mockForConstraintsTests(Bid,[bid])
@@ -101,7 +118,7 @@ class BidTests {
         assert 'nullable' == bid.errors['bidder']
     }
 
-    @Test
+    @Test   // B-3
     void test_Bidder_WhenInvalid_BidIsInvalid() {
         //arrange
         def invalidBidder = new Customer(password: "short")

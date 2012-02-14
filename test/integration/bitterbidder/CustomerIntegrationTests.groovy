@@ -19,7 +19,7 @@ class CustomerIntegrationTests {
         // Tear down logic here
     }
 
-    @Test
+    @Test   // C-2
     void test_Save_WhenEmailIsUnique_CustomerIsSaved(){
         // arrange
         def customer1 = new Customer(emailAddress: customer1EmailAddress, password: password)
@@ -34,7 +34,7 @@ class CustomerIntegrationTests {
         assert Customer.findByEmailAddress(customer2EmailAddress) != null
     }
 
-    @Test
+    @Test   // C-2
     void test_Save_WhenEmailIsNotUnique_CustomerIsNotSaved(){
         //arrange
         def customer1 = new Customer(emailAddress: customer1EmailAddress, password: password)
