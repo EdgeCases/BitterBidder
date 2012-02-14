@@ -1,7 +1,7 @@
 package bitterbidder
 
 class Listing {
-    static  final minimumBidIncrement = 0.5
+    public static final Float MINIMUM_BID_INCREMENT = 0.5
 
     String description
     Date endDateTime

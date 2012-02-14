@@ -7,8 +7,11 @@ class Bid {
     static  belongsTo = [listing:Listing, bidder: Customer] // B-3, B-6
 
     static constraints = {
-        amount(validator: { val, obj ->
-            def isgood = true
+        amount(validator: { amount, bid ->
+            if (bid.listing.bids) {
+                def maxCurrentBid = bid.listing.bids.max( { a, b -> a.amount <=> b.amount } as Comparator ).amount
+                return amount - maxCurrentBid > bid.listing.MINIMUM_BID_INCREMENT
+            }
         })
     }
 }

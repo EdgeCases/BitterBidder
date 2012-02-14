@@ -2,7 +2,9 @@ package bitterbidder
 
 import static org.junit.Assert.*
 import org.junit.*
+import grails.test.mixin.TestFor
 
+@TestFor(Bid)
 class BidIntegrationTests {
 
     def bidder
@@ -50,17 +52,23 @@ class BidIntegrationTests {
 
     @Test   // B-5
     void test_Save_WhenAmountIsLessThanLastBidThreshold_SaveFails() {
+        //arrange
         def seller = new Customer(emailAddress: "seller@email.com", password: "password")
-        seller.save()
-        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.23, seller: seller)
         def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
+        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.23, seller: seller)
+
+        seller.save()
         bidder.save()
-        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.20)
         listing.save()
 
+        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.20)
+        bid1.save()
         def bid2 = new Bid(listing: listing, bidder: bidder, amount: 1.21)
+        
+        //act
         bid2.save()
-
-        def customer = new Customer()
+        
+        //assert
+        assert listing.bids.size() == 1
     }
 }
