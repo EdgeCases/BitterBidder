@@ -26,20 +26,24 @@ class BidIntegrationTests {
     @Test   // B-5
     void test_Save_WhenAmountIsGreaterThanLastBidThreshold_SavesSuccessfully() {
         //arrange
-        def firstBid = new Bid(bidder: bidder,amount: 1.5, listing: listing )
-        
-        //act
-        firstBid.save(flush: true)
+        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
+        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
+        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.00, seller: seller)
 
-        //arrange
-        def nextBid = new Bid(bidder: bidder2,amount: 2.0, listing: listing )
+        seller.save()
+        bidder.save()
+        listing.save()
+
+        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
+        bid1.save()
+        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 2.00)
 
         //act
-        nextBid.save(flush: true)
+        bid2.save()
 
         //assert
-        fail "Not implemented"
-        //Bid.fin
+        assert listing.bids != null
+        assert listing.bids.size() == 2
     }
 
     @Test   // B-6
@@ -55,20 +59,21 @@ class BidIntegrationTests {
         //arrange
         def seller = new Customer(emailAddress: "seller@email.com", password: "password")
         def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
-        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.23, seller: seller)
+        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.00, seller: seller)
 
         seller.save()
         bidder.save()
         listing.save()
 
-        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.20)
+        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
         bid1.save()
-        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 1.21)
+        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 1.51)
         
         //act
         bid2.save()
         
         //assert
+        assert listing.bids != null
         assert listing.bids.size() == 1
     }
 }

@@ -10,7 +10,10 @@ class Bid {
         amount(validator: { amount, bid ->
             if (bid.listing.bids) {
                 def maxCurrentBid = bid.listing.bids.max( { a, b -> a.amount <=> b.amount } as Comparator ).amount
-                return amount - maxCurrentBid > bid.listing.MINIMUM_BID_INCREMENT
+                return amount - maxCurrentBid >= bid.listing.MINIMUM_BID_INCREMENT
+            }
+            else{
+                return amount - bid.listing.startingPrice >= bid.listing.MINIMUM_BID_INCREMENT
             }
         })
     }
