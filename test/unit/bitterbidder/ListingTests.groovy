@@ -30,7 +30,7 @@ class ListingTests {
                                 description: "A test listing",
                                 seller: validCustomer,
                                 winner: validCustomer,
-                                endDateTime: new Date(),
+                                endDateTime: new Date()+1,
                                 name: "Default", 
                                 startingPrice: 10)
     }
@@ -43,7 +43,7 @@ class ListingTests {
     }
 
     @Test
-    void test_ValidListing_HasNoValidationErrors() {
+    void test_ValidListing_WithAllFieldsPopulated_HasNoValidationErrors() {
 
         //arrange
         defaultListing.endDateTime = new Date()+1
@@ -53,7 +53,20 @@ class ListingTests {
         //assert
         assert defaultListing.errors.errorCount==0
     }
-    
+
+    @Test
+    void test_ValidListing_WithOptionalFieldsNull_HasNoValidationErrors() {
+        //arrange
+        defaultListing.description = null;
+        defaultListing.winner = null;
+        defaultListing.endDateTime = new Date()+1
+
+        //act
+        Assume.assumeTrue(defaultListing.validate());
+        //assert
+        Assert.assertTrue(defaultListing.errors.errorCount==0)
+    }
+
     @Test
     void test_Name_WhenLongerThanMax_ListingIsInvalid() {
 
@@ -119,15 +132,15 @@ class ListingTests {
     @Test
     void test_EndDateTime_WhenDateIsInThePast_ListingIsInvalid() {
         //arrange
+        defaultListing.endDateTime = new Date()
         def cal = Calendar.instance;
         cal.setTime(defaultListing.endDateTime)
-        cal.add(Calendar.MILLISECOND, -1);
+        cal.add(Calendar.MINUTE, -1);
         def inThePast = cal.time;
         defaultListing.endDateTime = inThePast;
         
         //act
-        Assume.assumeTrue(defaultListing.endDateTime!=null)
-        Assume.assumeTrue(defaultListing.validate()==false);
+        defaultListing.validate()
        
         //assert
         Assert.assertTrue(defaultListing.errors.hasFieldErrors("endDateTime"));
@@ -142,7 +155,32 @@ class ListingTests {
         defaultListing.save(true);
 
         //assert
-        Assert.assertTrue(defaultListing.errors.getFieldError("seller").rejectedValue.equals(null));
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("seller"));
+    }
+
+    @Test
+    void test_Description_WhenLongerThanMax_ListingIsInvalid() {
+        //arrange
+        defaultListing.description = "a".padLeft(256)
+        //
+        Assume.assumeTrue(defaultListing.description.length()==256)
+        //act
+        defaultListing.validate()
+        //assert
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors("description"))
+    }
+
+
+    @Test
+    void test_Description_WhenLengthIsMax_ListingIsInvalid() {
+        //arrange
+        defaultListing.description = "a".padLeft(255)
+        //
+        Assume.assumeTrue(defaultListing.description.length()==255)
+        //act
+        defaultListing.validate()
+        //assert
+        Assert.assertTrue(!defaultListing.errors.hasFieldErrors("description"))
     }
 
     @Test

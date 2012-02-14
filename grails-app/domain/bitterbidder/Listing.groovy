@@ -14,7 +14,7 @@ class Listing {
     static belongsTo = [seller: Customer]
 
     static constraints = {
-        description (nullable: true, size: 0..255)
+        description (nullable: true, blank: true, empty:true, size: 0..255)
         name (size: 1..63, empty:false, blank: false)
         winner (nullable: true)
         endDateTime(min: new Date());
