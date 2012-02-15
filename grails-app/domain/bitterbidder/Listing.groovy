@@ -16,7 +16,7 @@ class Listing {
         name (size: 1..63, empty:false, blank: false)
         endDateTime(min: new Date());
 
-        bids(minSize: 2, nullable: false, validator: {return it.size() > 1})
+       // bids(minSize: 2, nullable: false, validator: {return it.size() > 0})
 
         seller(validator: {
                             println("validating seller")
