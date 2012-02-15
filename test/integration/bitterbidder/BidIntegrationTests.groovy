@@ -3,77 +3,102 @@ package bitterbidder
 import static org.junit.Assert.*
 import org.junit.*
 import grails.test.mixin.TestFor
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
 
+@TestMixin(GrailsUnitTestMixin)
 @TestFor(Bid)
 class BidIntegrationTests {
 
-    def bidder
-    def bidder2
-    def listing
+    final static bidderEmail = "bidder@email.com"
+    final static customerPassword = "password"
+    final static bidAmount_DoesNotMeetIncrementThreshold = 1.23
+    final static bidAmount_MeetsIncrementThreshold = 1.50
+    final static sellerEmail = "seller@email.com"
+    final static startingPrice = 1.00
 
+    Bid firstBid
+    Bid bidUnderTest
+    Customer bidder
+    Customer seller
+    Listing listing
+    
     @Before
     void setUp() {
-        bidder = new Customer()
-        bidder2 = new Customer()
-        listing = new Listing(name: "cool product")
+        bidder = new Customer(
+                emailAddress: bidderEmail,
+                password: customerPassword
+        )
+
+        seller = new Customer(
+                emailAddress: sellerEmail,
+                password: customerPassword
+        )
+
+        listing = new Listing(
+                endDateTime: new Date(),
+                name: "Listing",
+                startingPrice: startingPrice,
+                seller: seller
+        )
+
+        bidUnderTest = new Bid(
+                listing:  listing,
+                bidder: bidder,
+                amount: 0.00
+        )
+        
+        bidder.save(flush: true)
+        seller.save(flush: true)
+        listing.save(flush: true)
     }
 
     @After
     void tearDown() {
         // Tear down logic here
+        listing = null
+        seller = null
+        bidder = null
     }
 
-    @Test   // B-5
+    @Test   // B-5: The Bid amount must be at least .50 higher than the previous Bid for the same listing (integration test)
     void test_Save_WhenAmountIsGreaterThanLastBidThreshold_SavesSuccessfully() {
         //arrange
-        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
-        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
-        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.00, seller: seller)
-
-        seller.save()
-        bidder.save()
-        listing.save()
-
-        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
-        bid1.save()
-        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 2.00)
+        bidUnderTest.amount = bidAmount_MeetsIncrementThreshold
 
         //act
-        bid2.save()
+        bidUnderTest.save(flush: true)
 
         //assert
-        assert listing.bids != null
-        assert listing.bids.size() == 2
-    }
+        assert listing.bids.size() == 1
 
-    @Test   // B-6
-    void test_Save_WhenBidNotAssociatedWithListing_SaveFails() {
-        //arrange
-        //act
-        //assert
-        fail "Not implemented"
+        //restore
+        listing.bids.remove(bidUnderTest)
     }
 
     @Test   // B-5
     void test_Save_WhenAmountIsLessThanLastBidThreshold_SaveFails() {
+        // MikeG: this test passes in IDE but fails when using grails test-app
         //arrange
-        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
-        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
-        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.00, seller: seller)
+        bidUnderTest.amount = bidAmount_DoesNotMeetIncrementThreshold
 
-        seller.save()
-        bidder.save()
+        //act
+        bidUnderTest.save(flush: true)
+
+        //assert
+        assert listing.bids == null
+    }
+
+    @Test   // B-6: When a Listing is saved, any new Bids added for the listing must be saved (integration test)
+    void test_Save_WhenBidAssociatedWithListing_BidIsSaved() {
+        //arrange
+        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
+        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 2.00)
+
+        //act
         listing.save()
 
-        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
-        bid1.save()
-        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 1.51)
-        
-        //act
-        bid2.save()
-        
+        // MikeG: this is not working
         //assert
-        assert listing.bids != null
-        assert listing.bids.size() == 1
-    }
-}
+        assert listing.bids.size() == 2
+    }}

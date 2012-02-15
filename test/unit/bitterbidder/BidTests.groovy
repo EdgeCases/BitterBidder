@@ -1,3 +1,4 @@
+// MikeG: requirement B-4 does not have a test yet
 package bitterbidder
 
 import grails.test.mixin.*
