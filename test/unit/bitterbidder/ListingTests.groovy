@@ -7,12 +7,14 @@ import org.junit.Test
 import static org.junit.Assert.fail
 import org.junit.After
 import org.junit.Assume
-
+import grails.test.mixin.Mock
+import org.junit.Ignore
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestFor(Listing)
+@Mock(Customer)
 class ListingTests {
 
     Customer validCustomer
@@ -47,8 +49,9 @@ class ListingTests {
 
         //arrange
         defaultListing.endDateTime = new Date()+1
-        //act && assume
-        Assume.assumeTrue(defaultListing.validate());
+
+        //act
+        defaultListing.validate()
 
         //assert
         assert defaultListing.errors.errorCount==0
@@ -62,10 +65,37 @@ class ListingTests {
         defaultListing.endDateTime = new Date()+1
 
         //act
-        Assume.assumeTrue(defaultListing.validate());
+        defaultListing.validate()
+
         //assert
         Assert.assertTrue(defaultListing.errors.errorCount==0)
     }
+
+    @Test
+    void test_ValidListing_WithEmptyDescription_ListingIsInvalid() {
+        //arrange
+        defaultListing.description = "";
+        defaultListing.endDateTime = new Date()+1
+
+        //act
+        defaultListing.validate()
+
+        //assert
+        verifyValidationError("description")
+    }
+
+    @Test
+    void test_ValidListing_WhenDescriptionIsAllSpaces_ListingIsInvalid() {
+        //arrange
+        defaultListing.description = "           ";
+        defaultListing.endDateTime = new Date()+1
+
+        //act
+        defaultListing.validate()
+        //assert
+        verifyValidationError("description")
+    }
+
 
     @Test
     void test_Name_WhenLongerThanMax_ListingIsInvalid() {
@@ -74,10 +104,10 @@ class ListingTests {
         defaultListing.name = "a".padLeft(64, "b");
         
         //act
-        Assume.assumeTrue(defaultListing.validate()==false);
+        defaultListing.validate()
 
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+        verifyValidationError("name")
     }
 
     @Test
@@ -89,7 +119,7 @@ class ListingTests {
         Assume.assumeTrue(defaultListing.validate()==false);
 
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+        verifyValidationError("name")
     }
 
     @Test
@@ -99,10 +129,10 @@ class ListingTests {
         defaultListing.name = "";
         println defaultListing.name.length()
         //act
-        Assume.assumeTrue(defaultListing.validate()==false);
+        defaultListing.validate()
 
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+        verifyValidationError("name")
     }
 
     @Test
@@ -111,10 +141,10 @@ class ListingTests {
         defaultListing.name = "              ";
         println defaultListing.name.length()
         //act
-        Assume.assumeTrue(defaultListing.validate()==false);
+        defaultListing.validate()
 
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("name"));
+        verifyValidationError("name")
     }
     
     @Test
@@ -122,11 +152,12 @@ class ListingTests {
 
         //arrange
         defaultListing.endDateTime = null;
+
         //act
-        Assume.assumeTrue(defaultListing.validate()==false);
+        defaultListing.validate()
 
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("endDateTime"));
+        verifyValidationError("endDateTime")
     }
 
     @Test
@@ -143,7 +174,7 @@ class ListingTests {
         defaultListing.validate()
        
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("endDateTime"));
+        verifyValidationError("endDateTime")
     }
     
     @Test
@@ -155,27 +186,26 @@ class ListingTests {
         defaultListing.save(true);
 
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("seller"));
+        verifyValidationError("seller")
     }
 
     @Test
     void test_Description_WhenLongerThanMax_ListingIsInvalid() {
         //arrange
         defaultListing.description = "a".padLeft(256)
-        //
+
         Assume.assumeTrue(defaultListing.description.length()==256)
         //act
         defaultListing.validate()
         //assert
-        Assert.assertTrue(defaultListing.errors.hasFieldErrors("description"))
+        verifyValidationError("description")
     }
 
 
     @Test
     void test_Description_WhenLengthIsMax_ListingIsInvalid() {
         //arrange
-        defaultListing.description = "a".padLeft(255)
-        //
+        defaultListing.description = "a".padLeft(255)                
         Assume.assumeTrue(defaultListing.description.length()==255)
         //act
         defaultListing.validate()
@@ -184,34 +214,47 @@ class ListingTests {
     }
 
     @Test
-    void test_Seller_WhenSellerIsInvalid_WhatDoWeDoHere() {
+    void test_StartingPrice_WhenNull_ListingIsInvalid() {
+        //arrange
+        defaultListing.startingPrice = null
+
+        //act
+        defaultListing.validate()
+
+        //assert
+        verifyValidationError("startingPrice")
+    }
+
+    @Test
+    void test_Seller_WhenSellerIsInvalid_ListingShouldBeInvalid() {
 
         //arrange
         defaultListing.seller = invalidCustomer;
-        //act
-        defaultListing.save(true);
-
-        //assert
-        //TODO: This should fail
-        // Assert.assertTrue(listing.errors?.getFieldError("seller")?.rejectedValue.equals(null));            }
-    }
-
-    @Test
-    void test_Winner_WhenNull_ListingIsValid() {
-        //arrange
-        defaultListing
-        //act
-        //assert
-        fail "Not implemented"
-    }
-
-    @Test
-    void test_Winner_WhenWinnerIsInvalid_WhatDoWeDoHere() {
-        //arrange
-        //act
-        //assert
-        fail "Not implemented"
-    }
         
+        //assume
+       // defaultListing.seller.validate()
+
+        //act
+        defaultListing.validate()
+        Assume.assumeTrue(defaultListing.seller.hasErrors())
+
+        //assert
+        //TODO: This should fail w/o the magic constraint.  Bug? http://jira.grails.org/browse/GRAILS-7713"
+        verifyValidationError("seller")
+    }
+
+    @Test
+    void test_Winner_WhenWinnerIsInvalid_ListingShouldBeInvalid() {
+        //arrange
+        defaultListing.winner = invalidCustomer
+        //act
+        defaultListing.validate()
+        //assert
+        verifyValidationError("winner")
+    }
+
+    private void verifyValidationError(String fieldName) {
+        Assert.assertTrue(defaultListing.errors.hasFieldErrors(fieldName))
+    }
 }
 

@@ -2,21 +2,33 @@ package bitterbidder
 
 class Listing {
     public static final Float MINIMUM_BID_INCREMENT = 0.5
-
-    String description
-    Date endDateTime
     String name
     Float startingPrice
+    Date endDateTime
+    String description
     Customer winner
-
+    //Customer seller
     static hasMany = [bids:Bid] // B-4
-
     static belongsTo = [seller: Customer]
 
+
     static constraints = {
-        description (nullable: true, blank: true, empty:true, size: 0..255)
+        description (nullable: true, blank: false, empty:false, size: 0..255)
         name (size: 1..63, empty:false, blank: false)
-        winner (nullable: true)
         endDateTime(min: new Date());
+        bids(minSize: 2)
+        seller(validator: {val, obj ->
+                            println("validating seller")
+                            def isValid = obj.seller.validate()
+                            println("Seller is"+isValid.toString())
+                            return isValid
+                          })
+        winner(nullable: true, validator: {val, obj ->
+            def isValid =true
+            if (obj.winner!=null){
+                isValid = obj.winner.validate()
+            }
+            return isValid
+        })
     }
 }
