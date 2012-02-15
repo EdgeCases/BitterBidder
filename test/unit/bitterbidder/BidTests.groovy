@@ -1,94 +1,115 @@
 package bitterbidder
 
-import static org.junit.Assert.*
-
 import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
-import org.h2.util.DateTimeUtils
-import grails.test.GrailsUnitTestCase
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestMixin(GrailsUnitTestMixin)
 @TestFor(Bid)
+@Mock([Customer, Listing])
 class BidTests {//extends GrailsUnitTestCase{
 
-    final static validCustomerEmail = 'customer@email.com'
-    final static validPassword = 'password'
-    final static emptyString = "";
+    final static bidAmount = 2.20
+    final static bidderEmail = "bidder@email.com"
+    final static customerPassword = "password"
+    final static sellerEmail = "seller@email.com"
+    final static startingPrice = 1.23
 
-    private def validBidder
-    private def validListing
+    Bid bidUnderTest
+    Customer bidder
+    Listing listing
+    Customer seller
 
+    @Before
     void setUp() {
-        validBidder = new Customer(emailAddress: validCustomerEmail, password: validPassword)
-        mockForConstraintsTests(Customer,[validBidder])
-        
-        validListing = new Listing(name: "some great item")
-        mockForConstraintsTests(Listing,[validListing])
+        // Setup logic here
+        bidder = new Customer(
+                emailAddress: bidderEmail,
+                password: customerPassword
+        )
+
+        seller = new Customer(
+                emailAddress: sellerEmail,
+                password: customerPassword
+        )
+
+        listing = new Listing(
+                endDateTime: new Date(),
+                name: "Listing",
+                startingPrice: startingPrice,
+                seller: seller
+        )
+
+        bidUnderTest = new Bid(
+                listing: listing,
+                bidder: bidder,
+                amount: bidAmount
+        )
     }
 
+    @After
     void tearDown() {
         // Tear down logic here
+        bidUnderTest = null
+        listing = null
+        seller = null
+        bidder = null
     }
 
-    @Test   // B-1
+    @Test   // B-1: Bids have the following required fields: amount and date/time of bid (unit test)
     void test_Amount_WhenNull_BidIsInvalid() {
         //arrange
-        def bid = new Bid()
-        mockForConstraintsTests(Bid,[bid])
+        bidUnderTest.amount = null
+        mockForConstraintsTests(Bid,[bidUnderTest])
         
         //act
-        bid.validate()
+        bidUnderTest.validate()
         
         //assert
-        assert 'nullable' == bid.errors['amount']
+        assert 'nullable' == bidUnderTest.errors['amount']
+
+        //restore
+        bidUnderTest.amount = bidAmount
     }
 
-    @Test   // B-1
+    @Test   // B-1: Bids have the following required fields: amount and date/time of bid (unit test)
     void test_DateTime_WhenNull_BidIsInvalid() {
         //arrange
-        //NOTE: order seems to matter
-        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
-        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
         mockDomain(Customer, [seller, bidder])
-
-        def listing = new Listing(endDateTime: new Date(), name: "Listing", startingPrice: 1.23, seller: seller)
         mockDomain(Listing, [listing])
-
-        def bid = new Bid(listing: listing, bidder: bidder, amount: 1.23)
-        mockDomain(Bid, [bid])
+        mockDomain(Bid, [bidUnderTest])
 
         seller.save()
         bidder.save()
         listing.save()
 
         //act
-        bid.save()
+        bidUnderTest.save()
 
         //assert
-        assert bid.dateCreated != null
+        assert bidUnderTest.dateCreated != null
     }
 
-    @Test   // B-2
+    @Test   // B-2: Bids are required to be for a Listing (unit test)
     void test_Listing_WhenNull_BidIsInvalid() {
         //arrange
-        def bid = new Bid()
-        mockForConstraintsTests(Bid,[bid])
+        def bidUnderTest = new Bid()
+        mockForConstraintsTests(Bid,[bidUnderTest])
 
         //act
-        bid.validate()
+        bidUnderTest.validate()
 
         //assert
-        assert 'nullable' == bid.errors['listing']
+        assert 'nullable' == bidUnderTest.errors['listing']
     }
 
-    @Test   // B-2
+    @Test   // B-2: Bids are required to be for a Listing (unit test)
     void test_Listing_WhenInvalid_BidIsInvalid() {
+        // MikeG: do we need this test?  duplication of previous test?
         //arrange
-        //NOTE: order seems to matter
         def seller = new Customer(emailAddress: "seller@email.com", password: "password")
         def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
         mockDomain Customer, [seller, bidder]
@@ -116,38 +137,18 @@ class BidTests {//extends GrailsUnitTestCase{
         assert null == bid.listing.description
     }
 
-    @Test   // B-3
+    @Test   // B-3: Bids are required to have a bidder (Customer) (unit test)
     void test_Bidder_WhenNull_BidIsInvalid() {
-        def bid = new Bid()
-        mockForConstraintsTests(Bid,[bid])
+        bidUnderTest.bidder = null
+        mockForConstraintsTests(Bid,[bidUnderTest])
 
         //act
-        bid.validate()
+        bidUnderTest.validate()
 
         //assert
-        assert 'nullable' == bid.errors['bidder']
-    }
+        assert 'nullable' == bidUnderTest.errors['bidder']
 
-    @Test   // B-3
-    void test_Bidder_WhenInvalid_BidIsInvalid() {
-        //arrange
-        def invalidBidder = new Customer(password: "short")
-        mockForConstraintsTests(Customer,[invalidBidder])
-        
-        def alisting = new Listing(name: "a great product")
-        mockForConstraintsTests(Listing,[alisting])
-
-        def bid = new Bid(bidder: invalidBidder, amount: 1.5,listing: alisting)
-        mockForConstraintsTests(Bid,[bid])
-        
-        //act
-        bid.save()        
-        
-        //assert
-        assert bid.hasErrors()
-
-        //bid.errors.allErrors.each {
-        //    print it
-        //}
+        //restore
+        bidUnderTest.bidder = bidder
     }
 }
