@@ -16,17 +16,21 @@ class Listing {
         description (nullable: true, blank: false, empty:false, size: 0..255)
         name (size: 1..63, empty:false, blank: false)
         endDateTime(min: new Date());
-        bids(minSize: 2)
-        seller(validator: {val, obj ->
+
+        bids(minSize: 2, nullable: false, validator: {return it.size() > 1 && (it.count {(!it.validate())} == 0)})
+
+        seller(validator: {
                             println("validating seller")
-                            def isValid = obj.seller.validate()
-                            println("Seller is"+isValid.toString())
+                            def isValid = it.validate()
+                            println("Seller is"+ isValid.toString())
                             return isValid
-                          })
-        winner(nullable: true, validator: {val, obj ->
-            def isValid =true
-            if (obj.winner!=null){
-                isValid = obj.winner.validate()
+                          }
+        )
+
+        winner(nullable: true, validator: {
+            def isValid =true            
+            if (it!=null){
+                isValid = it.validate()
             }
             return isValid
         })

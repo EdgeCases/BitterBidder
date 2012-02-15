@@ -14,7 +14,7 @@ import org.junit.Ignore
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
 @TestFor(Listing)
-@Mock(Customer)
+@Mock([Customer, Bid])
 class ListingTests {
 
     Customer validCustomer
@@ -25,10 +25,16 @@ class ListingTests {
 
     @Before
     void setUp() {
-        //Setup logic here
+       
+        //Setup logic here               
         validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret");
         invalidCustomer = new Customer(emailAddress: null, password: "secret");
+        
+        def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
+                      new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
+        
         defaultListing = new Listing(
+                                bids: bidSet,
                                 description: "A test listing",
                                 seller: validCustomer,
                                 winner: validCustomer,
@@ -230,11 +236,7 @@ class ListingTests {
 
         //arrange
         defaultListing.seller = invalidCustomer;
-        
-        //assume
-       // defaultListing.seller.validate()
-
-        //act
+       //act
         defaultListing.validate()
         Assume.assumeTrue(defaultListing.seller.hasErrors())
 
@@ -253,6 +255,25 @@ class ListingTests {
         verifyValidationError("winner")
     }
 
+    @Test
+    void test_Bids_WhenLessThanTwoBids_ListingIsInvalid() {
+        //arrange
+        
+        //act
+        //assert
+        fail "Not implemented"
+    }
+
+    @Test
+    void test_Bids_WhenBidIsInvalid_ListingIsInvalid() {
+        //arrange
+        
+        //act
+        //assert
+        fail "Not implemented"
+    }
+    
+    
     private void verifyValidationError(String fieldName) {
         Assert.assertTrue(defaultListing.errors.hasFieldErrors(fieldName))
     }
