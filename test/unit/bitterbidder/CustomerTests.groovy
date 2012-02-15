@@ -1,7 +1,5 @@
 package bitterbidder
 
-import static org.junit.Assert.*
-
 import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
@@ -13,171 +11,195 @@ import org.junit.*
 @TestFor(Customer)
 class CustomerTests {
 
-    final static validCustomerEmail = 'customer@email.com'
-    final static validPassword = 'password'
-    final static emptyString = "";
+    final static emptyString = ""
+    final static invalidEmail_MissingAtSign = "customeremail.com"
+    final static invalidEmail_MissingDotDomain = "customer@email"
+    final static invalidPassword_TooLong = "longpassword"
+    final static invalidPassword_TooShort = "short"
+    final static validEmail = "customer@email.com"
+    final static validPassword = "password"
+    final static validPassword_MediumLength = "passwrd"
+    final static validPassword_MinimumLength = "paswrd"
 
+    Customer customerUnderTest
+
+    @Before
     void setUp() {
         // Setup logic here
+        customerUnderTest = new Customer(
+                emailAddress: validEmail,
+                password: validPassword
+        )
     }
 
+    @After
     void tearDown() {
         // Tear down logic here
+        customerUnderTest = null
     }
 
-    @Test
+    @Test // C-1: Customers have email address, password and created date fields (unit test)
     void test_Email_WhenValid_CustomerIsValid(){
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: validPassword)
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        def validationResult = customer.validate()
+        // arrange
+        mockForConstraintsTests(Customer, [customerUnderTest])
 
         //assert
-        assert validationResult
+        assert customerUnderTest.validate()
     }
 
-    @Test   // C-1
-    void test_Email_WhenNullOrEmpty_CustomerIsInvalid(){
+    @Test   // C-1: Customers have email address, password and created date fields (unit test)
+    void test_Email_WhenNull_CustomerIsInvalid(){
         //arrange
-        def customer = new Customer()
-        mockForConstraintsTests(Customer, [customer])
+        mockForConstraintsTests(Customer, [customerUnderTest])
+        customerUnderTest.emailAddress = null
 
         //act
-        customer.validate()
+        customerUnderTest.validate()
 
         //assert
-        assert "nullable" == customer.errors["emailAddress"]
+        assert "nullable" == customerUnderTest.errors["emailAddress"]
+
+        // restore
+        customerUnderTest.emailAddress = validEmail
     }
 
-    @Test   // C-3
-    void test_Email_WhenNoAtSign_CustomerIsInvalid(){
-        //arrange
-        def customer = new Customer(emailAddress: "email.com", password: validPassword)
-        mockForConstraintsTests(Customer, [customer])
-        
-        //act
-        customer.validate()
-        
-        //assert
-        assert "email" == customer.errors["emailAddress"]
-    }
-
-    @Test   // C-3
-    void test_Email_WhenNoDotDomain_CustomerIsInvalid(){
-        //arrange
-        def customer = new Customer(emailAddress: "customer@email", password: validPassword)
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        customer.validate()
-
-        //assert
-        assert "email" == customer.errors["emailAddress"]
-    }
-
-    @Test   // C-4
-    void test_Password_WhenGreaterThanMax_CustomerIsInvalid() {
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: "longpassword")
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        customer.validate()
-
-        //assert
-        assert "size" == customer.errors["password"]
-    }
-
-    @Test   // C-4
-    void test_Password_WhenLessThanMin_CustomerIsInvalid() {
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: "short")
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        customer.validate()
-
-        //assert
-        assert "size" == customer.errors["password"]
-    }
-
-    @Test   // C-4
-    void test_Password_WhenEqualsToMax_CustomerIsValid() {
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: validPassword)
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        def validationResults = customer.validate()
-
-        //assert
-        assert validationResults
-    }
-
-    @Test   // C-4
-    void test_Password_WhenEqualsToMin_CustomerIsValid(){
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: "paswrd")
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        def validationResults = customer.validate()
-
-        //assert
-        assert validationResults
-    }
-
-    @Test   // C-4
-    void test_Password_WhenLengthInValidRange_CustomerIsValid() {
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: "passwrd")
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        def validationResults = customer.validate()
-
-        //assert
-        assert validationResults
-    }
-
-    @Test   // C-4
-    void test_Password_WhenNull_CustomerIsInvalid() {
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail)
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        customer.validate()
-
-        //assert
-        assert "nullable" == customer.errors["password"]
-    }
-
-    @Test   // C-4
-    void test_Password_WhenEmpty_CustomerIsInvalid() {
-        //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: emptyString)
-        mockForConstraintsTests(Customer, [customer])
-
-        //act
-        customer.validate()
-
-        //assert
-        assert "blank" == customer.errors["password"]
-    }
-
-    @Test   // C-1
+    @Test   // C-1: Customers have email address, password and created date fields (unit test)
     void test_Created_WhenCustomerSaved_DateCreatedIsValid() {
         //arrange
-        def customer = new Customer(emailAddress: validCustomerEmail, password: validPassword)
-        mockDomain(Customer, [customer])
+        mockDomain(Customer, [customerUnderTest])
 
         //act
-        customer.save()
+        customerUnderTest.save(flush: true)
 
         //assert
-        assert customer.dateCreated != null
+        assert customerUnderTest.dateCreated != null
+    }
+
+    @Test   // C-3: Email address must be of a valid form (@.*) (unit test)
+    void test_Email_WhenNoAtSign_CustomerIsInvalid(){
+        //arrange
+        customerUnderTest.emailAddress = invalidEmail_MissingAtSign
+        mockForConstraintsTests(Customer, [customerUnderTest])
+        
+        //act
+        customerUnderTest.validate()
+        
+        //assert
+        assert "email" == customerUnderTest.errors["emailAddress"]
+
+        // restore
+        customerUnderTest.emailAddress = validEmail
+    }
+
+    @Test   // C-3: Email address must be of a valid form (@.*) (unit test)
+    void test_Email_WhenNoDotDomain_CustomerIsInvalid(){
+        //arrange
+        customerUnderTest.emailAddress = invalidEmail_MissingDotDomain
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert "email" == customerUnderTest.errors["emailAddress"]
+
+        // restore
+        customerUnderTest.emailAddress = validEmail
+    }
+
+    @Test   // C-4: Password must be between 6-8 characters (unit test)
+    void test_Password_WhenGreaterThanMax_CustomerIsInvalid() {
+        //arrange
+        customerUnderTest.password = invalidPassword_TooLong
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert "size" == customerUnderTest.errors["password"]
+
+        // restore
+        customerUnderTest.password = validPassword
+    }
+
+    @Test   // C-4: Password must be between 6-8 characters (unit test)
+    void test_Password_WhenLessThanMin_CustomerIsInvalid() {
+        //arrange
+        customerUnderTest.password = invalidPassword_TooShort
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert "size" == customerUnderTest.errors["password"]
+
+        // restore
+        customerUnderTest.password = validPassword
+    }
+
+    @Test   // C-4: Password must be between 6-8 characters (unit test)
+    void test_Password_WhenEqualsToMin_CustomerIsValid(){
+        //arrange
+        customerUnderTest.password = validPassword_MinimumLength
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert customerUnderTest.errors.errorCount == 0
+
+        // restore
+        customerUnderTest.password = validPassword
+    }
+
+    @Test   // C-4: Password must be between 6-8 characters (unit test)
+    void test_Password_WhenLengthInValidRange_CustomerIsValid() {
+        //arrange
+        customerUnderTest.password = validPassword_MediumLength
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert customerUnderTest.errors.errorCount == 0
+
+        //restore
+        customerUnderTest.password = validPassword
+    }
+
+    @Test   // C-4: Password must be between 6-8 characters (unit test)
+    void test_Password_WhenNull_CustomerIsInvalid() {
+        //arrange
+        customerUnderTest.password = null
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert "nullable" == customerUnderTest.errors["password"]
+
+        //restore
+        customerUnderTest.password = validPassword
+    }
+
+    @Test   // C-4: Password must be between 6-8 characters (unit test)
+    void test_Password_WhenEmpty_CustomerIsInvalid() {
+        //arrange
+        customerUnderTest.password = emptyString
+        mockForConstraintsTests(Customer, [customerUnderTest])
+
+        //act
+        customerUnderTest.validate()
+
+        //assert
+        assert "blank" == customerUnderTest.errors["password"]
+
+        //restore
+        customerUnderTest.password = validPassword
     }
 }

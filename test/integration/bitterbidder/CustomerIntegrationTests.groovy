@@ -2,47 +2,67 @@ package bitterbidder
 
 import static org.junit.Assert.*
 import org.junit.*
+import grails.test.mixin.TestFor
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
 
+@TestMixin(GrailsUnitTestMixin)
+@TestFor(Customer)
 class CustomerIntegrationTests {
 
-    final static customer1EmailAddress = 'customer1@email.com'
-    final static customer2EmailAddress = 'customer2@email.com'
-    final static password = 'password'
+    final static validEmail1 = "customer1@email.com"
+    final static validEmail2 = "customer2@email.com"
+    final static validPassword = "password"
+
+    Customer customer
+    Customer customerUnderTest
 
     @Before
     void setUp() {
         // Setup logic here
+        customer = new Customer(
+                emailAddress: validEmail1,
+                password: validPassword
+        )
+        customerUnderTest = new Customer(
+                emailAddress: validEmail2,
+                password: validPassword
+        )
     }
 
     @After
     void tearDown() {
         // Tear down logic here
+        customer = null;
+        customerUnderTest = null;
     }
 
-    @Test   // C-2
+    @Test   // C-2: Email address must be a unique field (integration test)
     void test_Save_WhenEmailIsUnique_CustomerIsSaved(){
         // arrange
-        def customer1 = new Customer(emailAddress: customer1EmailAddress, password: password)
-        def customer2 = new Customer(emailAddress: customer2EmailAddress, password: password)
 
         //act
-        customer1.save(flush: true)
-        customer2.save(flush: true)
+        customer.save(flush: true)
+        customerUnderTest.save(flush: true)
 
         //assert
-        assert Customer.findByEmailAddress(customer1EmailAddress) != null
-        assert Customer.findByEmailAddress(customer2EmailAddress) != null
+        assert Customer.findByEmailAddress(validEmail1) != null
+        assert Customer.findByEmailAddress(validEmail2) != null
     }
 
-    @Test   // C-2
+    @Test   // C-2: Email address must be a unique field (integration test)
     void test_Save_WhenEmailIsNotUnique_CustomerIsNotSaved(){
         //arrange
-        def customer1 = new Customer(emailAddress: customer1EmailAddress, password: password)
+        customer.save(flush: true)
+        customerUnderTest.emailAddress = customer.emailAddress
 
         //act
-        customer1.save(flush: true)
+        customerUnderTest.save(flush: true)
 
         //assert
-        assert (new Customer(emailAddress: customer1.emailAddress, password: password).save(flush: true)) == null
+        assert Customer.findAllByEmailAddress(validEmail1).size() == 1
+
+        //restore
+        customerUnderTest.emailAddress = validEmail2
     }
 }
