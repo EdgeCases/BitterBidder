@@ -3,8 +3,7 @@ package bitterbidder
 import org.junit.*
 import grails.test.mixin.TestFor
 
-@TestFor(Listing)
-class ListingIntegrationTests {
+class ListingIntegrationTests{
 
     Customer validCustomer
     Listing listingUnderTest
@@ -32,15 +31,16 @@ class ListingIntegrationTests {
     @Test
     void test_Save_WhenANewBidIsAdded_BidIsSavedWithListing() {
         //arrange
+        validCustomer.save(flush: true)
         listingUnderTest.bids = new HashSet<Bid>()
         listingUnderTest.addToBids(aTestBid)
         //act
         listingUnderTest.save(flush: true)
 
-        def bid = Bid.get(1)
+        def bid = Bid.findByBidder(validCustomer)
         
         //assert
-        assert bid !=null
+        assert bid.bidder.emailAddress == validCustomer.emailAddress
     }
 
 

@@ -168,6 +168,7 @@ class ListingTests {
     @Test
     void test_EndDateTime_WhenDateIsInThePast_ListingIsInvalid() {
         //arrange
+
         listingUnderTest.endDateTime = new Date()
         def cal = Calendar.instance;
         cal.setTime(listingUnderTest.endDateTime)
