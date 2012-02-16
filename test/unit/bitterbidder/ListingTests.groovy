@@ -1,81 +1,283 @@
 package bitterbidder
 
-import static org.junit.Assert.*
+import grails.test.mixin.TestFor
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Test
 
-import grails.test.mixin.*
-import grails.test.mixin.support.*
-import org.junit.*
+import org.junit.After
+import org.junit.Assume
+import grails.test.mixin.Mock
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
  */
-@TestMixin(GrailsUnitTestMixin)
+@TestFor(Listing)
+@Mock(Customer)
 class ListingTests {
 
+    Customer validCustomer
+    Customer invalidCustomer;
+    Listing listingUnderTest
+    private Boolean False = Boolean.FALSE;
+    private Boolean True = Boolean.TRUE;
+
+    @Before
     void setUp() {
-        // Setup logic here
+       
+        //Setup logic here               
+        validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret");
+        invalidCustomer = new Customer(emailAddress: null, password: "secret");
+        
+        def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
+                      new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
+        
+        listingUnderTest = new Listing(
+                                bids: bidSet,
+                                description: "A test listing",
+                                seller: validCustomer,
+                                winner: validCustomer,
+                                endDateTime: new Date()+1,
+                                name: "Default", 
+                                startingPrice: 10)
     }
 
+    @After
     void tearDown() {
-        // Tear down logic here
+        validCustomer = null;
+        invalidCustomer=null;
+        listingUnderTest=null;
     }
 
+    @Test
+    void test_ValidListing_WithAllFieldsPopulated_HasNoValidationErrors() {
+
+        //arrange
+        listingUnderTest.endDateTime = new Date()+1
+
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        assert listingUnderTest.errors.errorCount==0
+    }
+
+    @Test
+    void test_ValidListing_WithOptionalFieldsNull_HasNoValidationErrors() {
+        //arrange
+        listingUnderTest.description = null;
+        listingUnderTest.winner = null;
+        listingUnderTest.endDateTime = new Date()+1
+
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        Assert.assertTrue(listingUnderTest.errors.errorCount==0)
+    }
+
+    @Test
+    void test_ValidListing_WithEmptyDescription_ListingIsInvalid() {
+        //arrange
+        listingUnderTest.description = "";
+        listingUnderTest.endDateTime = new Date()+1
+
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        verifyValidationError("description")
+    }
+
+    @Test
+    void test_ValidListing_WhenDescriptionIsAllSpaces_ListingIsInvalid() {
+        //arrange
+        listingUnderTest.description = "           ";
+        listingUnderTest.endDateTime = new Date()+1
+
+        //act
+        listingUnderTest.validate()
+        //assert
+        verifyValidationError("description")
+    }
+
+
+    @Test
+    void test_Name_WhenLongerThanMax_ListingIsInvalid() {
+
+        //arrange
+        listingUnderTest.name = "a".padLeft(64, "b");
+        
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        verifyValidationError("name")
+    }
+
+    @Test
+    void test_Name_WhenNull_ListingIsInvalid() {
+        //arrange
+        listingUnderTest.name = null;
+
+        //act
+        Assume.assumeTrue(listingUnderTest.validate()==false);
+
+        //assert
+        verifyValidationError("name")
+    }
+
+    @Test
+    void test_Name_WhenBlank_ListingIsInvalid() {
+
+        //arrange
+        listingUnderTest.name = "";
+        println listingUnderTest.name.length()
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        verifyValidationError("name")
+    }
+
+    @Test
+    void test_Name_WhenEmpty_ListingIsInvalid() {
+        //arrange
+        listingUnderTest.name = "              ";
+        println listingUnderTest.name.length()
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        verifyValidationError("name")
+    }
+    
+    @Test
+    void test_EndDateTime_WhenNull_ListingIsInvalid() {
+
+        //arrange
+        listingUnderTest.endDateTime = null;
+
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        verifyValidationError("endDateTime")
+    }
+
+    @Test
+    void test_EndDateTime_WhenDateIsInThePast_ListingIsInvalid() {
+        //arrange
+
+        listingUnderTest.endDateTime = new Date()
+        def cal = Calendar.instance;
+        cal.setTime(listingUnderTest.endDateTime)
+        cal.add(Calendar.MINUTE, -1);
+        def inThePast = cal.time;
+        listingUnderTest.endDateTime = inThePast;
+        
+        //act
+        listingUnderTest.validate()
+       
+        //assert
+        verifyValidationError("endDateTime")
+    }
+    
     @Test
     void test_Seller_WhenNull_ListingIsInvalid() {
-        //arrange
+        //arrange        
+        listingUnderTest.seller =null;
+
         //act
+        listingUnderTest.save(true);
+
         //assert
-        fail "Not implemented"
+        verifyValidationError("seller")
     }
 
     @Test
-    void test_Seller_WhenSellerIsInvalid_WhatDoWeDoHere() {
+    void test_Description_WhenLongerThanMax_ListingIsInvalid() {
         //arrange
+        listingUnderTest.description = "a".padLeft(256)
+
+        Assume.assumeTrue(listingUnderTest.description.length()==256)
         //act
+        listingUnderTest.validate()
         //assert
-        fail "Not implemented"
+        verifyValidationError("description")
+    }
+
+
+    @Test
+    void test_Description_WhenLengthIsMax_ListingIsInvalid() {
+        //arrange
+        listingUnderTest.description = "a".padLeft(255)
+        Assume.assumeTrue(listingUnderTest.description.length()==255)
+        //act
+        listingUnderTest.validate()
+        //assert
+        Assert.assertTrue(!listingUnderTest.errors.hasFieldErrors("description"))
     }
 
     @Test
-    void test_Winner_WhenNull_ListingIsValid() {
+    void test_StartingPrice_WhenNull_ListingIsInvalid() {
         //arrange
+        listingUnderTest.startingPrice = null
+
         //act
+        listingUnderTest.validate()
+
         //assert
-        fail "Not implemented"
+        verifyValidationError("startingPrice")
     }
 
     @Test
-    void test_Winner_WhenWinnerIsInvalid_WhatDoWeDoHere_() {
+    void test_Seller_WhenSellerIsInvalid_ListingShouldBeInvalid() {
+
         //arrange
-        //act
+        listingUnderTest.seller = invalidCustomer;
+       //act
+        listingUnderTest.validate()
+        Assume.assumeTrue(listingUnderTest.seller.hasErrors())
+
         //assert
-        fail "Not implemented"
+        //TODO: This should fail w/o the magic constraint.  Bug? http://jira.grails.org/browse/GRAILS-7713"
+        verifyValidationError("seller")
     }
 
     @Test
-    void test_Description_WhenInvalid_ListingIsInvalid() {
+    void test_Winner_WhenWinnerIsInvalid_ListingShouldBeInvalid() {
         //arrange
+        listingUnderTest.winner = invalidCustomer
         //act
+        listingUnderTest.validate()
         //assert
-        fail "Not implemented"
+        verifyValidationError("winner")
     }
 
-    @Test
-    void test_Date_WhenInvalid_ListingIsInvalid() {
-        //arrange
-        //act
-        //assert
-        fail "Not implemented"
-    }
+//    @Test
+//    void test_Bids_WhenLessThanTwoBids_ListingIsInvalid() {
+//        //arrange
+//        listingUnderTest.bids.clear()
+//        listingUnderTest.bids = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date())] as Set
+//        //act
+//        listingUnderTest.validate()
+//        //assert
+//        verifyValidationError("bids")
+//    }
 
-    @Test
-    void test_Name_WhenInvalid_ListingIsInvalid() {
-        //arrange
-        def listing = new Listing(name: "name")
-        //act
-        def result = listing.validate();
-        //assert
-
-        fail "Not implemented"
+//    @Test
+//    void test_Bids_WhenBidIsInvalid_ListingIsInvalid() {
+//        //arrange
+//
+//        //act
+//        //assert
+//        fail "Not implemented"
+//    }
+    
+    
+    private void verifyValidationError(String fieldName) {
+        Assert.assertTrue(listingUnderTest.errors.hasFieldErrors(fieldName))
     }
 }
+
