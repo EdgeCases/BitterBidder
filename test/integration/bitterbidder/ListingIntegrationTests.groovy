@@ -8,6 +8,7 @@ class ListingIntegrationTests{
     Customer validCustomer
     Listing listingUnderTest
     Bid aTestBid;
+
     @Before
     void setUp() {
 
@@ -29,19 +30,42 @@ class ListingIntegrationTests{
     }
 
     @Test
-    void test_Save_WhenANewBidIsAdded_BidIsSavedWithListing() {
+    void test_Save_WhenListingHasNewBids_BidsAreSaved() {
+        
         //arrange
         validCustomer.save(flush: true)
         listingUnderTest.bids = new HashSet<Bid>()
         listingUnderTest.addToBids(aTestBid)
+        
         //act
         listingUnderTest.save(flush: true)
-
         def bid = Bid.findByBidder(validCustomer)
         
         //assert
-        assert bid.bidder.emailAddress == validCustomer.emailAddress
+        assert bid.bidder.id == validCustomer.id
     }
 
+    @Test
+    void test_Save_WhenBidAddingToExistingListing_BidIsSaved() {
+        
+        //arrange
+        validCustomer.save(flush: true)
+        listingUnderTest.bids = new HashSet<Bid>()
+        listingUnderTest.addToBids(aTestBid)
+        listingUnderTest.save(flush: true)
+        def saved = Listing.findByName("MyListing")
+        Assume.assumeTrue(saved.bids.size()==1)
+        def aNewBid = new Bid(amount: 12.50, bidder: validCustomer, dateCreated: new Date())
+        Assume.assumeTrue(saved.bids.size()==1)
+
+        //act
+        saved.addToBids(aNewBid)                                
+        saved.save(flush: true)
+        saved = Listing.findByName("MyListing")
+        def bid = Bid.findByAmount(12.50)
+        
+        //assert
+        Assert.assertTrue(saved.bids.size()==2)
+    }
 
 }
