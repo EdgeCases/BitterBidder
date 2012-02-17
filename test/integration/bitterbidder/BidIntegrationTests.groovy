@@ -20,7 +20,7 @@ class BidIntegrationTests {
     Customer bidder
     Customer seller
     Listing listing
-    
+
     @Before
     void setUp() {
         bidder = new Customer(
@@ -45,7 +45,7 @@ class BidIntegrationTests {
                 bidder: bidder,
                 amount: 0.00
         )
-        
+
         bidder.save(flush: true)
         seller.save(flush: true)
         listing.save(flush: true)

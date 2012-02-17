@@ -50,8 +50,6 @@ class CustomerIntegrationTests {
 
     @Test   // C-2: Email address must be a unique field (integration test)
     void test_Save_WhenEmailIsNotUnique_CustomerIsNotSaved(){
-        // MikeG: this test doesn't work within the ide but works using grails test-app
-
         //arrange
         customer.save(flush: true)
         customerUnderTest.emailAddress = customer.emailAddress
@@ -61,8 +59,5 @@ class CustomerIntegrationTests {
 
         //assert
         assert Customer.findAllByEmailAddress(validEmail1).size() == 1
-
-        //restore
-        customerUnderTest.emailAddress = validEmail2
     }
 }
