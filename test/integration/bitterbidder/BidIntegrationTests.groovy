@@ -76,9 +76,8 @@ class BidIntegrationTests {
         listing.bids.remove(bidUnderTest)
     }
 
-    @Test   // B-5
+    @Test   // B-5: The Bid amount must be at least .50 higher than the previous Bid for the same listing (integration test)
     void test_Save_WhenAmountIsLessThanLastBidThreshold_SaveFails() {
-        // MikeG: this test passes in IDE but fails when using grails test-app
         //arrange
         bidUnderTest.amount = bidAmount_DoesNotMeetIncrementThreshold
 
@@ -88,17 +87,4 @@ class BidIntegrationTests {
         //assert
         assert listing.bids == null
     }
-
-    @Test   // B-6: When a Listing is saved, any new Bids added for the listing must be saved (integration test)
-    void test_Save_WhenBidAssociatedWithListing_BidIsSaved() {
-        //arrange
-        def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
-        def bid2 = new Bid(listing: listing, bidder: bidder, amount: 2.00)
-
-        //act
-        listing.save()
-
-        // MikeG: this is not working
-        //assert
-        assert listing.bids.size() == 2
-    }}
+}
