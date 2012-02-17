@@ -6,8 +6,6 @@ import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
 
-@TestMixin(GrailsUnitTestMixin)
-@TestFor(Customer)
 class CustomerIntegrationTests {
 
     final static validEmail1 = "customer1@email.com"
@@ -63,8 +61,5 @@ class CustomerIntegrationTests {
 
         //assert
         assert Customer.findAllByEmailAddress(validEmail1).size() == 1
-
-        //restore
-        customerUnderTest.emailAddress = validEmail2
     }
 }
