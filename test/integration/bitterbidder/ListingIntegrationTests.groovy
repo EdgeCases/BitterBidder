@@ -14,6 +14,7 @@ class ListingIntegrationTests{
 
         //Setup logic here
         validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret");
+        validCustomer.save(flush: true)
 
         aTestBid = new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())
         listingUnderTest = new Listing(
@@ -35,8 +36,7 @@ class ListingIntegrationTests{
     @Test
     void test_Save_WhenListingHasNewBids_BidsAreSaved() {
 
-        //arrange
-        validCustomer.save(flush: true)
+        //arrange        
         listingUnderTest.bids = new HashSet<Bid>()
         listingUnderTest.addToBids(aTestBid)
 
@@ -49,15 +49,24 @@ class ListingIntegrationTests{
     }
 
     @Test
-    void test_Save_WhenNewListingWithBidAtInitialListingAmount_BidsAreSaved() {
+    void test_Save_WhenNewListingWithBidAtInitialListingAmount_BidIsSaved() {
+        //arrange
+        listingUnderTest.bids = new HashSet<Bid>()
+        aTestBid.amount = 10.00
+        listingUnderTest.addToBids(aTestBid)
 
+        //act
+        listingUnderTest.save(flush: true)
+        def bid = Bid.findByBidder(validCustomer)
+
+        //assert
+        assert bid==null
     }
 
     @Test
     void test_Save_WhenNewListingWithBidBelowThreshold_BidIsNotSaved() {
 
         //arrange
-        validCustomer.save(flush: true)
         listingUnderTest.bids = new HashSet<Bid>()
         aTestBid.amount = 9.00
         listingUnderTest.addToBids(aTestBid)
@@ -70,29 +79,28 @@ class ListingIntegrationTests{
         assert bid==null
     }
 
-    @Test
-    void test_Save_WhenBidEqualsLastAcceptedBid_SaveFails() {
-        //arrange
-
-        //act
-        //assert
-        fail "Not implemented"
-    }
-
-    @Test
-    void test_Save_WhenBidAmountAtMinimumThreshold_SaveFails() {
-        //arrange
-
-        //act
-        //assert
-        fail "Not implemented"
-    }
+//    @Test
+//    void test_Save_WhenBidEqualsLastAcceptedBid_SaveFails() {
+//        //arrange
+//
+//        //act
+//        //assert
+//        fail "Not implemented"
+//    }
+//
+//    @Test
+//    void test_Save_WhenBidAmountAtMinimumThreshold_SaveFails() {
+//        //arrange
+//
+//        //act
+//        //assert
+//        fail "Not implemented"
+//    }
 
     @Test
     void test_Save_WhenAddingBidToExistingListing_BidIsSaved() {
 
         //arrange
-        validCustomer.save(flush: true)
         listingUnderTest.bids = new HashSet<Bid>()
         listingUnderTest.addToBids(aTestBid)
         listingUnderTest.save(flush: true)
@@ -119,7 +127,6 @@ class ListingIntegrationTests{
     void test_Save_WhenAddingBidBelowThresholdToExistingListing_SaveFails() {
 
         //arrange
-        validCustomer.save(flush: true)
         listingUnderTest.bids = new HashSet<Bid>()
         listingUnderTest.addToBids(aTestBid)
         listingUnderTest.save(flush: true)

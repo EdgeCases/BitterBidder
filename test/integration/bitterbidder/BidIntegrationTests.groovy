@@ -6,8 +6,6 @@ import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import grails.test.mixin.support.GrailsUnitTestMixin
 
-@TestMixin(GrailsUnitTestMixin)
-@TestFor(Bid)
 class BidIntegrationTests {
 
     final static bidderEmail = "bidder@email.com"
@@ -65,7 +63,7 @@ class BidIntegrationTests {
     void test_Save_WhenAmountIsGreaterThanLastBidThreshold_SavesSuccessfully() {
         //arrange
         bidUnderTest.amount = bidAmount_MeetsIncrementThreshold
-
+        listing.addToBids(bidUnderTest)
         //act
         bidUnderTest.save(flush: true)
 
@@ -94,9 +92,10 @@ class BidIntegrationTests {
         //arrange
         def bid1 = new Bid(listing: listing, bidder: bidder, amount: 1.50)
         def bid2 = new Bid(listing: listing, bidder: bidder, amount: 2.00)
-
+        listing.addToBids(bid1)
+        listing.addToBids(bid2)
         //act
-        listing.save()
+        listing.save(flush: true)
 
         // MikeG: this is not working
         //assert
