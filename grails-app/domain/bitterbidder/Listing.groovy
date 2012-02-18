@@ -1,5 +1,7 @@
 package bitterbidder
 
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut
+
 class Listing {
     public static final Float MINIMUM_BID_INCREMENT = 0.5
     String name
@@ -35,4 +37,12 @@ class Listing {
             return isValid
         })
     }
+
+//    def beforeInsert() {
+//        Listing.get
+//    }
+//    def beforeUpdate() {
+//
+//    }
+
 }

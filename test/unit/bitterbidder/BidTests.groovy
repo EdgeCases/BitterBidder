@@ -64,13 +64,13 @@ class BidTests {//extends GrailsUnitTestCase{
     void test_Amount_WhenNull_BidIsInvalid() {
         //arrange
         bidUnderTest.amount = null
-        mockForConstraintsTests(Bid,[bidUnderTest])
+        //mockForConstraintsTests(Bid,[bidUnderTest])
         
         //act
         bidUnderTest.validate()
         
         //assert
-        assert 'nullable' == bidUnderTest.errors['amount']
+        assert bidUnderTest.errors.hasFieldErrors("amount")
 
         //restore
         bidUnderTest.amount = bidAmount
@@ -79,19 +79,13 @@ class BidTests {//extends GrailsUnitTestCase{
     @Test   // B-1: Bids have the following required fields: amount and date/time of bid (unit test)
     void test_DateTime_WhenNull_BidIsInvalid() {
         //arrange
-        mockDomain(Customer, [seller, bidder])
-        mockDomain(Listing, [listing])
-        mockDomain(Bid, [bidUnderTest])
-
-        seller.save()
-        bidder.save()
-        listing.save()
+        bidUnderTest.createdDate = null;
 
         //act
-        bidUnderTest.save()
+        bidUnderTest.validate();
 
         //assert
-        assert bidUnderTest.dateCreated != null
+        assert bidUnderTest.errors.hasFieldErrors("createdDate")
     }
 
     @Test   // B-2: Bids are required to be for a Listing (unit test)
@@ -141,13 +135,11 @@ class BidTests {//extends GrailsUnitTestCase{
     @Test   // B-3: Bids are required to have a bidder (Customer) (unit test)
     void test_Bidder_WhenNull_BidIsInvalid() {
         bidUnderTest.bidder = null
-        mockForConstraintsTests(Bid,[bidUnderTest])
-
-        //act
+                //act
         bidUnderTest.validate()
 
         //assert
-        assert 'nullable' == bidUnderTest.errors['bidder']
+        assert bidUnderTest.errors.hasFieldErrors("bidder")
 
         //restore
         bidUnderTest.bidder = bidder
