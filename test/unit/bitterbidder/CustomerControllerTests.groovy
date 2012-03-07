@@ -135,7 +135,8 @@ class CustomerControllerTests {
         assert flash.message != null
     }
 
-    void testDelete() {
+    // C-4: An existing customer can only be deleted through the web interface if they have 0 listings and 0 bids.
+    void test_Delete_WhenCustomerHasNoListingsOrBids_CustomerIsSuccessfullyDeleted() {
         controller.delete()
         assert flash.message != null
         assert response.redirectedUrl == '/customer/list'
@@ -155,5 +156,13 @@ class CustomerControllerTests {
         assert Customer.count() == 0
         assert Customer.get(customer.id) == null
         assert response.redirectedUrl == '/customer/list'
+    }
+
+    // C-4: An existing customer can only be deleted through the web interface if they have 0 listings.
+    void test_Delete_WhenCustomerHasListing_CustomerIsNotDeleted() {
+    }
+
+    // C-4: An existing customer can only be deleted through the web interface if they have 0 bids.
+    void test_Delete_WhenCustomerHasBid_CustomerIsNotDeleted() {
     }
 }
