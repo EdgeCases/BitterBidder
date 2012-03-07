@@ -15,6 +15,7 @@ class CustomerController {
         [customerInstanceList: Customer.list(params), customerInstanceTotal: Customer.count()]
     }
 
+    // C-1: A new customer can be created through the web interface
     def create() {
         [customerInstance: new Customer(params)]
     }
@@ -41,6 +42,7 @@ class CustomerController {
         [customerInstance: customerInstance]
     }
 
+    // C-2: An existing customer can be updated through the web interface
     def edit() {
         def customerInstance = Customer.get(params.id)
         if (!customerInstance) {
@@ -86,6 +88,22 @@ class CustomerController {
         def customerInstance = Customer.get(params.id)
         if (!customerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
+            redirect(action: "list")
+            return
+        }
+
+        // C-4: An existing customer can only be deleted through the web interface if they have 0 listings.
+        // The system will present an error message to the user if the delete cannot be performed
+        if(Listing.findBySeller(customerInstance) != null) {
+            flash.error = message(code: 'default.not.deleted.listing.exists.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
+            redirect(action: "list")
+            return
+        }
+
+        // C-4: An existing customer can only be deleted through the web interface if they have 0 bids.
+        // The system will present an error message to the user if the delete cannot be performed
+        if (Bid.findByBidder(customerInstance) != null) {
+            flash.error = message(code: 'default.not.deleted.bid.exists.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "list")
             return
         }
