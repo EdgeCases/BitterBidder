@@ -1,6 +1,8 @@
 package bitterbidder
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.test.mixin.TestFor
+import grails.test.mixin.Mock
 
 class CustomerController {
 
@@ -94,7 +96,7 @@ class CustomerController {
 
         // C-4: An existing customer can only be deleted through the web interface if they have 0 listings.
         // The system will present an error message to the user if the delete cannot be performed
-        if(Listing.findBySeller(customerInstance) != null) {
+        if(Listing.findBySeller(customerInstance)) {
             flash.error = message(code: 'default.not.deleted.listing.exists.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "list")
             return

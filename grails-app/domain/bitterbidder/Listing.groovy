@@ -9,8 +9,7 @@ class Listing {
     Date endDateTime
     String description
     Customer winner
-    //Customer seller
-    static hasMany = [bids:Bid] // B-4
+    static hasMany = [bids:Bid]
     static belongsTo = [seller: Customer]
 
 
@@ -18,8 +17,6 @@ class Listing {
         description (nullable: true, blank: false, empty:false, size: 0..255)
         name (size: 1..63, empty:false, blank: false)
         endDateTime(min: new Date());
-
-       // bids(minSize: 2, nullable: false, validator: {return it.size() > 0})
 
         seller(validator: {
                             println("validating seller")
@@ -37,12 +34,4 @@ class Listing {
             return isValid
         })
     }
-
-//    def beforeInsert() {
-//        Listing.get
-//    }
-//    def beforeUpdate() {
-//
-//    }
-
 }

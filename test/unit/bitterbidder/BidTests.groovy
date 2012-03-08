@@ -77,15 +77,14 @@ class BidTests {//extends GrailsUnitTestCase{
     }
 
     @Test   // B-1: Bids have the following required fields: amount and date/time of bid (unit test)
-    void test_DateTime_WhenNull_BidIsInvalid() {
+    void test_AmountAndDateTime_WhenValid_BidIsValid() {
         //arrange
-        bidUnderTest.createdDate = null;
 
         //act
         bidUnderTest.validate();
 
         //assert
-        assert bidUnderTest.errors.hasFieldErrors("createdDate")
+        assert bidUnderTest.errors.fieldErrorCount == 0
     }
 
     @Test   // B-2: Bids are required to be for a Listing (unit test)
@@ -103,7 +102,6 @@ class BidTests {//extends GrailsUnitTestCase{
 
     @Test   // B-2: Bids are required to be for a Listing (unit test)
     void test_Listing_WhenInvalid_BidIsInvalid() {
-        // MikeG: do we need this test?  duplication of previous test?
         //arrange
         def seller = new Customer(emailAddress: "seller@email.com", password: "password")
         def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
@@ -134,8 +132,10 @@ class BidTests {//extends GrailsUnitTestCase{
 
     @Test   // B-3: Bids are required to have a bidder (Customer) (unit test)
     void test_Bidder_WhenNull_BidIsInvalid() {
+        // arrange
         bidUnderTest.bidder = null
-                //act
+
+        //act
         bidUnderTest.validate()
 
         //assert

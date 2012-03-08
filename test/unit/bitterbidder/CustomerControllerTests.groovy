@@ -6,137 +6,19 @@ import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(CustomerController)
-@Mock(Customer)
+@Mock([Customer, Listing, Bid])
 class CustomerControllerTests {
 
 
     def populateValidParams(params) {
       assert params != null
-      // TODO: Populate valid properties like...
-      //params["name"] = 'someValidName'
-    }
-
-    void testIndex() {
-        controller.index()
-        assert "/customer/list" == response.redirectedUrl
-    }
-
-    void testList() {
-
-        def model = controller.list()
-
-        assert model.customerInstanceList.size() == 0
-        assert model.customerInstanceTotal == 0
-    }
-
-    void testCreate() {
-       def model = controller.create()
-
-       assert model.customerInstance != null
-    }
-
-    void testSave() {
-        controller.save()
-
-        assert model.customerInstance != null
-        assert view == '/customer/create'
-
-        response.reset()
-
-        populateValidParams(params)
-        controller.save()
-
-        assert response.redirectedUrl == '/customer/show/1'
-        assert controller.flash.message != null
-        assert Customer.count() == 1
-    }
-
-    void testShow() {
-        controller.show()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/customer/list'
-
-
-        populateValidParams(params)
-        def customer = new Customer(params)
-
-        assert customer.save() != null
-
-        params.id = customer.id
-
-        def model = controller.show()
-
-        assert model.customerInstance == customer
-    }
-
-    void testEdit() {
-        controller.edit()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/customer/list'
-
-
-        populateValidParams(params)
-        def customer = new Customer(params)
-
-        assert customer.save() != null
-
-        params.id = customer.id
-
-        def model = controller.edit()
-
-        assert model.customerInstance == customer
-    }
-
-    void testUpdate() {
-        controller.update()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/customer/list'
-
-        response.reset()
-
-
-        populateValidParams(params)
-        def customer = new Customer(params)
-
-        assert customer.save() != null
-
-        // test invalid parameters in update
-        params.id = customer.id
-        //TODO: add invalid values to params object
-
-        controller.update()
-
-        assert view == "/customer/edit"
-        assert model.customerInstance != null
-
-        customer.clearErrors()
-
-        populateValidParams(params)
-        controller.update()
-
-        assert response.redirectedUrl == "/customer/show/$customer.id"
-        assert flash.message != null
-
-        //test outdated version number
-        response.reset()
-        customer.clearErrors()
-
-        populateValidParams(params)
-        params.id = customer.id
-        params.version = -1
-        controller.update()
-
-        assert view == "/customer/edit"
-        assert model.customerInstance != null
-        assert model.customerInstance.errors.getFieldError('version')
-        assert flash.message != null
+      params["emailAddress"] = 'customer@email.com'
+      params["password"] = 'password'
     }
 
     // C-4: An existing customer can only be deleted through the web interface if they have 0 listings and 0 bids.
     void test_Delete_WhenCustomerHasNoListingsOrBids_CustomerIsSuccessfullyDeleted() {
+        // arrange
         controller.delete()
         assert flash.message != null
         assert response.redirectedUrl == '/customer/list'
@@ -151,8 +33,10 @@ class CustomerControllerTests {
 
         params.id = customer.id
 
+        // act
         controller.delete()
 
+        // assert
         assert Customer.count() == 0
         assert Customer.get(customer.id) == null
         assert response.redirectedUrl == '/customer/list'
@@ -160,9 +44,76 @@ class CustomerControllerTests {
 
     // C-4: An existing customer can only be deleted through the web interface if they have 0 listings.
     void test_Delete_WhenCustomerHasListing_CustomerIsNotDeleted() {
+        // arrange
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/customer/list'
+
+        response.reset()
+
+        populateValidParams(params)
+        def customer = new Customer(params)
+
+        assert customer.save() != null
+        assert Customer.count() == 1
+
+        def listing = new Listing(
+                name: "Listing",
+                startingPrice: 1.25,
+                endDateTime: new Date(2012, 3, 7, 8, 0, 0),
+                seller: customer
+        )
+        listing.save(flush: true)
+
+        params.id = customer.id
+
+        // act
+        controller.delete()
+
+        // assert
+        assert Customer.count() == 1
+        assert Customer.get(customer.id) != null
+        assert flash.error == 'default.not.deleted.listing.exists.message'
+        assert response.redirectedUrl == '/customer/list'
     }
 
     // C-4: An existing customer can only be deleted through the web interface if they have 0 bids.
     void test_Delete_WhenCustomerHasBid_CustomerIsNotDeleted() {
+        // arrante
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/customer/list'
+
+        response.reset()
+
+        populateValidParams(params)
+        def customer = new Customer(params)
+
+        assert customer.save() != null
+        assert Customer.count() == 1
+
+        def bid = new Bid(
+                amount: 2.25,
+                listing: new Listing(
+                        name: "Listing",
+                        startingPrice: 1.25,
+                        endDateTime: new Date(2012, 3, 7, 8, 0, 0),
+                        seller: new Customer(
+                                emailAddress: "customerwithlisting@email.com",
+                                password: "password").save(flush: true)
+                ).save(flush: true),
+                bidder: customer
+        ).save(flush: true)
+
+        params.id = customer.id
+
+        // act
+        controller.delete()
+
+        // assert
+        assert Customer.count() == 2
+        assert Customer.get(customer.id) != null
+        assert flash.error == 'default.not.deleted.bid.exists.message'
+        assert response.redirectedUrl == '/customer/list'
     }
 }
