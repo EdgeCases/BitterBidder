@@ -13,8 +13,7 @@ class CustomerController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [customerInstanceList: Customer.list(params), customerInstanceTotal: Customer.count()]
+        [customerInstanceList: Customer.list(sort: 'dateCreated', order: 'desc'), customerInstanceTotal: Customer.count()]
     }
 
     // C-1: A new customer can be created through the web interface
