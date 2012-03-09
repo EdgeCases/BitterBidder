@@ -13,6 +13,7 @@ class CustomerController {
     }
 
     def list() {
+        // M-1: The main landing page shows listings sorted by the date they were created (most recent first)
         [customerInstanceList: Customer.list(sort: 'dateCreated', order: 'desc'), customerInstanceTotal: Customer.count()]
     }
 
