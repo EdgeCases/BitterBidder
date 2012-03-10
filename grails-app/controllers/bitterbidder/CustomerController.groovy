@@ -13,8 +13,8 @@ class CustomerController {
     }
 
     def list() {
-        // M-1: The main landing page shows listings sorted by the date they were created (most recent first)
-        [customerInstanceList: Customer.list(sort: 'dateCreated', order: 'desc'), customerInstanceTotal: Customer.count()]
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        [customerInstanceList: Customer.list(params), customerInstanceTotal: Customer.count()]
     }
 
     // C-1: A new customer can be created through the web interface
