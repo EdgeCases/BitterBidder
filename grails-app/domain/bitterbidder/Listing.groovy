@@ -4,10 +4,12 @@ import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut
 
 class Listing {
     public static final Float MINIMUM_BID_INCREMENT = 0.5
+
+    Date dateCreated
+    String description
+    Date endDateTime
     String name
     Float startingPrice
-    Date endDateTime
-    String description
     Customer winner
     static hasMany = [bids:Bid]
     static belongsTo = [seller: Customer]
