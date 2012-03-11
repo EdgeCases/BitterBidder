@@ -28,13 +28,17 @@
 					
 						<g:sortableColumn property="name" title="${message(code: 'listing.name.label', default: 'Name')}" />
 					
-						<g:sortableColumn property="endDateTime" title="${message(code: 'listing.endDateTime.label', default: 'End Date Time')}" />
+						<!-- M-10: Listings can be sorted by end date/time -->
+                        <g:sortableColumn property="endDateTime" title="${message(code: 'listing.endDateTime.label', default: 'End Date Time')}" />
 					
 						<th><g:message code="listing.seller.label" default="Seller" /></th>
 					
 						<th><g:message code="listing.winner.label" default="Winner" /></th>
 					
-						<g:sortableColumn property="startingPrice" title="${message(code: 'listing.startingPrice.label', default: 'Starting Price')}" />
+						<!-- M-9: Listings can be sorted by starting price -->
+                        <g:sortableColumn property="startingPrice" title="${message(code: 'listing.startingPrice.label', default: 'Starting Price')}" />
+
+                        <th><g:message code="listing.bids.count.label" default="# of Bids" /></th>
 					
 					</tr>
 				</thead>
@@ -42,17 +46,24 @@
 				<g:each in="${listingInstanceList}" status="i" var="listingInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${listingInstance.id}">${fieldValue(bean: listingInstance, field: "description")}</g:link></td>
+						<!-- M-11: A user can click on a listing to see additional details about that listing -->
+                        <td><g:link action="show" id="${listingInstance.id}">${fieldValue(bean: listingInstance, field: "description")}</g:link></td>
 					
-						<td>${fieldValue(bean: listingInstance, field: "name")}</td>
+						<!-- M-5: The name is visible for each listing -->
+                        <td>${fieldValue(bean: listingInstance, field: "name")}</td>
 					
-						<td><g:formatDate date="${listingInstance.endDateTime}" /></td>
+						<!-- M-8: The end date/time is visible for each listing -->
+                        <td><g:formatDate date="${listingInstance.endDateTime}" /></td>
 					
 						<td>${fieldValue(bean: listingInstance, field: "seller")}</td>
 					
 						<td>${fieldValue(bean: listingInstance, field: "winner")}</td>
-					
-						<td>${fieldValue(bean: listingInstance, field: "startingPrice")}</td>
+
+                        <!-- M-7: The starting price is visible for each listing -->
+                        <td>${fieldValue(bean: listingInstance, field: "startingPrice")}</td>
+
+                        <!-- M-6: The number of bids is visible for each listing -->
+                        <td>${listingInstance.bids.size()}</td>
 					
 					</tr>
 				</g:each>

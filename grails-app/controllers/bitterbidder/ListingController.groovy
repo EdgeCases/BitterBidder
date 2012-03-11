@@ -20,7 +20,9 @@ class ListingController {
         params.order = params.order?:'desc'
 
         // M-4: Only listings with a end date/time that is in the future are visible on the main page
-        [listingInstanceList: Listing.list(params).each {it -> it.endDateTime > new Date()}, listingInstanceTotal: Listing.count()]
+        def listingInstance = Listing.list(params).findAll {it -> it.endDateTime >= new Date()}
+
+        [listingInstanceList: listingInstance, listingInstanceTotal: Listing.count()]
     }
 
     def create() {
