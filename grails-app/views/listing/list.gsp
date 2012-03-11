@@ -70,7 +70,8 @@
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${listingInstanceTotal}" />
+                <!-- M-3: If more than 5 listings exist, pagination links will be available to let the user page through the listings -->
+                <g:paginate total="${listingInstanceTotal}" />
 			</div>
 		</div>
 	</body>

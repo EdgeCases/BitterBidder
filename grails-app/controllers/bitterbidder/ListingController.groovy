@@ -12,7 +12,6 @@ class ListingController {
 
     def list() {
         // M-2: The main landing page shows up to 5 listings at a time
-        // M-3: If more than 5 listings exist, pagination links will be available to let the user page through the listings
         params.max = Math.min(params.max ? params.int('max') : 5, 100)
 
         // M-1: The main landing page shows listings sorted by the date they were created (most recent first)
