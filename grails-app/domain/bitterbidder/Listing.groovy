@@ -14,6 +14,8 @@ class Listing {
     static hasMany = [bids:Bid]
     static belongsTo = [seller: Customer]
 
+    Bid latestBid
+    static transients = ['latestBid']
 
     static constraints = {
         description (nullable: true, blank: false, empty:false, size: 0..255)

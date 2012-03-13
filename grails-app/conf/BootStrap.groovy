@@ -31,7 +31,7 @@ class BootStrap {
         def listing11 = new Listing(name: "Listing11", startingPrice: 11.25, endDateTime: new Date() + 8, description: "Description11", seller: customer11).save()
         def listing12 = new Listing(name: "Listing12", startingPrice: 12.25, endDateTime: new Date() + 9, description: "Description12", seller: customer12).save()
         
-        def bid1 = new Bid(amount: 22.00, listing: listing12, bidder: customer1).save()
+        def bid1 = new Bid(amount: 22.00, listing: listing12, bidder: customer1, dateCreated: new Date()).save()
     }
     def destroy = {
     }

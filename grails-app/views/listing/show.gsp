@@ -67,17 +67,24 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${listingInstance?.bids}">
-				<li class="fieldcontain">
-					<span id="bids-label" class="property-label"><g:message code="listing.bids.label" default="Bids" /></span>
-					
-						<g:each in="${listingInstance.bids}" var="b">
-						<span class="property-value" aria-labelledby="bids-label"><g:link controller="bid" action="show" id="${b.id}">${b?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
+
+                <g:if test="${listingInstance?.latestBid}">
+                    <li class="fieldcontain">
+                        <span id="bids-label" class="property-label"><g:message code="listing.latest.label" default="Latest Bid" /></span>
+                        <span class="property-value" aria-labelledby="bids-label"><g:link controller="bid" action="show" id="${listingInstance.latestBid.id}">${listingInstance.latestBid?.encodeAsHTML()}</g:link></span>
+                    </li>
+                </g:if>
+
+				%{--<g:if test="${listingInstance?.bids}">--}%
+				%{--<li class="fieldcontain">--}%
+					%{--<span id="bids-label" class="property-label"><g:message code="listing.bids.label" default="Bids" /></span>--}%
+
+						%{--<g:each in="${listingInstance.bids}" var="b">--}%
+						%{--<span class="property-value" aria-labelledby="bids-label"><g:link controller="bid" action="show" id="${b.id}">${b?.encodeAsHTML()}</g:link></span>--}%
+						%{--</g:each>--}%
+
+				%{--</li>--}%
+				%{--</g:if>--}%
 			
 				<g:if test="${listingInstance?.startingPrice}">
 				<li class="fieldcontain">
