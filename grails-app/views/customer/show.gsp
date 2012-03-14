@@ -25,10 +25,10 @@
 			
 				<g:if test="${customerInstance?.emailAddress}">
 				<li class="fieldcontain">
-					<span id="emailAddress-label" class="property-label"><g:message code="customer.emailAddress.label" default="Email Address" /></span>
-					
-						<span class="property-value" aria-labelledby="emailAddress-label"><g:fieldValue bean="${customerInstance}" field="emailAddress"/></span>
-					
+					<span id="emailAddress-label" class="property-label">
+                        <g:message code="customer.emailAddress.label" default="Email Address" /></span>
+					<span class="property-value" aria-labelledby="emailAddress-label">
+                        <g:fieldValue bean="${customerInstance}" field="emailAddress"/></span>
 				</li>
 				</g:if>
 			

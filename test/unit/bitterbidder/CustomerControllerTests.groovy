@@ -9,11 +9,16 @@ import grails.test.mixin.*
 @Mock([Customer, Listing, Bid])
 class CustomerControllerTests {
 
-
     def populateValidParams(params) {
       assert params != null
       params["emailAddress"] = 'customer@email.com'
       params["password"] = 'password'
+    }
+
+    def populateInValidParams(params) {
+        assert params != null
+        params["emailAddress"] = 'customer@email@domain.com'
+        params["password"] = 'password'
     }
 
     // C-4: An existing customer can only be deleted through the web interface if they have 0 listings and 0 bids.
@@ -79,7 +84,7 @@ class CustomerControllerTests {
 
     // C-4: An existing customer can only be deleted through the web interface if they have 0 bids.
     void test_Delete_WhenCustomerHasBid_CustomerIsNotDeleted() {
-        // arrante
+        // arrange
         controller.delete()
         assert flash.message != null
         assert response.redirectedUrl == '/customer/list'
@@ -116,4 +121,66 @@ class CustomerControllerTests {
         assert flash.error == 'default.not.deleted.bid.exists.message'
         assert response.redirectedUrl == '/customer/list'
     }
+    
+    void test_GetUserFromEmail_WhenCustomerHasValidEmail_UserPortionReturned(){
+
+        // arrange
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/customer/list'
+
+        response.reset()
+
+        populateValidParams(params)
+        def customer = new Customer(params)
+
+        assert customer.save() != null
+        assert Customer.count() == 1
+
+        params.id = customer.id
+
+        //assume
+        def email = 'customer@email.com'
+        def userPortion = 'customer'
+
+        // act
+        def user = controller.passwordMinusDomain()
+
+        assert userPortion == user
+
+        // cleanup
+        controller.delete()
+    }
+
+/*  //can't insert a bad email due to constraints... may have to come up with another way
+    void test_GetUserFromEmail_WhenCustomerHasInValidEmail_ErrorThrown(){
+
+        // arrange
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/customer/list'
+
+        response.reset()
+
+        populateInValidParams(params)
+        def customer = new Customer(params)
+
+        assert customer.save() != null
+        assert Customer.count() == 1
+
+        params.id = customer.id
+
+        //assume
+        def email = 'customer@email.com'
+        def userPortion = 'customer'
+
+        // act
+        def user = controller.passwordMinusDomain()
+
+        assert controller.hasErrors()
+
+        // cleanup
+        controller.delete()
+    }
+*/
 }

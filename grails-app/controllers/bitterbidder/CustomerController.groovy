@@ -24,6 +24,7 @@ class CustomerController {
 
     def save() {
         def customerInstance = new Customer(params)
+
         if (!customerInstance.save(flush: true)) {
             render(view: "create", model: [customerInstance: customerInstance])
             return
@@ -33,13 +34,48 @@ class CustomerController {
         redirect(action: "show", id: customerInstance.id)
     }
 
-    def show() {
+    def passwordMinusDomain(){
+
         def customerInstance = Customer.get(params.id)
+
         if (!customerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "list")
             return
         }
+
+        def user = customerInstance.emailAddress //default
+        
+        try{
+            def parts = customerInstance.emailAddress.split('@')
+
+            if (2 == parts.length){
+                //get only the user portion of the address
+                user = parts[0]
+            }
+            else {
+                throw "bad email"
+            }
+
+        }
+        catch(Error e) {
+            log.error(e.message + ' bad email address')
+        }
+
+        return user
+    }
+
+    def show() {
+        def customerInstance = Customer.get(params.id)
+
+        if (!customerInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
+            redirect(action: "list")
+            return
+        }
+
+        //L-6: The detail page for the listing shows only the user portion of the email address of the user who created the listing
+        customerInstance.emailAddress = passwordMinusDomain()
 
         [customerInstance: customerInstance]
     }
@@ -47,6 +83,7 @@ class CustomerController {
     // C-2: An existing customer can be updated through the web interface
     def edit() {
         def customerInstance = Customer.get(params.id)
+
         if (!customerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "list")
@@ -65,12 +102,17 @@ class CustomerController {
         }
 
         if (params.version) {
+
             def version = params.version.toLong()
+
             if (customerInstance.version > version) {
+
                 customerInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                         [message(code: 'customer.label', default: 'Customer')] as Object[],
                         "Another user has updated this Customer while you were editing")
+
                 render(view: "edit", model: [customerInstance: customerInstance])
+
                 return
             }
         }
@@ -88,6 +130,7 @@ class CustomerController {
 
     def delete() {
         def customerInstance = Customer.get(params.id)
+
         if (!customerInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "list")
