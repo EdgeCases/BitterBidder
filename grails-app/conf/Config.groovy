@@ -34,6 +34,9 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+//cloud foundry stuff
+grails.plugin.cloudfoundry.username = "danny.alcantara@gmail.com"
+grails.plugin.cloudfoundry.password = "bitterdanny"
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64

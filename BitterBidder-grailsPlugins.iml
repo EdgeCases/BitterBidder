@@ -17,6 +17,14 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-support-1.0.9">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-support-1.0.9/src/groovy" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/hibernate-2.0.0" />
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jquery-1.7.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jquery-1.7.1/src/groovy" isTestSource="false" />
@@ -40,10 +48,14 @@
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (BitterBidder-grailsPlugins)">
         <CLASSES>
+          <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/lib" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/antlr/antlr/jars/antlr-2.7.6.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.codehaus.jackson/jackson-core-asl/jars/jackson-core-asl-1.4.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.4.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
+        <jarDirectory url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/lib" recursive="false" />
       </library>
     </orderEntry>
   </component>
