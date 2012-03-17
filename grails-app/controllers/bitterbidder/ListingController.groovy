@@ -10,6 +10,11 @@ class ListingController {
         redirect(action: "list", params: params)
     }
 
+    def addBid(){
+        def listingInstance = Listing.get(params.id)
+        [listingInstance: listingInstance]
+    }
+
     def list() {
         // M-2: The main landing page shows up to 5 listings at a time
         params.max = Math.min(params.max ? params.int('max') : 5, 100)
@@ -48,6 +53,15 @@ class ListingController {
         }
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
         [listingInstance: listingInstance]
+    }
+
+    def placeBid() {
+        def listingInstance = Listing.get(params.id)
+
+        Bid latest = listingInstance.latestBid
+        latest.amount = params.latestBid
+
+        log.trace("placing a big")
     }
 
     def edit() {

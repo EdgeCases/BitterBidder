@@ -16,7 +16,17 @@ class BidController {
     }
 
     def create() {
-        [bidInstance: new Bid(params)]
+
+        def id = params.id
+
+        if(id){
+            //L-7: The detail page for the listing allows a new bid to be placed
+            //pass in the id of the listing we want this new bid to be 'for'
+            [bidInstance: new Bid(params.id)]
+        }
+        else{
+            [bidInstance: new Bid(params)]
+        }
     }
 
     def save() {

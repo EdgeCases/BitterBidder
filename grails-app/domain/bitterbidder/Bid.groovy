@@ -24,4 +24,14 @@ class Bid {
             }
         })
     }
+    
+    Bid() {}
+    
+    Bid(listingId) {
+
+        if(listingId){
+            def listing = Listing.get(listingId)
+            this.listing = listing
+        }
+    }
 }

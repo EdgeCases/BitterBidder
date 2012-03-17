@@ -26,27 +26,29 @@
 				<g:if test="${customerInstance?.emailAddress}">
 				<li class="fieldcontain">
 					<span id="emailAddress-label" class="property-label">
-                        <g:message code="customer.emailAddress.label" default="Email Address" /></span>
+                        <g:message code="customer.emailAddress.label" default="User" /></span>
 					<span class="property-value" aria-labelledby="emailAddress-label">
                         <g:fieldValue bean="${customerInstance}" field="emailAddress"/></span>
 				</li>
 				</g:if>
-			
-				<g:if test="${customerInstance?.password}">
+
+			<!-- how about we not show the password for the user-->
+			%{--<g:if test="${customerInstance?.password}">
 				<li class="fieldcontain">
-					<span id="password-label" class="property-label"><g:message code="customer.password.label" default="Password" /></span>
-					
-						<span class="property-value" aria-labelledby="password-label"><g:fieldValue bean="${customerInstance}" field="password"/></span>
-					
+					<span id="password-label" class="property-label">
+                        <g:message code="customer.password.label" default="Password" /></span>
+					<span class="property-value" aria-labelledby="password-label">
+                        <g:fieldValue bean="${customerInstance}" field="password"/></span>
 				</li>
 				</g:if>
-			
+			--}%
+
 				<g:if test="${customerInstance?.dateCreated}">
 				<li class="fieldcontain">
-					<span id="dateCreated-label" class="property-label"><g:message code="customer.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${customerInstance?.dateCreated}" /></span>
-					
+					<span id="dateCreated-label" class="property-label">
+                        <g:message code="customer.dateCreated.label" default="Date Created" /></span>
+					<span class="property-value" aria-labelledby="dateCreated-label">
+                        <g:formatDate date="${customerInstance?.dateCreated}" /></span>
 				</li>
 				</g:if>
 			
