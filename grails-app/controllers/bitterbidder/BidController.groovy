@@ -36,7 +36,10 @@ class BidController {
         if (!bidInstance.save(flush: true)) {
             //render view: "create", model: [bidInstance: bidInstance]
             //todo-add a good message
-            flash.message = "Invalid Bid"
+            //L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
+            //flash.message = bidInstance.errors//"Invalid Bid"
+            flash.message = message(code: 'default.invalid.validator.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
+
             redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
             return
         }
