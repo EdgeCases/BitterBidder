@@ -1,5 +1,6 @@
 
 <%@ page import="bitterbidder.Listing" %>
+<%@ page import="bitterbidder.Bid" %>
 <!doctype html>
 <html>
 	<head>
@@ -85,7 +86,7 @@
                         <g:fieldValue bean="${listingInstance}" field="startingPrice"/></span>
 				</li>
 				</g:if>
-			
+
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

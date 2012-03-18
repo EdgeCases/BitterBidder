@@ -17,12 +17,13 @@ class BidController {
 
     def create() {
 
+        //this id is for the listing we're bidding upon
         def id = params.id
 
         if(id){
             //L-7: The detail page for the listing allows a new bid to be placed
-            //pass in the id of the listing we want this new bid to be 'for'
             [bidInstance: new Bid(params.id)]
+            //redirect action: "show", controller: "Listing"
         }
         else{
             [bidInstance: new Bid(params)]
@@ -31,20 +32,27 @@ class BidController {
 
     def save() {
         def bidInstance = new Bid(params)
+
         if (!bidInstance.save(flush: true)) {
-            render(view: "create", model: [bidInstance: bidInstance])
+            //render view: "create", model: [bidInstance: bidInstance]
+            //todo-add a good message
+            flash.message = "Invalid Bid"
+            redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
             return
         }
 
+        bidInstance.listing.latestBid = bidInstance
+
         flash.message = message(code: 'default.created.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
-        redirect(action: "show", id: bidInstance.id)
+        //redirect action: "show", id: bidInstance.id
+        redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
     }
 
     def show() {
         def bidInstance = Bid.get(params.id)
         if (!bidInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'bid.label', default: 'Bid'), params.id])
-            redirect(action: "list")
+            redirect action: "list"
             return
         }
 
@@ -55,7 +63,7 @@ class BidController {
         def bidInstance = Bid.get(params.id)
         if (!bidInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'bid.label', default: 'Bid'), params.id])
-            redirect(action: "list")
+            redirect action: "list"
             return
         }
 
@@ -66,7 +74,7 @@ class BidController {
         def bidInstance = Bid.get(params.id)
         if (!bidInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'bid.label', default: 'Bid'), params.id])
-            redirect(action: "list")
+            redirect action: "list"
             return
         }
 
@@ -76,7 +84,7 @@ class BidController {
                 bidInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                         [message(code: 'bid.label', default: 'Bid')] as Object[],
                         "Another user has updated this Bid while you were editing")
-                render(view: "edit", model: [bidInstance: bidInstance])
+                render view: "edit", model: [bidInstance: bidInstance]
                 return
             }
         }
@@ -84,7 +92,7 @@ class BidController {
         bidInstance.properties = params
 
         if (!bidInstance.save(flush: true)) {
-            render(view: "edit", model: [bidInstance: bidInstance])
+            render view: "edit", model: [bidInstance: bidInstance]
             return
         }
 

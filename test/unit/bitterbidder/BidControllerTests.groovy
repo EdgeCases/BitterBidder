@@ -38,7 +38,7 @@ class BidControllerTests {
     void testCreateWithListingId() {
 
         populateValidParams(params)
-        def listing = new Listing(params)
+        def listing = new Listing()
 
         def id = listing.id
         def model = controller.create(id)

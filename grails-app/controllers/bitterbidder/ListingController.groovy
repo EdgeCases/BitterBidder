@@ -58,7 +58,9 @@ class ListingController {
     def placeBid() {
         def listingInstance = Listing.get(params.id)
 
-        Bid latest = listingInstance.latestBid
+        //Bid latest = listingInstance.latestBid
+        def bidCount = ((Listing)listingInstance).bids.size()
+        //def latestBid =
         latest.amount = params.latestBid
 
         log.trace("placing a big")
