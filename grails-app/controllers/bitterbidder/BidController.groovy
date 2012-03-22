@@ -22,8 +22,9 @@ class BidController {
 
         if(id){
             //L-7: The detail page for the listing allows a new bid to be placed
+            //if we have an id here, it's the id of a listing and we came from the
+            //show view of a listing
             [bidInstance: new Bid(params.id)]
-            //redirect action: "show", controller: "Listing"
         }
         else{
             [bidInstance: new Bid(params)]
@@ -34,20 +35,20 @@ class BidController {
         def bidInstance = new Bid(params)
 
         if (!bidInstance.save(flush: true)) {
-            //render view: "create", model: [bidInstance: bidInstance]
             //todo-add a good message
             //L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
-            //flash.message = bidInstance.errors//"Invalid Bid"
             flash.message = message(code: 'default.invalid.validator.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
 
+            //redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
             redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
+
             return
         }
 
         bidInstance.listing.latestBid = bidInstance
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
-        //redirect action: "show", id: bidInstance.id
+
         redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
     }
 
