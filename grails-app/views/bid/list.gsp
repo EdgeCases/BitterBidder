@@ -39,7 +39,7 @@
 
                         <td><g:link action="show" id="${bidInstance.id}"><g:formatNumber number="${bidInstance.amount}" type="currency" currencyCode="USD" /></g:link> </td>
 
-                       <td> <g:formatNumber number="${bidInstance.amount}" type="currency" currencyCode="USD" /></td>
+                        <td>${fieldValue(bean: bidInstance, field: "bidder")}</td>
 
 						<td><g:formatDate date="${bidInstance.dateCreated}" /></td>
 					
