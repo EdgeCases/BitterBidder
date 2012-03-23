@@ -29,8 +29,8 @@ class ListingTests {
         validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret");
         invalidCustomer = new Customer(emailAddress: null, password: "secret");
         
-        def bidSet = [new Bid(amount: 10, bidder: validCustomer, createdDate: new Date()),
-                      new Bid(amount: 10.50, bidder: validCustomer, createdDate: new Date())] as Set
+        def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
+                      new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
         
         listingUnderTest = new Listing(
                                 bids: bidSet,
@@ -259,7 +259,7 @@ class ListingTests {
 //    void test_Bids_WhenLessThanTwoBids_ListingIsInvalid() {
 //        //arrange
 //        listingUnderTest.bids.clear()
-//        listingUnderTest.bids = [new Bid(amount: 10, bidder: validCustomer, createdDate: new Date())] as Set
+//        listingUnderTest.bids = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date())] as Set
 //        //act
 //        listingUnderTest.validate()
 //        //assert

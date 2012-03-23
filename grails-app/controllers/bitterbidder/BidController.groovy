@@ -35,11 +35,11 @@ class BidController {
         def bidInstance = new Bid(params)
 
         if (!bidInstance.save(flush: true)) {
+
             //todo-add a good message
+
             //L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
             flash.message = message(code: 'default.invalid.validator.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
-
-            //redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
             redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
 
             return
@@ -48,7 +48,6 @@ class BidController {
         bidInstance.listing.latestBid = bidInstance
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
-
         redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
     }
 

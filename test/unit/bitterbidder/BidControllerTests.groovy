@@ -1,171 +1,83 @@
 package bitterbidder
 
-
-
 import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(BidController)
-@Mock(Bid)
+@Mock([Bid, Listing, Customer])
 class BidControllerTests {
-
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+
+        params["emailAddress"] = 'customer@email.com'
+        params["password"] = 'password'
     }
 
-    void testIndex() {
-        controller.index()
-        assert "/bid/list" == response.redirectedUrl
-    }
-
-    void testList() {
-
-        def model = controller.list()
-
-        assert model.bidInstanceList.size() == 0
-        assert model.bidInstanceTotal == 0
-    }
-
-    void testCreate() {
-        def model = controller.create()
-
-        assert model.bidInstance != null
-    }
-
-    void testCreateWithListingId() {
+    //L-7: The detail page for the listing allows a new bid to be placed
+    void test_SaveNewBidWithValidParams_NewBidCreated() {
 
         populateValidParams(params)
-        def listing = new Listing()
+        def seller = new Customer(params)
+        assert null != seller.save()
 
-        def id = listing.id
-        def model = controller.create(id)
+        def listing = new Listing(
+                name: "Listing",
+                startingPrice: 1.25,
+                endDateTime: new Date(2012, 3, 7, 8, 0, 0),
+                seller: seller
+        )
 
-        assert model.bidInstance != null
-        assert model.bidInstance.listing.id == id
-    }
-    
-    void testSave() {
+        listing.save(flush: true)
+        assert null != listing.save()
+
+        def bid = new Bid(
+                listing: listing,
+                bidder: seller,
+                amount: 12
+        )
+
+        params["id"] = listing.id
+        params["listing"] = listing
         controller.save()
 
-        assert model.bidInstance != null
-        assert view == '/bid/create'
+        //this is the proof of redirection
+        assert response.redirectedUrl.contains('/listing/show')
+    }
 
-        response.reset()
+    //L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
+    void test_SaveNewBidWithInvalidAmount_BidCreateFailsErrorsReturnedToListing() {
 
         populateValidParams(params)
+        def seller = new Customer(params)
+        assert null != seller.save()
+
+        def listing = new Listing(
+                name: "Listing",
+                startingPrice: 1.25,
+                endDateTime: new Date(2012, 3, 7, 8, 0, 0),
+                seller: seller
+        )
+        listing.save(flush: true)
+        assert null != listing.save()
+
+        def bid = new Bid(
+                listing: listing,
+                bidder: seller,
+                amount: 12
+        )
+
+        params["id"] = listing.id
+        params["listing"] = listing
+        //add an invalid amount (too low for our constraints)
+        params["amount"] = 12.25
         controller.save()
 
-        assert response.redirectedUrl == '/bid/show/1'
-        assert controller.flash.message != null
-        assert Bid.count() == 1
-    }
+        //this is the proof of redirection
+        assert response.redirectedUrl.contains('/listing/show')
+        assert null != flash.message
 
-    void testShow() {
-        controller.show()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/bid/list'
-
-
-        populateValidParams(params)
-        def bid = new Bid(params)
-
-        assert bid.save() != null
-
-        params.id = bid.id
-
-        def model = controller.show()
-
-        assert model.bidInstance == bid
-    }
-
-    void testEdit() {
-        controller.edit()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/bid/list'
-
-
-        populateValidParams(params)
-        def bid = new Bid(params)
-
-        assert bid.save() != null
-
-        params.id = bid.id
-
-        def model = controller.edit()
-
-        assert model.bidInstance == bid
-    }
-
-    void testUpdate() {
-        controller.update()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/bid/list'
-
-        response.reset()
-
-
-        populateValidParams(params)
-        def bid = new Bid(params)
-
-        assert bid.save() != null
-
-        // test invalid parameters in update
-        params.id = bid.id
-        //TODO: add invalid values to params object
-
-        controller.update()
-
-        assert view == "/bid/edit"
-        assert model.bidInstance != null
-
-        bid.clearErrors()
-
-        populateValidParams(params)
-        controller.update()
-
-        assert response.redirectedUrl == "/bid/show/$bid.id"
-        assert flash.message != null
-
-        //test outdated version number
-        response.reset()
-        bid.clearErrors()
-
-        populateValidParams(params)
-        params.id = bid.id
-        params.version = -1
-        controller.update()
-
-        assert view == "/bid/edit"
-        assert model.bidInstance != null
-        assert model.bidInstance.errors.getFieldError('version')
-        assert flash.message != null
-    }
-
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/bid/list'
-
-        response.reset()
-
-        populateValidParams(params)
-        def bid = new Bid(params)
-
-        assert bid.save() != null
-        assert Bid.count() == 1
-
-        params.id = bid.id
-
-        controller.delete()
-
-        assert Bid.count() == 0
-        assert Bid.get(bid.id) == null
-        assert response.redirectedUrl == '/bid/list'
+        //this proves that the message about the error arrives
+        assert "default.invalid.validator.message" == flash.message
     }
 }
