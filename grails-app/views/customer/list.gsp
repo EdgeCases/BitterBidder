@@ -28,7 +28,7 @@
 					<tr>
 					
 						<g:sortableColumn property="emailAddress" title="${message(code: 'customer.emailAddress.label', default: 'Email Address')}" />
-					
+
 						<g:sortableColumn property="password" title="${message(code: 'customer.password.label', default: 'Password')}" />
 					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'customer.dateCreated.label', default: 'Date Created')}" />

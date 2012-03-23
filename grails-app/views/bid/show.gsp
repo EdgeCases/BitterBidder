@@ -26,9 +26,9 @@
 				<g:if test="${bidInstance?.amount}">
 				<li class="fieldcontain">
 					<span id="amount-label" class="property-label"><g:message code="bid.amount.label" default="Amount" /></span>
-					
-						<span class="property-value" aria-labelledby="amount-label"><g:fieldValue bean="${bidInstance}" field="amount"/></span>
-					
+                    <span class="property-value" aria-labelledby="startingPrice-label">
+                        <g:formatNumber number="${bidInstance.amount}" type="currency" currencyCode="USD" />
+                    <span/>
 				</li>
 				</g:if>
 			

@@ -23,9 +23,8 @@
 			<table>
 				<thead>
 					<tr>
-					
 						<g:sortableColumn property="amount" title="${message(code: 'bid.amount.label', default: 'Amount')}" />
-					
+
 						<th><g:message code="bid.bidder.label" default="Bidder" /></th>
 					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'bid.dateCreated.label', default: 'Date Created')}" />
@@ -37,11 +36,11 @@
 				<tbody>
 				<g:each in="${bidInstanceList}" status="i" var="bidInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${bidInstance.id}">${fieldValue(bean: bidInstance, field: "amount")}</g:link></td>
-					
-						<td>${fieldValue(bean: bidInstance, field: "bidder")}</td>
-					
+
+                        <td><g:link action="show" id="${bidInstance.id}"><g:formatNumber number="${bidInstance.amount}" type="currency" currencyCode="USD" /></g:link> </td>
+
+                       <td> <g:formatNumber number="${bidInstance.amount}" type="currency" currencyCode="USD" /></td>
+
 						<td><g:formatDate date="${bidInstance.dateCreated}" /></td>
 					
 						<td>${fieldValue(bean: bidInstance, field: "listing")}</td>

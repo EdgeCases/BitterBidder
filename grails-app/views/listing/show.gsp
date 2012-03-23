@@ -73,8 +73,11 @@
                     <li class="fieldcontain">
                         <span id="bids-label" class="property-label">
                             <g:message code="listing.latest.label" default="Latest Bid" /></span>
-                        <label>
-                            ${listingInstance.latestBid?.amount.encodeAsHTML()}</label>
+                        <span class ="property-value"  aria-labelledby="startingPrice-label">
+                            <g:link action="show" controller="bid" id="${listingInstance?.latestBid.id}">
+                                <g:formatNumber number="${listingInstance.latestBid?.amount}" type="currency" currencyCode="USD" />
+                            </g:link>
+                        </span>
                     </li>
                 </g:if>
 
@@ -83,7 +86,8 @@
                         <span id="startingPrice-label" class="property-label">
                             <g:message code="listing.startingPrice.label" default="Starting Price" /></span>
                         <span class="property-value" aria-labelledby="startingPrice-label">
-                            <g:fieldValue bean="${listingInstance}" field="startingPrice"/></span>
+                            <g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" />
+                        <span/>
                     </li>
                 </g:if>
 
@@ -91,12 +95,12 @@
             <g:form>
                 <fieldset class="buttons">
                     <g:hiddenField name="id" value="${listingInstance?.id}" />
-                    <g:link class="edit" action="create" controller="bid" id="${listingInstance?.id}">
-                        Bid On Item</g:link>
                     <g:link class="edit" action="edit" id="${listingInstance?.id}">
                         <g:message code="default.button.edit.label" default="Edit" /></g:link>
                     <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                         onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+                    <g:link class="edit" action="create" controller="bid" id="${listingInstance?.id}">
+                        Bid On Item</g:link>
                 </fieldset>
             </g:form>
         </div>

@@ -61,7 +61,8 @@
 						<td>${fieldValue(bean: listingInstance, field: "winner")}</td>
 
                         <!-- M-7: The starting price is visible for each listing -->
-                        <td>${fieldValue(bean: listingInstance, field: "startingPrice")}</td>
+                        <td> <g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" /></td>
+                        %{--<td>${fieldValue(bean: listingInstance, field: "startingPrice")}</td>--}%
 
                         <!-- M-6: The number of bids is visible for each listing -->
                         <td>${listingInstance.bids.size()}</td>
