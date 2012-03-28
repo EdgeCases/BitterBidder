@@ -7,6 +7,16 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'listing.label', default: 'Listing')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+        <g:javascript library="jquery" plugin="jquery" />
+        %{--<r:layoutResources />--}%
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                alert('ready!');
+            });
+
+        </script>
+        %{--<r:layoutResources />--}%
 	</head>
 	<body>
 		<a href="#show-listing" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
