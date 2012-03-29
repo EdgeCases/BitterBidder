@@ -15,6 +15,47 @@ class BidController {
         [bidInstanceList: Bid.list(params), bidInstanceTotal: Bid.count()]
     }
 
+//    def lastTen(){
+//
+//        assert null != params
+//
+//        //this id is for the listing we're bidding upon
+//        def id = params.id
+//        def shortList// = new StringBuffer()
+//
+//        if(id){
+//
+//            def bidList = Bid.findAll()
+//
+//            for (it in bidList) {
+//                if (id == it.listing.id) {
+//
+////                    shortList <<= '<p>'
+////                    shortList <<= it.amount
+////                    shortList <<= '</p>'
+//                    shortList = shortList + '<br />'
+//                }
+//            }
+//        }
+//
+//        return shortList.toString()
+//    }
+
+    def lastTen() {
+
+        def listing = Listing.findById(params.id)
+        def bids = listing.bids
+        def shortList = new StringBuilder()
+
+        for (it in bids) {
+            shortList <<= '<p>'
+            shortList <<= it.amount
+            shortList <<= '</p>'
+        }
+        
+        render shortList
+    }
+
     def create() {
 
         //this id is for the listing we're bidding upon

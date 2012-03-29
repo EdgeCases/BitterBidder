@@ -8,15 +8,20 @@
 		<g:set var="entityName" value="${message(code: 'listing.label', default: 'Listing')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
         <g:javascript library="jquery" plugin="jquery" />
-        %{--<r:layoutResources />--}%
+
         <script type="text/javascript">
 
             $(document).ready(function(){
-                alert('ready!');
+                $.ajax({
+                    url: '/BitterBidder/bid/lastTen/' + ${listingInstance.id},
+                    success: function(result){
+                        $("#lastTenBids").html(result);
+                    }
+                });
             });
 
         </script>
-        %{--<r:layoutResources />--}%
+
 	</head>
 	<body>
 		<a href="#show-listing" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -79,17 +84,21 @@
                     </li>
 				</g:if>
 
-                <g:if test="${listingInstance?.latestBid}">
-                    <li class="fieldcontain">
-                        <span id="bids-label" class="property-label">
-                            <g:message code="listing.latest.label" default="Latest Bid" /></span>
-                        <span class ="property-value"  aria-labelledby="startingPrice-label">
-                            <g:link action="show" controller="bid" id="${listingInstance?.latestBid.id}">
-                                <g:formatNumber number="${listingInstance.latestBid?.amount}" type="currency" currencyCode="USD" />
-                            </g:link>
-                        </span>
-                    </li>
-                </g:if>
+                %{--<g:if test="${listingInstance?.latestBid}">--}%
+                    %{--<li class="fieldcontain">--}%
+                        %{--<span id="bids-label" class="property-label">--}%
+                            %{--<g:message code="listing.latest.label" default="Latest Bid" /></span>--}%
+                        %{--<span class ="property-value"  aria-labelledby="startingPrice-label">--}%
+                            %{--<g:link action="show" controller="bid" id="${listingInstance?.latestBid.id}">--}%
+                                %{--<g:formatNumber number="${listingInstance.latestBid?.amount}" type="currency" currencyCode="USD" />--}%
+                            %{--</g:link>--}%
+                        %{--</span>--}%
+                    %{--</li>--}%
+                %{--</g:if>--}%
+
+                <div id="lastTenBids">
+
+                </div>
 
                 <g:if test="${listingInstance?.startingPrice}">
                     <li class="fieldcontain">
