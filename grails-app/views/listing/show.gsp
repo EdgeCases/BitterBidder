@@ -15,7 +15,7 @@
                 $.ajax({
                     url: '/BitterBidder/bid/lastTen/' + ${listingInstance.id},
                     success: function(result){
-                        $("#lastTenBids").html(result);
+                        $("#lastBids").html(result);
                     }
                 });
             });
@@ -97,7 +97,10 @@
                 %{--</g:if>--}%
 
                 <div id="lastTenBids">
-
+                    <li class="fieldcontain">
+                        <span class="property-label"><label>Previous Bids</label></span>
+                        <span class="property-value" id="lastBids"></span>
+                    </li>                    
                 </div>
 
                 <g:if test="${listingInstance?.startingPrice}">
@@ -105,8 +108,7 @@
                         <span id="startingPrice-label" class="property-label">
                             <g:message code="listing.startingPrice.label" default="Starting Price" /></span>
                         <span class="property-value" aria-labelledby="startingPrice-label">
-                            <g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" />
-                        <span/>
+                            <g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" /><span/>
                     </li>
                 </g:if>
 
