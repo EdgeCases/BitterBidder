@@ -43,8 +43,8 @@ body {
 	        box-shadow: 0 0 0.3em #255b17;
 }
 
-#grailsLogo {
-	background-color: #abbf78;
+#bitterbidderLogo {
+	background-color: #ffffff;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -85,7 +85,7 @@ img {
 
 /* GENERAL */
 
-#grailsLogo a {
+#bitterbidderLogo a {
 	display: inline-block;
 	margin: 1em;
 }
@@ -104,7 +104,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #ffffff;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
