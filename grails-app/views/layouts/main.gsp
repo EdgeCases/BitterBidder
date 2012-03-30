@@ -18,9 +18,18 @@
         <r:layoutResources />
 	</head>
 	<body>
-		<div id="bitterbidderLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'bitterbidder_logo.png')}" alt="BitterBidder"/></a></div>
+		<div id="bitterbidderLogo" role="banner">
+            <a href="http://grails.org">
+                <img src="${resource(dir: 'images', file: 'bitterbidder_logo.png')}" alt="BitterBidder"/>
+            </a>
+        </div>
+        <div>
+            <p style="text-align:right;"><a href="login.html" >[Sign In]</a></p>
+        </div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
+		<div class="footer" role="contentinfo">
+            <p align="right">&copy; EdgeCases</p>
+		</div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
         <r:layoutResources />
