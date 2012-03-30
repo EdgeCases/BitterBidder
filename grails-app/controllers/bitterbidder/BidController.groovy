@@ -15,46 +15,90 @@ class BidController {
         [bidInstanceList: Bid.list(params), bidInstanceTotal: Bid.count()]
     }
 
-//    def lastTen(){
-//
-//        assert null != params
-//
-//        //this id is for the listing we're bidding upon
-//        def id = params.id
-//        def shortList// = new StringBuffer()
-//
-//        if(id){
-//
-//            def bidList = Bid.findAll()
-//
-//            for (it in bidList) {
-//                if (id == it.listing.id) {
-//
-////                    shortList <<= '<p>'
-////                    shortList <<= it.amount
-////                    shortList <<= '</p>'
-//                    shortList = shortList + '<br />'
-//                }
-//            }
-//        }
-//
-//        return shortList.toString()
-//    }
+    def lastTen(){  //todo - order the bids and make sure we only get the last 10 (make it configurable?
 
-    def lastTen() {
-
+        assert null != params
+        
         def listing = Listing.findById(params.id)
         def bids = listing.bids
-        def shortList = new StringBuilder()
 
-        for (it in bids) {
-            shortList <<= '<p>'
-            shortList <<= it.amount
-            shortList <<= '</p>'
+        render(contentType: "text/json") {
+            amounts = array {
+                for(bid in bids) {
+                    xyz amt: bid.amount
+                }
+            }
         }
-        
-        render shortList
     }
+
+    //this one returns simple markup that we simply
+    //insert in the gsp
+//    def lastTen() {
+//
+//        def listing = Listing.findById(params.id)
+//        def bids = listing.bids
+//        def shortList = new StringBuilder()
+//
+//        for (it in bids) {
+//
+//            shortList <<= '<p>'
+//            shortList <<= it.amount
+//            shortList <<= '</p>'
+//        }
+//
+//        render shortList
+//    }
+
+    //this one builds the tags correctly, but on the gsp side
+    //the camel-case gets squashed
+//    def lastTen() {
+//
+//        def listing = Listing.findById(params.id)
+//        def bids = listing.bids
+//        def shortList = new StringBuilder()
+//
+//        for (it in bids) {
+//
+//            shortList <<= '<g:formatNumber number=${'
+//            shortList <<= it.amount
+//            shortList <<= '} type="currency" currencyCode="USD" />'
+//        }
+//
+//        render shortList
+//    }
+
+//    def lastTen() {
+//
+//        def bidList = []
+//        def listing = Listing.findById(params.id)
+//        def bids = listing.bids
+//
+//        for (it in bids){
+//
+//            bidList.add(it.amount)
+//        }
+//
+//        //render bidList
+//        //render [alist: bids]
+//        render [Bid:listing.bids(10)]
+//    }
+
+//    def lastTen() {
+//
+//        def listing = Listing.findById(params.id)
+//        def bids = listing.bids
+//        def shortList = new StringBuilder()
+//
+//        for (it in bids) {
+//
+//            //shortList <<= '<g:formatNumber number=${'
+//            shortList <<= it.amount
+//            //shortList <<= '} type="currency" currencyCode="USD" />'
+//            break
+//        }
+//
+//        render shortList
+//    }
 
     def create() {
 

@@ -15,10 +15,25 @@
                 $.ajax({
                     url: '/BitterBidder/bid/lastTen/' + ${listingInstance.id},
                     success: function(result){
-                        $("#lastBids").html(result);
+                        alert(result);
+                        //$("#lastBids").html(buildUp(result));
+                        //$("#lastBids").html(result);
+//                        if(null !== result) {
+//                            $.each(result, function(index, value){
+//                                alert(value);
+//                            })
+//                        }
                     }
                 });
             });
+
+//            buildUp = function(val) {
+//                var retVal = '\<g\:formatNumber number=$"{';
+//                retVal = retVal + val;
+//                retVal = retVal + '\}" type="currency" currencyCode="USD" \></g\:formatNumber>";
+//
+//                return retVal;
+//            };
 
         </script>
 
@@ -84,24 +99,13 @@
                     </li>
 				</g:if>
 
-                %{--<g:if test="${listingInstance?.latestBid}">--}%
-                    %{--<li class="fieldcontain">--}%
-                        %{--<span id="bids-label" class="property-label">--}%
-                            %{--<g:message code="listing.latest.label" default="Latest Bid" /></span>--}%
-                        %{--<span class ="property-value"  aria-labelledby="startingPrice-label">--}%
-                            %{--<g:link action="show" controller="bid" id="${listingInstance?.latestBid.id}">--}%
-                                %{--<g:formatNumber number="${listingInstance.latestBid?.amount}" type="currency" currencyCode="USD" />--}%
-                            %{--</g:link>--}%
-                        %{--</span>--}%
-                    %{--</li>--}%
-                %{--</g:if>--}%
-
-                <div id="lastTenBids">
-                    <li class="fieldcontain">
-                        <span class="property-label"><label>Previous Bids</label></span>
-                        <span class="property-value" id="lastBids"></span>
-                    </li>                    
-                </div>
+                <li class="fieldcontain">
+                    <span class="property-label">
+                        <label>Previous Bids</label></span>
+                    <span class="property-value" id="lastBids">
+                        %{--<g:formatNumber number="${33.0}" type="currency" currencyCode="USD" ></g:formatNumber>--}%
+                    </span>
+                </li>
 
                 <g:if test="${listingInstance?.startingPrice}">
                     <li class="fieldcontain">
