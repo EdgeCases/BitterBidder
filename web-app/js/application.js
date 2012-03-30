@@ -6,4 +6,21 @@ if (typeof jQuery !== 'undefined') {
 			$(this).fadeOut();
 		});
 	})(jQuery);
-}
+};
+
+//
+//take the json list of bid amounts and inject them into
+//the dom
+//
+processAndInsertBidAmounts = function(values) {
+
+    //var amountList = JSON.parse(values);
+
+    if(null !== values) {
+
+        $.each(values.amounts, function(index, value) {
+
+            $('<p />').html(value.amt).appendTo('#lastBids');
+        });
+    }
+};

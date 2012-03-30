@@ -8,32 +8,37 @@
 		<g:set var="entityName" value="${message(code: 'listing.label', default: 'Listing')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
         <g:javascript library="jquery" plugin="jquery" />
+        %{--<g:javascript library="bitterbidder" />--}%
 
         <script type="text/javascript">
 
+            //
+            //call out to the controller with the id of this listing and
+            //get back a json list of the last several bid amounts
+            //
             $(document).ready(function(){
                 $.ajax({
                     url: '/BitterBidder/bid/lastTen/' + ${listingInstance.id},
                     success: function(result){
-                        alert(result);
-                        //$("#lastBids").html(buildUp(result));
-                        //$("#lastBids").html(result);
-//                        if(null !== result) {
-//                            $.each(result, function(index, value){
-//                                alert(value);
-//                            })
-//                        }
+                        //alert(result);
+                        processAndInsertBidAmounts(result);
                     }
                 });
             });
 
-//            buildUp = function(val) {
-//                var retVal = '\<g\:formatNumber number=$"{';
-//                retVal = retVal + val;
-//                retVal = retVal + '\}" type="currency" currencyCode="USD" \></g\:formatNumber>";
+//            //
+//            //take the json list of bid amounts and inject them into
+//            //the dom
+//            //
+//            processAndInsertBidAmounts = function(values) {
 //
-//                return retVal;
-//            };
+//                var amountList = JSON.parse(values);
+//
+//                if(null !== amountList)
+//                {
+//                    alert('yay');
+//                }
+//            }
 
         </script>
 
