@@ -8,7 +8,6 @@
 		<g:set var="entityName" value="${message(code: 'listing.label', default: 'Listing')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
         <g:javascript library="jquery" plugin="jquery" />
-        %{--<g:javascript library="bitterbidder" />--}%
 
         <script type="text/javascript">
 
@@ -20,25 +19,10 @@
                 $.ajax({
                     url: '/BitterBidder/bid/lastTen/' + ${listingInstance.id},
                     success: function(result){
-                        //alert(result);
                         processAndInsertBidAmounts(result);
                     }
                 });
             });
-
-//            //
-//            //take the json list of bid amounts and inject them into
-//            //the dom
-//            //
-//            processAndInsertBidAmounts = function(values) {
-//
-//                var amountList = JSON.parse(values);
-//
-//                if(null !== amountList)
-//                {
-//                    alert('yay');
-//                }
-//            }
 
         </script>
 
@@ -108,7 +92,6 @@
                     <span class="property-label">
                         <label>Previous Bids</label></span>
                     <span class="property-value" id="lastBids">
-                        %{--<g:formatNumber number="${33.0}" type="currency" currencyCode="USD" ></g:formatNumber>--}%
                     </span>
                 </li>
 

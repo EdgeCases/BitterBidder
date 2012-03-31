@@ -25,7 +25,8 @@ class BidController {
         render(contentType: "text/json") {
             amounts = array {
                 for(bid in bids) {
-                    xyz amt: bid.amount
+                    //xyz amt: bid.amount
+                    xyz amt: g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
                 }
             }
         }
