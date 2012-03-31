@@ -6,7 +6,7 @@ class Bid {
     Float amount
     Date dateCreated
 
-    static  belongsTo = [listing:Listing, bidder: Customer]
+    static belongsTo = [listing:Listing, bidder: Customer]
 
     static constraints = {
         // B-5: The Bid amount must be at least .50 higher than the previous Bid for the same listing
@@ -37,11 +37,8 @@ class Bid {
 
     static namedQueries = {
 
-        getLastTen {
-            listing {
-
-                maxResults(10)
-            }
+        getLastTen { id ->
+            eq( "listing", Listing.findById(id))
         }
     }
 }

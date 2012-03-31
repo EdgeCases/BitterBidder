@@ -37,13 +37,12 @@ class BidController {
     //UI-1: The listing detail page will asynchronously load and display a list of the last
     //10 bids placed on the item showing the user, date/time, and amount.
     //The implementation of the lookup of these results must be done with a Named Query.
-    def lastTen() {  //todo - unit test to prove only last 10 are chosen
+    def lastTen() {
 
         assert null != params
 
         //def listing = Listing.findById(params.id)
-        //def latest = Listing.lastTenBids().list()
-        def latest = Bid.getLastTen().list()
+        def latest = Bid.getLastTen(params.id).list()
 
         render(contentType: "text/json") {
 

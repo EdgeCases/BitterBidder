@@ -41,14 +41,12 @@ class Listing {
         })
     }
 
-    static namedQueries = {
-
-        lastTenBids {
-            bids {
-
-                maxResults(10)
-            }
-        }
-    }
-
+//    static namedQueries = {
+//
+//        latestBids {
+//
+//        }
+//
+//
+//    }
 }
