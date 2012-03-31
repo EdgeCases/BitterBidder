@@ -6,7 +6,7 @@ if (typeof jQuery !== 'undefined') {
 			$(this).fadeOut();
 		});
 	})(jQuery);
-};
+}
 
 //
 //take the json list of bid amounts and inject them into
@@ -19,8 +19,17 @@ processAndInsertBidAmounts = function(values) {
     if(null !== values) {
 
         $.each(values.amounts, function(index, value) {
+            var amt = '<p>' + value.amt + '</p>';
+            $(amt).appendTo('#lastBids');
+            //$('')
+            //$('<p />').html(value.amt).appendTo('#lastBids');
+            //<g:formatNumber number="${33.0}" type="currency" currencyCode="USD" ></g:formatNumber>
 
-            $('<p />').html(value.amt).appendTo('#lastBids');
+//            $($.camelCase("<g:format-Number></g:format-Number>"))
+//                .attr('number', value.amt)
+//                .attr('type', 'currency')
+//                .attr('currencyCode', 'USD')
+//                .appendTo('#lastBids');
         });
     }
 };
