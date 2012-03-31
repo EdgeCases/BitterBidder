@@ -13,7 +13,7 @@ class Listing {
     Float startingPrice
     Customer winner
 
-    static hasMany = [bids:Bid] // B-4
+    static hasMany = [bids: Bid] // B-4
     static belongsTo = [seller: Customer]
 
     Bid latestBid
@@ -23,8 +23,6 @@ class Listing {
         description (nullable: true, blank: false, empty:false, size: 0..255)
         name (size: 1..63, empty:false, blank: false)
         endDateTime(min: new Date());
-
-       // bids(minSize: 2, nullable: false, validator: {return it.size() > 0})
 
         seller(validator: {
                             println("validating seller")
@@ -42,4 +40,15 @@ class Listing {
             return isValid
         })
     }
+
+    static namedQueries = {
+
+        lastTenBids {
+            bids {
+
+                maxResults(10)
+            }
+        }
+    }
+
 }

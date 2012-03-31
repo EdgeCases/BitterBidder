@@ -34,4 +34,14 @@ class Bid {
             this.listing = listing
         }
     }
+
+    static namedQueries = {
+
+        getLastTen {
+            listing {
+
+                maxResults(10)
+            }
+        }
+    }
 }

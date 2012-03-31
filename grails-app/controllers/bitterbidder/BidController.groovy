@@ -15,19 +15,41 @@ class BidController {
         [bidInstanceList: Bid.list(params), bidInstanceTotal: Bid.count()]
     }
 
+//    def lastTen() {  //todo - unit test to prove only last 10 are chosen
+//
+//        assert null != params
+//
+//        def sortedBidsForThisListing = (Listing.findById(params.id)).bids.sort{(it.amount)}
+//        def maxSize = sortedBidsForThisListing.size() < 10 ? sortedBidsForThisListing.size() : 10
+//        def lastTenBids = sortedBidsForThisListing[sortedBidsForThisListing.size()-1..sortedBidsForThisListing.size()-maxSize]
+//
+//        render(contentType: "text/json") {
+//
+//            amounts = array {
+//
+//                for(bid in lastTenBids) {
+//
+//                    xyz amt: g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
+//                }
+//            }
+//        }
+//    }
+    //UI-1: The listing detail page will asynchronously load and display a list of the last
+    //10 bids placed on the item showing the user, date/time, and amount.
+    //The implementation of the lookup of these results must be done with a Named Query.
     def lastTen() {  //todo - unit test to prove only last 10 are chosen
 
         assert null != params
-        
-        def sortedBidsForThisListing = (Listing.findById(params.id)).bids.sort{(it.amount)}
-        def maxSize = sortedBidsForThisListing.size() < 10 ? sortedBidsForThisListing.size() : 10
-        def lastTenBids = sortedBidsForThisListing[sortedBidsForThisListing.size()-1..sortedBidsForThisListing.size()-maxSize]
+
+        //def listing = Listing.findById(params.id)
+        //def latest = Listing.lastTenBids().list()
+        def latest = Bid.getLastTen().list()
 
         render(contentType: "text/json") {
 
             amounts = array {
 
-                for(bid in lastTenBids) {
+                for(bid in latest) {
 
                     xyz amt: g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
                 }
