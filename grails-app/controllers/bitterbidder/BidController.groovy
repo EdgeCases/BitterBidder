@@ -42,7 +42,7 @@ class BidController {
         assert null != params
 
         //def listing = Listing.findById(params.id)
-        def latest = Bid.getLastTen(params.id).list()
+        def latest = Bid.getLastTen(params.id).list().sort{(it.amount)}
 
         render(contentType: "text/json") {
 
