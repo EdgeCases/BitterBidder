@@ -25,8 +25,9 @@ class ListingController {
 
         // M-4: Only listings with a end date/time that is in the future are visible on the main page
         def listingInstance = Listing.list(params).findAll {it -> it.endDateTime >= new Date()}
+        def totalListings = Listing.findAll("from Listing as l where l.endDateTime >= ?", [new Date()])
 
-        [listingInstanceList: listingInstance, listingInstanceTotal: Listing.count()]
+        [listingInstanceList: listingInstance, listingInstanceTotal: totalListings.size()]
     }
 
     def create() {
