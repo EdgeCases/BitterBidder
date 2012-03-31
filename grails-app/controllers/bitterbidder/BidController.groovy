@@ -15,17 +15,20 @@ class BidController {
         [bidInstanceList: Bid.list(params), bidInstanceTotal: Bid.count()]
     }
 
-    def lastTen(){  //todo - order the bids and make sure we only get the last 10 (make it configurable?
+    def lastTen() {  //todo - unit test to prove only last 10 are chosen
 
         assert null != params
         
-        def listing = Listing.findById(params.id)
-        def bids = listing.bids
+        def sortedBidsForThisListing = (Listing.findById(params.id)).bids.sort{(it.amount)}
+        def maxSize = sortedBidsForThisListing.size() < 10 ? sortedBidsForThisListing.size() : 10
+        def lastTenBids = sortedBidsForThisListing[sortedBidsForThisListing.size()-1..sortedBidsForThisListing.size()-maxSize]
 
         render(contentType: "text/json") {
+
             amounts = array {
-                for(bid in bids) {
-                    //xyz amt: bid.amount
+
+                for(bid in lastTenBids) {
+
                     xyz amt: g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
                 }
             }
