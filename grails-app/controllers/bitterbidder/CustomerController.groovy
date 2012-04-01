@@ -3,7 +3,6 @@ package bitterbidder
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_ADMIN'])
 class CustomerController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -14,6 +13,7 @@ class CustomerController {
         redirect(action: "list", params: params)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [customerInstanceList: Customer.list(params), customerInstanceTotal: Customer.count()]
@@ -25,7 +25,13 @@ class CustomerController {
     }
 
     def save() {
-        def customerInstance = new Customer(params)
+        Customer saveResult = customerService.createNewCustomer(params.username, params.emailAddress, params.password)
+        if (saveResult.errors.errorCount > 0)
+        {
+            return
+        }
+
+        /*def customerInstance = new Customer(params)
 
         if (!customerInstance.save(flush: true)) {
             render(view: "create", model: [customerInstance: customerInstance])
@@ -33,7 +39,7 @@ class CustomerController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customerInstance.id])
-        redirect(action: "show", id: customerInstance.id)
+        redirect(action: "show", id: customerInstance.id)*/
     }
 
     def passwordMinusDomain(){
