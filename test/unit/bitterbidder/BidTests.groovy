@@ -99,49 +99,4 @@ class BidTests {//extends GrailsUnitTestCase{
         //assert
         assert 'nullable' == bidUnderTest.errors['listing']
     }
-
-    @Test   // B-2: Bids are required to be for a Listing (unit test)
-    void test_Listing_WhenInvalid_BidIsInvalid() {
-        //arrange
-        def seller = new Customer(emailAddress: "seller@email.com", password: "password")
-        def bidder = new Customer(emailAddress: "bidder@email.com", password: "password")
-        mockDomain Customer, [seller, bidder]
-        
-        def listingName = """this listing name is just going to be way too long;
-                                I mean, it's a ridiculously long description and
-                                completely inappropriate for normal use"""
-
-        def invalidListing = new Listing(endDateTime: new Date(), name: listingName, startingPrice: 1.23, seller: seller)
-        mockDomain Listing, [invalidListing]
-
-        def bid = new Bid(listing: invalidListing, bidder: bidder, amount: 1.23)
-        mockDomain Bid, [bid]
-
-        seller.save()
-        bidder.save()
-        invalidListing.save()
-
-        //act
-        bid.validate()
-        bid.save()
-
-        //assert
-        assert null != bid.bidder
-        assert null == bid.listing.description
-    }
-
-    @Test   // B-3: Bids are required to have a bidder (Customer) (unit test)
-    void test_Bidder_WhenNull_BidIsInvalid() {
-        // arrange
-        bidUnderTest.bidder = null
-
-        //act
-        bidUnderTest.validate()
-
-        //assert
-        assert bidUnderTest.errors.hasFieldErrors("bidder")
-
-        //restore
-        bidUnderTest.bidder = bidder
-    }
 }
