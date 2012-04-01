@@ -7,7 +7,7 @@ class ListingController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def listingService
-    
+
     def index() {
         redirect(action: "list", params: params)
     }
