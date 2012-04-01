@@ -6,6 +6,8 @@ class ListingController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    def listingService
+    
     def index() {
         redirect(action: "list", params: params)
     }
@@ -55,17 +57,6 @@ class ListingController {
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
         [listingInstance: listingInstance]
     }
-
-//    def placeBid() {
-//        def listingInstance = Listing.get(params.id)
-//
-//        //Bid latest = listingInstance.latestBid
-//        def bidCount = ((Listing)listingInstance).bids.size()
-//        //def latestBid =
-//        latest.amount = params.latestBid
-//
-//        log.trace("placing a big")
-//    }
 
     def edit() {
         def listingInstance = Listing.get(params.id)
