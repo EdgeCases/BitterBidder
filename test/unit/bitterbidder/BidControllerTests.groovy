@@ -1,24 +1,49 @@
 package bitterbidder
 
-import org.junit.*
 import grails.test.mixin.*
+import org.junit.Before
+import org.junit.After
 
 @TestFor(BidController)
 @Mock([Bid, Listing, Customer])
 class BidControllerTests {
 
-    def populateValidParams(params) {
-        assert params != null
+    final static emptyString = ""
+    final static invalidEmail_MissingAtSign = "customeremail.com"
+    final static invalidEmail_MissingDotDomain = "customer@email"
+    final static invalidPassword_TooLong = "longpassword"
+    final static invalidPassword_TooShort = "short"
+    final static validEmail = "customer@email.com"
+    final static validPassword = "password"
+    final static validPassword_MediumLength = "passwrd"
+    final static validPassword_MinimumLength = "paswrd"
 
-        params["emailAddress"] = 'customer@email.com'
-        params["password"] = 'password'
+    Customer seller
+
+    @Before
+    void setUp() {
+        // Setup logic here
+        seller = new Customer(
+                username: "user",
+                emailAddress: validEmail,
+                password: validPassword
+        )
+
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        seller.springSecurityService = springSecurityService
+    }
+
+    @After
+    void tearDown() {
+        // Tear down logic here
+        seller = null
     }
 
     //L-7: The detail page for the listing allows a new bid to be placed
     void test_SaveNewBidWithValidParams_NewBidCreated() {
 
-        populateValidParams(params)
-        def seller = new Customer(params)
         assert null != seller.save()
 
         def listing = new Listing(
@@ -48,8 +73,6 @@ class BidControllerTests {
     //L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
     void test_SaveNewBidWithInvalidAmount_BidCreateFailsErrorsReturnedToListing() {
 
-        populateValidParams(params)
-        def seller = new Customer(params)
         assert null != seller.save()
 
         def listing = new Listing(
