@@ -39,6 +39,8 @@ class Bid {
 
         getLastTen { id ->
             eq( "listing", Listing.findById(id))
+//            sort("amount")
+//            order("asc")
         }
     }
 }

@@ -41,8 +41,8 @@ class BidController {
 
         assert null != params
 
-        //def listing = Listing.findById(params.id)
-        def latest = Bid.getLastTen(params.id).list().sort{(it.amount)}
+        //def latest = Bid.getLastTen(params.id).list().sort{(it.amount)}
+        def latest = Bid.getLastTen(params.id).list(max: 10, sort: "amount", order: "desc")
 
         render(contentType: "text/json") {
 
@@ -50,7 +50,11 @@ class BidController {
 
                 for(bid in latest) {
 
-                    xyz amt: g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
+                    def bidAmount = g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
+                    def user = bid.bidder.getUserName()
+                    def time = g.formatDate(date: bid.dateCreated, timeStyle: "short")
+
+                    xyz amt: bidAmount + " by "+ user + " at " + time
                 }
             }
         }

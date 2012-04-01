@@ -92,6 +92,7 @@
                     <span class="property-label">
                         <label>Previous Bids</label></span>
                     <span class="property-value" id="lastBids">
+                        <table></table>
                     </span>
                 </li>
 
