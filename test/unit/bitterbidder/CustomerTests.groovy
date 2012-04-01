@@ -27,9 +27,15 @@ class CustomerTests {
     void setUp() {
         // Setup logic here
         customerUnderTest = new Customer(
+                username: "user",
                 emailAddress: validEmail,
                 password: validPassword
         )
+
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        customerUnderTest.springSecurityService = springSecurityService
     }
 
     @After
