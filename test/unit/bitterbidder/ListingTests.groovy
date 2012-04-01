@@ -26,9 +26,15 @@ class ListingTests {
     void setUp() {
        
         //Setup logic here               
-        validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret");
-        invalidCustomer = new Customer(emailAddress: null, password: "secret");
-        
+        validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
+        invalidCustomer = new Customer(emailAddress: null, password: "secret", username: "invalidguy");
+
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        validCustomer.springSecurityService = springSecurityService
+        invalidCustomer.springSecurityService = springSecurityService
+
         def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
                       new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
         
