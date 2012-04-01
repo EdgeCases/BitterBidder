@@ -19,26 +19,13 @@ class CustomerIntegrationTests {
     void setUp() {
         // Setup logic here
         customer = new Customer(
-                username: "customer1",
                 emailAddress: validEmail1,
                 password: validPassword
         )
-
-        def customerSpringSecurityService = new Object()
-        customerSpringSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
-
-        customer.springSecurityService = customerSpringSecurityService
-
         customerUnderTest = new Customer(
-                username: "customerUnderTest",
                 emailAddress: validEmail2,
                 password: validPassword
         )
-
-        def customerUnderTestSpringSecurityService = new Object()
-        customerUnderTestSpringSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
-
-        customerUnderTest.springSecurityService = customerUnderTestSpringSecurityService
     }
 
     @After

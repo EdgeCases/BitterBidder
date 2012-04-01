@@ -27,15 +27,9 @@ class CustomerTests {
     void setUp() {
         // Setup logic here
         customerUnderTest = new Customer(
-                username: "user",
                 emailAddress: validEmail,
                 password: validPassword
         )
-
-        def springSecurityService = new Object()
-        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
-
-        customerUnderTest.springSecurityService = springSecurityService
     }
 
     @After
@@ -114,7 +108,6 @@ class CustomerTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
     void test_Password_WhenGreaterThanMax_CustomerIsInvalid() {
         //arrange
         customerUnderTest.password = invalidPassword_TooLong
@@ -131,7 +124,6 @@ class CustomerTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
     void test_Password_WhenLessThanMin_CustomerIsInvalid() {
         //arrange
         customerUnderTest.password = invalidPassword_TooShort
@@ -148,7 +140,6 @@ class CustomerTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
     void test_Password_WhenEqualsToMin_CustomerIsValid(){
         //arrange
         customerUnderTest.password = validPassword_MinimumLength
@@ -165,7 +156,6 @@ class CustomerTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
     void test_Password_WhenLengthInValidRange_CustomerIsValid() {
         //arrange
         customerUnderTest.password = validPassword_MediumLength
@@ -182,7 +172,6 @@ class CustomerTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
     void test_Password_WhenNull_CustomerIsInvalid() {
         //arrange
         customerUnderTest.password = null
@@ -199,7 +188,6 @@ class CustomerTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
     void test_Password_WhenEmpty_CustomerIsInvalid() {
         //arrange
         customerUnderTest.password = emptyString
