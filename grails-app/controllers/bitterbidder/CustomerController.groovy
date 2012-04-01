@@ -1,12 +1,14 @@
 package bitterbidder
 
 import org.springframework.dao.DataIntegrityViolationException
-import grails.test.mixin.TestFor
-import grails.test.mixin.Mock
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_ADMIN'])
 class CustomerController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+    def customerService
 
     def index() {
         redirect(action: "list", params: params)
@@ -81,6 +83,8 @@ class CustomerController {
     }
 
     // C-2: An existing customer can be updated through the web interface
+    // S-4: Only a user with an admin role is able to view / edit customer screens created in requirements C-1 through C-4 in assignment 2
+    @Secured(['ROLE_ADMIN'])
     def edit() {
         def customerInstance = Customer.get(params.id)
 
@@ -93,6 +97,8 @@ class CustomerController {
         [customerInstance: customerInstance]
     }
 
+    // S-4: Only a user with an admin role is able to view / edit customer screens created in requirements C-1 through C-4 in assignment 2
+    @Secured(['ROLE_ADMIN'])
     def update() {
         def customerInstance = Customer.get(params.id)
         if (!customerInstance) {
@@ -128,6 +134,8 @@ class CustomerController {
         redirect(action: "show", id: customerInstance.id)
     }
 
+    // S-4: Only a user with an admin role is able to view / edit customer screens created in requirements C-1 through C-4 in assignment 2
+    @Secured(['ROLE_ADMIN'])
     def delete() {
         def customerInstance = Customer.get(params.id)
 

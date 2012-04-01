@@ -1,39 +1,43 @@
 package bitterbidder
 
 class Customer {
-    
+
+    transient springSecurityService
+
     String emailAddress
     Date dateCreated
+    String username
     String password
-    //String user
+    boolean enabled
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
 
-    def getUserName() {
-
-        def parts = emailAddress.split('@')
-
-        if (2 == parts.length){
-            //get only the user portion of the address
-            return parts[0]
-        }
-
-        return "Unknown"
-    }
-//    def beforeInsert = {
-//
-//        if(null==emailAddress) {
-//            user = ""
-//        }
-//        else {
-//            def parts = emailAddress.split('@')
-//
-//            if (2 == parts.length){
-//                //get only the user portion of the address
-//                user = parts[0]
-//            }
-//        }
-//    }
     static constraints = {
-        emailAddress(unique: true, email: true)
-        password(size: 6..8, blank: false)
+        emailAddress unique: true, email: true
+        username blank: false, unique: true
+        password blank: false
+    }
+
+    static mapping = {
+        password column: '`password`'
+    }
+
+    Set<Role> getAuthorities() {
+        CustomerRole.findAllByCustomer(this).collect { it.role } as Set
+    }
+
+    def beforeInsert() {
+        encodePassword()
+    }
+
+    def beforeUpdate() {
+        if (isDirty('password')) {
+            encodePassword()
+        }
+    }
+
+    protected void encodePassword() {
+        password = springSecurityService.encodePassword(password)
     }
 }
