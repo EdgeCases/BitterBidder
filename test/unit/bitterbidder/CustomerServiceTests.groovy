@@ -11,7 +11,9 @@ import org.junit.*
 @TestFor(CustomerService)
 class CustomerServiceTests {
 
+    @Ignore("Nothing here...")
     void testSomething() {
+
         fail "Implement me"
     }
 }

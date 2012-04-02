@@ -1,7 +1,5 @@
 package bitterbidder
 
-
-
 import org.junit.*
 import grails.test.mixin.*
 
@@ -11,6 +9,7 @@ class CustomerControllerTests {
 
     def populateValidParams(params) {
       assert params != null
+      params["username"] = 'customer'
       params["emailAddress"] = 'customer@email.com'
       params["password"] = 'password'
     }
@@ -32,6 +31,11 @@ class CustomerControllerTests {
 
         populateValidParams(params)
         def customer = new Customer(params)
+
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        customer.springSecurityService = springSecurityService
 
         assert customer.save() != null
         assert Customer.count() == 1
@@ -58,6 +62,11 @@ class CustomerControllerTests {
 
         populateValidParams(params)
         def customer = new Customer(params)
+
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        customer.springSecurityService = springSecurityService
 
         assert customer.save() != null
         assert Customer.count() == 1
@@ -94,8 +103,21 @@ class CustomerControllerTests {
         populateValidParams(params)
         def customer = new Customer(params)
 
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        customer.springSecurityService = springSecurityService
+
         assert customer.save() != null
         assert Customer.count() == 1
+
+        def biddingCustomer = new Customer(username: "biddingCustomer", emailAddress: "biddingCustomer@email.com", password: "password")
+        def biddingCustomerSpringSecurityService = new Object()
+        biddingCustomerSpringSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        biddingCustomer.springSecurityService = biddingCustomerSpringSecurityService
+
+        biddingCustomer.save(flush: true)
 
         def bid = new Bid(
                 amount: 2.25,
@@ -103,9 +125,7 @@ class CustomerControllerTests {
                         name: "Listing",
                         startingPrice: 1.25,
                         endDateTime: new Date(2012, 3, 7, 8, 0, 0),
-                        seller: new Customer(
-                                emailAddress: "customerwithlisting@email.com",
-                                password: "password").save(flush: true)
+                        seller: biddingCustomer,
                 ).save(flush: true),
                 bidder: customer
         ).save(flush: true)
@@ -133,6 +153,11 @@ class CustomerControllerTests {
 
         populateValidParams(params)
         def customer = new Customer(params)
+
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        customer.springSecurityService = springSecurityService
 
         assert customer.save() != null
         assert Customer.count() == 1

@@ -25,13 +25,7 @@ class CustomerController {
     }
 
     def save() {
-        Customer saveResult = customerService.createNewCustomer(params.username, params.emailAddress, params.password)
-        if (saveResult.errors.errorCount > 0)
-        {
-            return
-        }
-
-        /*def customerInstance = new Customer(params)
+        def customerInstance = new Customer(params)
 
         if (!customerInstance.save(flush: true)) {
             render(view: "create", model: [customerInstance: customerInstance])
@@ -39,7 +33,7 @@ class CustomerController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customerInstance.id])
-        redirect(action: "show", id: customerInstance.id)*/
+        redirect(action: "show", id: customerInstance.id)
     }
 
     def passwordMinusDomain(){
