@@ -17,6 +17,7 @@ class ListingController {
         [listingInstance: listingInstance]
     }
 
+    // S-2: Viewing the main landing page and the listing detail page does not require that the user be logged in
     def list() {
         // M-2: The main landing page shows up to 5 listings at a time
         params.max = Math.min(params.max ? params.int('max') : 5, 100)

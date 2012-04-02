@@ -73,6 +73,8 @@ class CustomerController {
         return user
     }
 
+    // S-4: Only a user with an admin role is able to view / edit customer screens created in requirements C-1 through C-4 in assignment 2
+    @Secured(['ROLE_ADMIN'])
     def show() {
         def customerInstance = Customer.get(params.id)
 

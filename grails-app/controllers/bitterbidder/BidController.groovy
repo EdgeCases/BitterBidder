@@ -1,6 +1,7 @@
 package bitterbidder
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class BidController {
 
@@ -43,6 +44,8 @@ class BidController {
         }
     }
 
+    // S-3: Bidding on an item requires that the user be logged in
+    @Secured(['ROLE_USER'])
     def create() {
 
         //this id is for the listing we're bidding upon
