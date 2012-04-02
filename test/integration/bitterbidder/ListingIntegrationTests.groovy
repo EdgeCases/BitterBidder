@@ -13,8 +13,12 @@ class ListingIntegrationTests{
     void setUp() {
 
         //Setup logic here
-        validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret");
+        validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validCustomer");
 
+        def customerSpringSecurityService = new Object()
+        customerSpringSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+
+        validCustomer.springSecurityService = customerSpringSecurityService
         aTestBid = new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())
         listingUnderTest = new Listing(                   
                 description: "A test listing",
