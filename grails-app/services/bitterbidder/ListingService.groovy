@@ -2,7 +2,7 @@ package bitterbidder
 
 class ListingService {
 
-    def CreateListing(Listing listing) {
+    def Create(Listing listing) {
 
         if (listing.validate()) {
             return listing.save(flush: true);

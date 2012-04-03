@@ -12,36 +12,33 @@ import org.junit.*
 @Mock([Customer, Listing])
 class ListingServiceTests {
 
-    def listingUnderTest;
+    Listing listingUnderTest;
     @Before
     void setUp() {
         listingUnderTest = TestUtility.getValidListing();
+        Assume.assumeTrue(listingUnderTest.id==null)
     }
 
     @Test
-    void test_Save_WhenListingIsValid_ListingIsSaved(){
-        Assume.assumeTrue(listingUnderTest.id==null)
+    void test_Create_WhenListingIsValid_ListingIsSaved(){
+        //arrange
         def service = new ListingService();
-        def saved = service.CreateListing(listingUnderTest);
+        //act
+        def saved = service.Create(listingUnderTest);
+       // assert
         assert listingUnderTest.id
         assert !saved.hasErrors()
     }
 
     @Test
-    void test_Save_WhenListingIsInvalid_ListingIsNotSaved() {
+    void test_Create_WhenListingIsInvalid_ListingIsNotSaved() {
         //arrange
-        
+        def service = new ListingService();
+        listingUnderTest.startingPrice = null;
         //act
-        //assert
-        fail "Not implemented"
-    }
-
-    @Test
-    void test_Save_WhenListingIsInvalid_ResultContainsErrors() {
+        def saved = service.Create(listingUnderTest);
+        assertNull listingUnderTest.id;
         //arrange
-
-        //act
-        //assert
-        fail "Not implemented"
+        assertTrue(saved.errors.hasFieldErrors("startingPrice"))
     }
 }
