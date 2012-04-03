@@ -37,7 +37,6 @@ class BidController {
                     def bidAmount = g.formatNumber(number:bid.amount, type:'currency', currencyCode: 'USD')
                     def user = bid.bidder.getUserName()
                     def time = g.formatDate(date: bid.dateCreated, timeStyle: "short")
-
                     xyz amt: bidAmount + " by "+ user + " at " + time
                 }
             }

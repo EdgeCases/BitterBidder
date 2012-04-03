@@ -25,9 +25,7 @@ class Listing {
         endDateTime(min: new Date());
 
         seller(validator: {
-                            println("validating seller")
                             def isValid = it.validate()
-                            println("Seller is"+ isValid.toString())
                             return isValid
                           }
         )
