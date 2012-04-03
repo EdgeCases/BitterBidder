@@ -118,4 +118,7 @@ class ListingController {
             redirect(action: "show", id: params.id)
         }
     }
+
+    def myListings() {
+    }
 }
