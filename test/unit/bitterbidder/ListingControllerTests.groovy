@@ -29,25 +29,39 @@ class ListingControllerTests {
         assert "/listing/list" == response.redirectedUrl
     }
 
-    @Ignore("Can't figure out how to mock GORM")
-    void testList() {
+    void test_List_WhenListingEndsInThePast_ListingIsNotReturned() {
 
-        //populateValidParams(params)
-        //controller.save()
-        def listings = new ArrayList<Listing>()
-        listings.add(TestUtility.validListing)
-
-        Listing.metaClass.static.findListingsInTheFuture ={return listings}
+        def yesterday = new Date()-1
+        populateValidParams(params)
+        params["endDateTime"] = yesterday;
+        controller.save()
         def model = controller.list()
         assert model.listingInstanceList.size() == 0
         assert model.listingInstanceTotal == 0
     }
 
-    void testCreate() {
+    void test_List_WhenListingEndsInTheFuture_ListingIsReturned() {
+
+        def tomorrow = new Date()+1
+        populateValidParams(params)
+        params["endDateTime"] = tomorrow
+        controller.save()
+        def model = controller.list()
+        assert model.listingInstanceList.size() == 1
+        assert model.listingInstanceTotal == 1
+    }
+
+    void test_List_WhenNoListingsExist_NoListingsReturned() {
+        def model = controller.list()
+        assert model.listingInstanceList.size() == 0
+        assert model.listingInstanceTotal == 0
+    }
+
+    void test_Create_Always_ReturnsNewListing() {
 
         def model = controller.create()
-
-        assert model.listingInstance != null
+        assert model.listingInstance!=null;
+        assertTrue model.listingInstance.name== null;
     }
 
     void testSave() {
@@ -59,7 +73,7 @@ class ListingControllerTests {
         response.reset()
 
         populateValidParams(params)
-        controller.save()
+        def model = controller.save()
 
         assert response.redirectedUrl == '/listing/show/1'
         assert controller.flash.message != null
@@ -71,7 +85,6 @@ class ListingControllerTests {
 
         assert flash.message != null
         assert response.redirectedUrl == '/listing/list'
-
 
         populateValidParams(params)
         def listing = new Listing(params)
@@ -91,11 +104,8 @@ class ListingControllerTests {
         assert flash.message != null
         assert response.redirectedUrl == '/listing/list'
 
-
         populateValidParams(params)
         def listing = new Listing(params)
-
-        def saved = listing.save();
 
         assert listing.save() != null
 
