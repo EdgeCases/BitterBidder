@@ -69,6 +69,19 @@ class ListingTests {
     }
 
     @Test
+    void test_ValidListing_WithAllFieldsPopulated_BidderHasValidUsername() {
+
+        //arrange
+        listingUnderTest.endDateTime = new Date()+1
+
+        //act
+        listingUnderTest.validate()
+
+        //assert
+        assert "validguy" == listingUnderTest.seller.username
+    }
+
+    @Test
     void test_ValidListing_WithOptionalFieldsNull_HasNoValidationErrors() {
         //arrange
         listingUnderTest.description = null;
