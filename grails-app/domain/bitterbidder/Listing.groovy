@@ -39,12 +39,15 @@ class Listing {
         })
     }
 
-//    static namedQueries = {
-//
-//        latestBids {
-//
-//        }
-//
-//
+//   static List<Listing> findListingsEndingInTheFuture(){
+//        return Listing.findAllByEndDateTimeGreaterThan(new Date())
 //    }
+
+    static namedQueries = {
+        findListingsEndingInTheFuture {
+            def now = new Date();
+            gt 'endDateTime', now
+        };
+
+    }
 }

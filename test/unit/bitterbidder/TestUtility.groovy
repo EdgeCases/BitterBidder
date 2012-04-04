@@ -21,7 +21,6 @@ class TestUtility {
                 new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
 
         return new Listing(
-                bids: bidSet,
                 description: "A test listing",
                 seller: validCustomer,
                 winner: validCustomer,
