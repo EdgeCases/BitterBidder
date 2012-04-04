@@ -29,4 +29,9 @@ class TestUtility {
                 name: "Default",
                 startingPrice: 10)
     }
+
+    def static getValidCustomer() {
+
+        return  new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
+    }
 }

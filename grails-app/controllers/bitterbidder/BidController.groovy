@@ -54,7 +54,9 @@ class BidController {
             //L-7: The detail page for the listing allows a new bid to be placed
             //if we have an id here, it's the id of a listing and we came from the
             //show view of a listing
-            [bidInstance: new Bid(params.id)]
+           
+            //[bidInstance: new Bid(params.id)]
+            bidService.Create(new Bid(id))
         }
         else{
             [bidInstance: new Bid(params)]

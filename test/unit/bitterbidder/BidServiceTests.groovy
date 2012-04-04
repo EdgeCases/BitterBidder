@@ -7,13 +7,12 @@ import grails.test.mixin.support.GrailsUnitTestMixin
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
-//@TestFor(BidService)
-//@TestFor(Bid)
-//@Mock([Customer, Listing])
 
+@TestFor(BidService)
+@Mock([Bid, Listing])
 class BidServiceTests {
 
-    final static bidAmount = 2.20
+    final static bidAmount = 2.50
     final static bidderEmail = "bidder@email.com"
     final static customerPassword = "password"
     final static sellerEmail = "seller@email.com"
@@ -23,26 +22,20 @@ class BidServiceTests {
     Customer bidder
     Listing listing
     Customer seller
+    //BidService bidService
 
     @Before
     void setUp() {
         // Setup logic here
-        bidder = new Customer(
-                emailAddress: bidderEmail,
-                password: customerPassword
-        )
+
+        bidder = TestUtility.getValidCustomer()
 
         seller = new Customer(
                 emailAddress: sellerEmail,
                 password: customerPassword
         )
 
-        listing = new Listing(
-                endDateTime: new Date(),
-                name: "Listing",
-                startingPrice: startingPrice,
-                seller: seller
-        )
+        listing = TestUtility.getValidListing()
 
         bidUnderTest = new Bid(
                 listing: listing,
@@ -60,9 +53,24 @@ class BidServiceTests {
         bidder = null
     }
 
+    //SRV-3: Create a Grails service method that supports creating a new bid for a listing (unit test)
+    @Test
+    void test_Create_BidForListingWithValidNewAmount_BidCreated() {
+
+        BidService bidService = new BidService()
+
+        assert null != bidService
+
+        def bid = bidService.createBidForListing(listing, bidder, 200);
+
+        assert null != bid
+        assert listing.id == bid.listing.id
+    }
+
     @Test   // B-3: Bids are required to have a bidder (Customer) (unit test)
-    @Ignore
+    @Ignore("")
     void test_Bidder_WhenNull_BidIsInvalid() {
+
         // arrange
         bidUnderTest.bidder = null
 
@@ -74,5 +82,20 @@ class BidServiceTests {
 
         //restore
         bidUnderTest.bidder = bidder
+    }
+
+    @Test
+    void test_Create_WhenBidIsValid_BidIsSaved(){
+        //arrange
+        def service = new BidService();
+
+         bidUnderTest.amount = bidUnderTest.listing.startingPrice + 5
+
+        //act
+        def saved = service.Create(bidUnderTest);
+
+        // assert
+        assert bidUnderTest.id
+        assert !saved.hasErrors()
     }
 }
