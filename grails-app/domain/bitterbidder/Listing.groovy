@@ -39,12 +39,10 @@ class Listing {
         })
     }
 
-//    static namedQueries = {
-//
-//        latestBids {
-//
-//        }
-//
-//
-//    }
+    static namedQueries = {
+        findListingsInTheFuture(){
+            Listing.findAllByEndDateTimeGreaterThan(new Date())
+        }
+
+    }
 }
