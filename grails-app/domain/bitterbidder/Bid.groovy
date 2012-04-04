@@ -38,7 +38,8 @@ class Bid {
     static namedQueries = {
 
         getLastTen { id ->
-            eq( "listing", Listing.findById(id))
+            eq("listing", Listing.findById(id))
+            maxResults 10
 //            sort("amount")
 //            order("asc")
         }
