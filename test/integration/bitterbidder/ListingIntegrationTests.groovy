@@ -72,4 +72,28 @@ class ListingIntegrationTests{
         Assert.assertTrue(saved.bids.size()==2)
     }
 
+    @Test
+    void test_findListingsEndingInTheFuture_WhenFutureEndingDate_ListingIsReturned() {
+        //arrange
+        def nextweek = new Date()+7;
+        def yesterday = new Date()-1;
+        validCustomer.save(flush: true)
+
+        def futureListing = new Listing(seller: validCustomer, endDateTime:nextweek, startingPrice: 10, name: "f1")
+        futureListing.save(flush: true)
+        def futureListing2 = new Listing(seller: validCustomer, endDateTime:nextweek, startingPrice: 100, name: "f2")
+        futureListing2.save(flush: true)
+        def pastListing =  new Listing(seller: validCustomer, endDateTime:yesterday, startingPrice: 10, name: 'older11')
+        pastListing = pastListing.save(flush: true, validate: false)
+
+        def listings = Listing.findAll();
+        def count = listings.count({it->it.name=="older11"})
+        Assume.assumeTrue(count==1)
+        def futureListings = Listing.findListingsEndingInTheFuture.list()
+
+        //assert
+        count = futureListings.count({it->it.name=="older11"})
+        Assert.assertTrue(count==0);
+
+    }
 }

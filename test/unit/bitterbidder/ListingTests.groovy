@@ -274,27 +274,30 @@ class ListingTests {
         verifyValidationError("winner")
     }
 
-//    @Test
-//    void test_Bids_WhenLessThanTwoBids_ListingIsInvalid() {
-//        //arrange
-//        listingUnderTest.bids.clear()
-//        listingUnderTest.bids = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date())] as Set
-//        //act
-//        listingUnderTest.validate()
-//        //assert
-//        verifyValidationError("bids")
-//    }
+    @Test
+    void test_IsEnded_WhenEndDateTimeIsPast_IsEnded() {
+        //arrange
+         listingUnderTest.endDateTime = new Date()-2
+        //act && assert
+        Assert.assertTrue(listingUnderTest.isEnded())
+    }
 
-//    @Test
-//    void test_Bids_WhenBidIsInvalid_ListingIsInvalid() {
-//        //arrange
-//
-//        //act
-//        //assert
-//        fail "Not implemented"
-//    }
-    
-    
+    @Test
+    void test_IsEnded_WhenEndDateTimeNotPast_NotIsEnded() {
+        //arrange
+        listingUnderTest.endDateTime = new Date()+2
+        //act && assert
+        Assert.assertFalse(listingUnderTest.isEnded())
+    }
+
+    @Test
+    void test_IsEnded_WhenNew_NotIsEnded() {
+        //arrange
+        def listing = new Listing();
+        //act && assert
+        Assert.assertFalse(listingUnderTest.isEnded())
+    }
+
     private void verifyValidationError(String fieldName) {
         Assert.assertTrue(listingUnderTest.errors.hasFieldErrors(fieldName))
     }
