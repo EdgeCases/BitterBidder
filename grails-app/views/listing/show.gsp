@@ -75,7 +75,7 @@
                         <span id="seller-label" class="property-label">
                             <g:message code="listing.seller.label" default="Seller" /></span>
                         <span class="property-value" aria-labelledby="seller-label">
-                            <g:link controller="customer" action="show" id="${listingInstance?.seller?.id}">${listingInstance?.seller?.encodeAsHTML()}</g:link></span>
+                            <g:link controller="customer" action="show" id="${listingInstance?.seller?.id}">${listingInstance?.seller?.displayEmailAddress?.encodeAsHTML()}</g:link></span>
                     </li>
 				</g:if>
 			
@@ -84,7 +84,7 @@
                         <span id="winner-label" class="property-label">
                             <g:message code="listing.winner.label" default="Winner" /></span>
                         <span class="property-value" aria-labelledby="winner-label">
-                            <g:link controller="customer" action="show" id="${listingInstance?.winner?.id}">${listingInstance?.winner?.encodeAsHTML()}</g:link></span>
+                            <g:link controller="customer" action="show" id="${listingInstance?.winner?.id}">${listingInstance?.winner?.displayEmailAddress?.encodeAsHTML()}</g:link></span>
                     </li>
 				</g:if>
 

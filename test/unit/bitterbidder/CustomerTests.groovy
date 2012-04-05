@@ -81,6 +81,23 @@ class CustomerTests {
         assert customerUnderTest.dateCreated != null
     }
 
+    void test_DisplayEmailAddress_WhenEmailHasAtSign_ReturnsValueBeforeAtSign(){
+        def customer = new Customer(emailAddress: 'danny@mail.com')
+        assert customer.displayEmailAddress=='danny';
+    }
+
+    void test_DisplayEmailAddress_WhenEmailDoesNotHaveAtSign_ReturnEmail(){
+        def customer = new Customer(emailAddress: 'dannymail.com')
+        assert customer.displayEmailAddress=='dannymail.com';
+    }
+
+    void test_DisplayEmailAddress_WhenEmailIsNull_ReturnNull(){
+
+        def customer = new Customer(emailAddress: null)
+        assert customer.displayEmailAddress==null;
+    }
+
+
     @Test   // C-3: Email address must be of a valid form (@.*) (unit test)
     void test_Email_WhenNoAtSign_CustomerIsInvalid(){
         //arrange

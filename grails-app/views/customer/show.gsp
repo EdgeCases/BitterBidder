@@ -28,7 +28,7 @@
 					<span id="emailAddress-label" class="property-label">
                         <g:message code="customer.emailAddress.label" default="User" /></span>
 					<span class="property-value" aria-labelledby="emailAddress-label">
-                        <g:fieldValue bean="${customerInstance}" field="emailAddress"/></span>
+                        <g:fieldValue bean="${customerInstance}" field="displayEmailAddress"/></span>
 				</li>
 				</g:if>
 

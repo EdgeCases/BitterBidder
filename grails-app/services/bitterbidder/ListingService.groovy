@@ -9,4 +9,8 @@ class ListingService {
         }
         return listing;
     }
+
+    def getMyListings(String userName){
+
+    }
 }

@@ -57,9 +57,9 @@
 						<!-- M-8: The end date/time is visible for each listing -->
                         <td><g:formatDate date="${listingInstance.endDateTime}" /></td>
 					
-						<td>${fieldValue(bean: listingInstance, field: "seller")}</td>
+						<td>${fieldValue(bean: listingInstance, field: "seller.displayEmailAddress")}</td>
 					
-						<td>${fieldValue(bean: listingInstance, field: "winner")}</td>
+						<td>${fieldValue(bean: listingInstance, field: "winner.displayEmailAddress")}</td>
 
                         <!-- M-7: The starting price is visible for each listing -->
                         <td> <g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" /></td>
