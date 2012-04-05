@@ -20,18 +20,19 @@ class ListingServiceTests {
     }
 
     @Test
-    void test_Create_WhenListingIsValid_ListingIsSaved(){
+    void test_Create_WhenListingIsValid_ListingIsCreated(){
         //arrange
         def service = new ListingService();
         //act
         def saved = service.Create(listingUnderTest);
-       // assert
-        assert listingUnderTest.id
+        // assert
+        assert saved.name == "Default"
+
         assert !saved.hasErrors()
     }
 
     @Test
-    void test_Create_WhenListingIsInvalid_ListingIsNotSaved() {
+    void test_Create_WhenListingIsInvalid_ListingIsNotCreated() {
         //arrange
         def service = new ListingService();
         listingUnderTest.startingPrice = null;

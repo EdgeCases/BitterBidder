@@ -98,7 +98,7 @@ class ListingControllerTests {
         assert model.listingInstance == listing
     }
 
-    void testEdit() {
+    void test_Edit_WhenListingIsFound_ListingCanBeEdited() {
         controller.edit()
 
         assert flash.message != null
@@ -113,10 +113,18 @@ class ListingControllerTests {
 
         def model = controller.edit()
 
-        assert model.listingInstance == listing
+        response.reset()
+
+        populateValidParams(params)
+        params.name='edited listing'
+
+        controller.update()
+
+        assert Listing.get(listing.id).name == 'edited listing'
+        assert response.redirectedUrl == "/listing/show/1"
     }
 
-    void testUpdate() {
+    void test_Update_WhenRequiredFieldMissing_And_VersionIsOld_ReturnsError() {
         controller.update()
 
         assert flash.message != null
@@ -139,6 +147,7 @@ class ListingControllerTests {
         assert view == "/listing/edit"
         assert model.listingInstance != null
 
+        assert model.listingInstance.errors.getFieldError("name")
         listing.clearErrors()
 
         populateValidParams(params)
@@ -162,7 +171,7 @@ class ListingControllerTests {
         assert flash.message != null
     }
 
-    void testDelete() {
+    void test_Delete_WhenListingIsFound_ListingDeletedSuccessfully() {
         controller.delete()
         assert flash.message != null
         assert response.redirectedUrl == '/listing/list'
