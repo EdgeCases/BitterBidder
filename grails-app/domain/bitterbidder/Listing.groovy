@@ -39,7 +39,7 @@ class Listing {
         })
     }
 
-    def IsEnded(){
+    def isEnded(){
         def now = new Date()
         return now.after(endDateTime)
     }
