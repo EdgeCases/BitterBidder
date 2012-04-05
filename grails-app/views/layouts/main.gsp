@@ -24,9 +24,19 @@
     </a>
 </div>
 <div>
-    <g:link action="auth" controller="Login" >[Login]</g:link>
-    <g:link action="index" controller="Logout" >[Logout]</g:link>
-    <g:link action="create" controller="Customer" >[Register]</g:link>
+    <sec:ifNotLoggedIn>
+        <!-- L-2: If user is not logged in, show a "Login" link on every screen -->
+        <g:link action="auth" controller="Login" >[Login]</g:link>
+        <!-- L-3: If user is not logged in, show a "Register" link on every screen -->
+        <g:link action="create" controller="Customer" >[Register]</g:link>
+    </sec:ifNotLoggedIn>
+
+    <sec:ifLoggedIn>
+        <!-- L-5: If user is logged in, show the logged in username on every screen -->
+        Welcome <sec:loggedInUserInfo field="username"/>
+        <!-- L-4: If user is logged in, show a "Logout" link on every screen -->
+        <g:link action="index" controller="Logout" >[Logout]</g:link>
+    </sec:ifLoggedIn>
 </div>
 <g:layoutBody/>
 <div class="footer" role="contentinfo">
