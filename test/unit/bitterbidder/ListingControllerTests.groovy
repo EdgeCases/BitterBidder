@@ -73,7 +73,7 @@ class ListingControllerTests {
         response.reset()
 
         populateValidParams(params)
-        def model = controller.save()
+        controller.save()
 
         assert response.redirectedUrl == '/listing/show/1'
         assert controller.flash.message != null

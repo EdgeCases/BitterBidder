@@ -36,11 +36,13 @@ class ListingController {
     }
 
     def create() {
-        [listingInstance: listingService.Create(new Listing(params))]
+        [listingInstance: new Listing(params)]
     }
 
     def save() {
         def listingInstance = new Listing(params)
+        listingService.Create(listingInstance)
+
         if (!listingInstance.save(flush: true)) {
             render(view: "create", model: [listingInstance: listingInstance])
             return
