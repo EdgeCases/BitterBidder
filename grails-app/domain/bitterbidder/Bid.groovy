@@ -41,7 +41,7 @@ class Bid {
             eq("listing", Listing.findById(id))
             maxResults 10
 //            sort("amount")
-//            order("asc")
+            order("amount", "desc")
         }
     }
 }

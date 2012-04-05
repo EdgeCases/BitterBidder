@@ -60,6 +60,12 @@ class BidTests {//extends GrailsUnitTestCase{
         bidder = null
     }
 
+//    @Test //UI-1: named query
+//    void test_Bids_WhenMoreThanTenBids_GetLastTenNamedQueryReturnsMostRecentTenBids() {
+//
+//
+//    }
+
     @Test   // B-1: Bids have the following required fields: amount and date/time of bid (unit test)
     void test_Amount_WhenNull_BidIsInvalid() {
         //arrange

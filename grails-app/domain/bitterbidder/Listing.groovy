@@ -48,6 +48,5 @@ class Listing {
             def now = new Date();
             gt 'endDateTime', now
         };
-
     }
 }
