@@ -13,10 +13,15 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="list" action="list" controller="customer" >Customers</g:link> </li>
 
+                <sec:ifAllGranted roles="ROLE_ADMIN">
+                    <li><g:link class="list" action="list" controller="customer" >Customers</g:link> </li>
+                </sec:ifAllGranted>
 
-                <li><g:link class="list" action="myListings" controller="listing" >My Listings</g:link> </li>
+                <!-- L-6: If user is logged in, provide a link to the "My Listings" page -->
+                <sec:ifLoggedIn>
+                    <li><g:link class="list" action="myListings" controller="listing" >My Listings</g:link> </li>
+                </sec:ifLoggedIn>
 			</ul>
 		</div>
 		<div id="list-listing" class="content scaffold-list" role="main">

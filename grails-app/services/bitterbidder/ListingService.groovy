@@ -11,8 +11,7 @@ class ListingService {
     }
 
     def getMyListings(String userName){
-        return query.findAll {
-            it->it.seller.username==userName
-        }
+        def result = query.findAll { it->it.seller.username==userName }
+        return result
     }
 }

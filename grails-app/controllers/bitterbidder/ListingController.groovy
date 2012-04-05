@@ -7,6 +7,7 @@ class ListingController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def listingService
+    def springSecurityService
 
     def index() {
         redirect(action: "list", params: params)
@@ -124,5 +125,9 @@ class ListingController {
     }
 
     def myListings() {
+        def user = springSecurityService.currentUser
+        def username = (user as Customer).username
+
+        listingService.getMyListings(username)
     }
 }
