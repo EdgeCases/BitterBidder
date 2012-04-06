@@ -64,7 +64,7 @@ class ListingControllerTests {
         assertTrue model.listingInstance.name== null;
     }
 
-    void testSave() {
+    void test_Save_WhenSavedSuccessfully_RedirectedToMyListings() {
         controller.save()
 
         assert model.listingInstance != null
@@ -75,7 +75,7 @@ class ListingControllerTests {
         populateValidParams(params)
         controller.save()
 
-        assert response.redirectedUrl == '/listing/show/1'
+        assert response.redirectedUrl == '/listing/myListings'
         assert controller.flash.message != null
         assert Listing.count() == 1
     }

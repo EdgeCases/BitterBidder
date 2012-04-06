@@ -21,7 +21,7 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:h2:mem:testDb;MVCC=TRUE"
-            logSql = true
+            //logSql = true
         }
     }
     production {
