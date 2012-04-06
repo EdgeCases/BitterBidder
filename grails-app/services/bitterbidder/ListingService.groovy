@@ -11,7 +11,7 @@ class ListingService {
     }
 
     def getMyListings(String userName){
-        def result = query.findAll { it->it.seller.username==userName }
+        def result =Listing.findAll("from Listing as l where l.seller.username = ?", [userName])
         return result
     }
 }

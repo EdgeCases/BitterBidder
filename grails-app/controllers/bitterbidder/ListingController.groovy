@@ -128,6 +128,7 @@ class ListingController {
         def user = springSecurityService.currentUser
         def username = (user as Customer).username
 
-        listingService.getMyListings(username)
+        def listingInstance = listingService.getMyListings(username)
+        [listingInstanceList: listingInstance, listingInstanceTotal: listingInstance.size()]
     }
 }
