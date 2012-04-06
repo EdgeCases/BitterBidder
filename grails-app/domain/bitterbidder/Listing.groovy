@@ -16,6 +16,7 @@ class Listing {
     static hasMany = [bids: Bid] // B-4
     static belongsTo = [seller: Customer]
 
+    Boolean wasNotificationSent=false
     Bid latestBid
     static transients = ['latestBid']
 

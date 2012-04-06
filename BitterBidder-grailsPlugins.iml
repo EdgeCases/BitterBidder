@@ -5,6 +5,7 @@
       <configuration>
         <webroots>
           <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jquery-1.7.1/web-app" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/activemq-0.3/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -17,6 +18,11 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/activemq-0.3">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/activemq-0.3/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/activemq-0.3/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/activemq-0.3/grails-app/i18n" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/src/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-foundry-1.2.1/src/groovy" isTestSource="false" />
@@ -26,6 +32,12 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/cloud-support-1.0.9/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/hibernate-2.0.0" />
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jms-1.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jms-1.2/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jms-1.2/grails-app/utils" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jms-1.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jms-1.2/grails-app/services" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jquery-1.7.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jquery-1.7.1/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/jquery-1.7.1/grails-app/i18n" isTestSource="false" />
@@ -61,6 +73,12 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.codehaus.jackson/jackson-mapper-asl/jars/jackson-mapper-asl-1.4.1.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.springframework.security/spring-security-core/jars/spring-security-core-3.0.7.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.springframework.security/spring-security-web/jars/spring-security-web-3.0.7.RELEASE.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/jars/geronimo-j2ee-management_1.1_spec-1.0.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.activemq/activeio-core/bundles/activeio-core-3.1.2.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.activemq.protobuf/activemq-protobuf/maven-plugins/activemq-protobuf-1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.activemq/kahadb/bundles/kahadb-5.5.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.activemq/activemq-core/bundles/activemq-core-5.5.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.geronimo.specs/geronimo-jms_1.1_spec/jars/geronimo-jms_1.1_spec-1.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
