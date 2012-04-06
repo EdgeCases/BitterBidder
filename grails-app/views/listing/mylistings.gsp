@@ -60,9 +60,6 @@
                     </g:each>
                 </tbody>
             </table>
-            <div class="pagination">
-                <g:paginate total="${listingInstanceTotal}" />
-            </div>
         </div>
     </body>
 </html>

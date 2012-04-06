@@ -1,6 +1,7 @@
 package bitterbidder
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
 class ListingController {
 
@@ -36,10 +37,14 @@ class ListingController {
         [listingInstanceList: listingInstance, listingInstanceTotal: totalListings.size()]
     }
 
+    // S-6: A logged in user can create a new listing via a simple form
+    @Secured(['ROLE_USER'])
     def create() {
         [listingInstance: new Listing(params)]
     }
 
+    // S-6: A logged in user can create a new listing via a simple form
+    @Secured(['ROLE_USER'])
     def save() {
         def listingInstance = new Listing(params)
         listingService.Create(listingInstance)
@@ -49,8 +54,8 @@ class ListingController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'listing.label', default: 'Listing'), listingInstance.id])
-        redirect(action: "show", id: listingInstance.id)
+        flash.message = message(code: 'default.created.message', args: [message(code: 'listing.label', default: 'Listing'), listingInstance.id])
+        redirect(action: "myListings")
     }
 
     def show() {
@@ -129,6 +134,6 @@ class ListingController {
         def username = (user as Customer).username
 
         def listingInstance = listingService.getMyListings(username)
-        [listingInstanceList: listingInstance, listingInstanceTotal: listingInstance.size()]
+        [listingInstanceList: listingInstance]
     }
 }
