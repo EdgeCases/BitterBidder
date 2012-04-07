@@ -1,6 +1,6 @@
 package bitterbidder
 
-class EmailSenderService {
+class EmailService {
     boolean transactional = false
     static exposes = ['jms']
     static destination = "queue.listingended"

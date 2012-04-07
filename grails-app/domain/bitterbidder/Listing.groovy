@@ -18,7 +18,7 @@ class Listing {
 
     Boolean wasNotificationSent=false
     Bid latestBid
-    static transients = ['latestBid']
+    static transients = ['latestBid', 'isEnded']
 
     static constraints = {
         description (nullable: true, blank: false, empty:false, size: 0..255)

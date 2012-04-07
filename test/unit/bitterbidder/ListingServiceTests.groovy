@@ -4,6 +4,7 @@ package bitterbidder
 
 import grails.test.mixin.*
 import org.junit.*
+import grails.validation.ValidationException
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -11,6 +12,7 @@ import org.junit.*
 @TestFor(ListingService)
 @Mock([Customer, Listing])
 class ListingServiceTests {
+
 
     Listing listingUnderTest;
     @Before
@@ -36,10 +38,10 @@ class ListingServiceTests {
         //arrange
         def service = new ListingService();
         listingUnderTest.startingPrice = null;
-        //act
-        def saved = service.Create(listingUnderTest);
-        assertNull listingUnderTest.id;
-        //arrange
-        assertTrue(saved.errors.hasFieldErrors("startingPrice"))
+        //act and assert
+        shouldFail(ValidationException) {service.Create(listingUnderTest)}
     }
+
 }
+
+

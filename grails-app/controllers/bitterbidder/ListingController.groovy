@@ -2,6 +2,7 @@ package bitterbidder
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
+import grails.validation.ValidationException
 
 class ListingController {
 
@@ -46,15 +47,17 @@ class ListingController {
     // S-6: A logged in user can create a new listing via a simple form
     @Secured(['ROLE_USER'])
     def save() {
-        def listingInstance = new Listing(params)
-        listingService.Create(listingInstance)
+        def listing = new Listing(params)
 
-        if (!listingInstance.save(flush: true)) {
-            render(view: "create", model: [listingInstance: listingInstance])
-            return
+        try{
+         def newListing = listingService.Create(listing)
+         listing=newListing
+        }catch (ValidationException ex){
+
+            listing.errors=ex.errors
+            render view:  "create", model:[listingInstance:listing]
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'listing.label', default: 'Listing'), listingInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'listing.label', default: 'Listing'), listing.id])
         redirect(action: "myListings")
     }
 

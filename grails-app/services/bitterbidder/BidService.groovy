@@ -2,6 +2,7 @@ package bitterbidder
 
 class BidService {
 
+    def listingService
 //    def Create(Bid bid) {
 //
 //        if (bid.validate()) {
@@ -31,6 +32,9 @@ class BidService {
         bid.bidder = bidder
         bid.amount = amount
 
+        if (listing.isEnded()){
+
+        }
         if(bid.validate()) {
 
             return bid.save(flush: true)
