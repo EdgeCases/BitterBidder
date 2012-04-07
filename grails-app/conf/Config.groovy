@@ -68,10 +68,11 @@ environments {
     development {
         grails.logging.jul.usebridge = true
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
-        grails.serverURL = "http://localhost:8080/${appName}"
+        grails.serverURL = "http://localhost:8080/BitterBidder"
     }
     production {
         grails.logging.jul.usebridge = false
+        greenmail.disabled=true
         rails.serverURL = "http://www.changeme.com"
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
@@ -109,22 +110,15 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'bitterbidder.Customer'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'bitterbidder.CustomerRole'
 grails.plugins.springsecurity.authority.className = 'bitterbidder.Role'
-
-mail {
-    host = "smtp.gmail.com"
-    port = 465
-    username = "bitterbidderdev@gmail.com"
-    password = "msse2012"
-    props = ["mail.smtp.auth":"true",
-            "mail.smtp.socketFactory.port":"465",
-            "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-            "mail.smtp.socketFactory.fallback":"false"]
+grails{
+    mail {
+        host = "smtp.gmail.com"
+        port = 465
+        username = "bitterbidderdev@gmail.com"
+        password = "msse2012"
+        props = ["mail.smtp.auth":"true",
+                "mail.smtp.socketFactory.port":"465",
+                "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                "mail.smtp.socketFactory.fallback":"false"]
+    }
 }
-//mail {
-//    host = "smtp.live.com"
-//    port = 587
-//    username = "youracount@live.com"
-//    password = "yourpassword"
-//    props = ["mail.smtp.starttls.enable":"true",
-//            "mail.smtp.port":"587"]
-//}

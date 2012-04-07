@@ -18,8 +18,8 @@ class ListingNotificationServiceIntegrationTests {
 
     void test_sendListingEndedNotifications_ForEndedListings_SendJMSMessage() {
         //arrange
-        def ended1 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1)
-        def ended2 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1)
+        def ended1 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Brewskies")
+        def ended2 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Cohibas")
         def notEnded = new Listing(wasNotificationSent: false, endDateTime: new Date()+1, name: "notended")
 
         ended1.save(validate: false)
@@ -45,8 +45,8 @@ class ListingNotificationServiceIntegrationTests {
 
         def wasCalled = false;
         //arrange
-        def ended1 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1)
-        def ended2 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1)
+        def ended1 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Beers")
+        def ended2 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name:"Cigars")
         ended2.save(validate: false)
         ended1.save(validate: false)
 
@@ -61,7 +61,7 @@ class ListingNotificationServiceIntegrationTests {
 
     void test_sendListingEndedNotifications_WhenMessageHasBeenSent_ListingNotificationSentSetToTrue() {
         //arrange
-        def saved = new Listing(wasNotificationSent: false, endDateTime: new Date()-1)
+        def saved = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Cohibas")
 
         saved.save(validate: false)
         Assume.assumeTrue(!saved.wasNotificationSent)
