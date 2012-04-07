@@ -69,6 +69,8 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.activemq/activemq-core/bundles/activemq-core-5.3.0.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.jasypt/jasypt/jars/jasypt-1.7.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.osgi/org.osgi.core/jars/org.osgi.core-4.1.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.activation/activation/jars/activation-1.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.mail/mail/jars/mail-1.4.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
