@@ -34,7 +34,7 @@ class CustomerController {
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customerInstance.id])
-        redirect(action: "show", id: customerInstance.id)
+        redirect(controller:'listing', action: 'list')
     }
 
     def passwordMinusDomain(){
