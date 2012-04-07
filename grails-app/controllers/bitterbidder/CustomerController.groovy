@@ -28,7 +28,10 @@ class CustomerController {
     def save() {
         def customerInstance = new Customer(params)
 
-        if (!customerInstance.save(flush: true)) {
+        // SRV-1: Create a Grails service method that supports creating a new customer (unit test)
+        customerService.createNewCustomer(customerInstance)
+
+        if (customerInstance.hasErrors()) {
             render(view: "create", model: [customerInstance: customerInstance])
             return
         }
