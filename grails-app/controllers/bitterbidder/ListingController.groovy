@@ -3,6 +3,7 @@ package bitterbidder
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 import grails.validation.ValidationException
+import grails.converters.JSON
 
 class ListingController {
 
@@ -10,7 +11,8 @@ class ListingController {
 
     def listingService
     def springSecurityService
-
+    def bidService
+    
     def index() {
         redirect(action: "list", params: params)
     }
@@ -138,5 +140,35 @@ class ListingController {
 
         def listingInstance = listingService.getMyListings(username)
         [listingInstanceList: listingInstance]
+    }
+
+    //todo - put these guts into create
+    @Secured(['ROLE_USER'])
+    def newBid() {
+
+        //this id is for the listing we're bidding upon
+        def id = params.int('id')
+        def amt = params.int('amount')
+        def jsonMap
+
+        if(id){
+            //L-7: The detail page for the listing allows a new bid to be placed
+            //if we have an id here, it's the id of a listing and we came from the
+            //show view of a listing
+            def bid = new Bid(id)   //pass in the listing id
+
+            bid.bidder = springSecurityService.getCurrentUser()
+            bid.amount = amt
+
+            bidService.Create(bid)
+
+            jsonMap = [success:"true"]
+        }
+        else {
+
+            jsonMap = [success:"false"]
+        }
+
+        render jsonMap as JSON
     }
 }
