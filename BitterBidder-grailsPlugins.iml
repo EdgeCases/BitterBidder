@@ -9,6 +9,7 @@
           <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/mail-1.0/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/mail-1.0/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/greenmail-1.3.2/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/plugin-config-0.1.5/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -60,6 +61,15 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/mail-1.0/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/mail-1.0/grails-app/taglib" isTestSource="false" />
     </content>
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/plugin-config-0.1.5">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/plugin-config-0.1.5/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/plugin-config-0.1.5/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/plugin-config-0.1.5/grails-app/i18n" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/quartz2-0.2.2">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/quartz2-0.2.2/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/quartz2-0.2.2/src/groovy" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/resources-1.1.5">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/resources-1.1.5/src/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/resources-1.1.5/src/groovy" isTestSource="false" />
@@ -72,6 +82,9 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/spring-security-core-1.2.7.2/grails-app/i18n" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/spring-security-core-1.2.7.2/grails-app/services" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/spring-security-core-1.2.7.2/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/svn-1.0.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/svn-1.0.1/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/tomcat-2.0.0" />
     <content url="file://$USER_HOME$/.grails/2.0.0/projects/BitterBidder/plugins/webxml-1.4.1">
@@ -107,6 +120,7 @@
           <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.activation/activation/jars/activation-1.1.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.mail/mail/jars/mail-1.4.3.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/com.icegreen/greenmail/jars/greenmail-1.3.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.quartz-scheduler/quartz/jars/quartz-2.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
