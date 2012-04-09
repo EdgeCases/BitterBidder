@@ -47,6 +47,8 @@ class BidController {
     @Secured(['ROLE_USER'])
     def create() {
 
+        //TODO: I think we may need to change this.  I don't think we call create on the service here.
+
         //this id is for the listing we're bidding upon
         def id = params.id
 

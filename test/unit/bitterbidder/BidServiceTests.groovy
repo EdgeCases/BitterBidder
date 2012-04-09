@@ -3,13 +3,14 @@ package bitterbidder
 import grails.test.mixin.*
 import org.junit.*
 import grails.test.mixin.support.GrailsUnitTestMixin
+import grails.validation.ValidationException
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 
 @TestFor(BidService)
-@Mock([Bid, Listing])
+@Mock([Bid, Listing, ListingService])
 class BidServiceTests {
 
     final static bidAmount = 2.50
@@ -22,6 +23,8 @@ class BidServiceTests {
     Customer bidder
     Listing listing
     Customer seller
+    def listingService
+
     //BidService bidService
 
     @Before
@@ -40,8 +43,9 @@ class BidServiceTests {
         bidUnderTest = new Bid(
                 listing: listing,
                 bidder: bidder,
-                amount: bidAmount
-        )
+                amount: bidAmount)
+
+         listingService = new ListingService()
     }
 
     @After
@@ -58,8 +62,10 @@ class BidServiceTests {
     void test_Create_BidForListingWithValidNewAmount_BidCreated() {
 
         BidService bidService = new BidService()
-
+        bidService.listingService = listingService
         assert null != bidService
+        listing.save(validate: false)
+
 
         def bid = bidService.createBidForListing(listing, bidder, 200);
 
@@ -88,8 +94,10 @@ class BidServiceTests {
     void test_Create_WhenBidIsValid_BidIsSaved(){
         //arrange
         def service = new BidService();
+        service.listingService = listingService
+        bidUnderTest.amount = bidUnderTest.listing.startingPrice + 5
 
-         bidUnderTest.amount = bidUnderTest.listing.startingPrice + 5
+        listing.save(validate: false)
 
         //act
         def saved = service.Create(bidUnderTest);
@@ -97,5 +105,18 @@ class BidServiceTests {
         // assert
         assert bidUnderTest.id
         assert !saved.hasErrors()
+    }
+
+    @Test
+    void test_Create_WhenListingIsEnded_ValidationExceptionIsThrown() {
+        BidService bidService = new BidService()
+        bidService.listingService = listingService
+        assert null != bidService
+
+        listing.endDateTime = new Date()-1;
+        listing.save(validate: false)
+        shouldFail(ValidationException){bidService.createBidForListing(listing, bidder, 200)};
+
+
     }
 }
