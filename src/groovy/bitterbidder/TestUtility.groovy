@@ -44,7 +44,7 @@ class TestUtility {
     }
 
     def static makeCustomer(String username, String password, String email){
-        def params = new Object();
+        def params = [:]
         params.username=username
         params.password=password
         params.emailAddress=email

@@ -10,6 +10,7 @@ class MonitorListingsJob {
     }
 
     def execute() {
-        listingNotificationService.sendListingEndedNotifications()
+        print "checking for ended listings..."
+       // listingNotificationService.sendListingEndedNotifications()
     }
 }

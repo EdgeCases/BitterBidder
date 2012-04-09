@@ -14,8 +14,8 @@ class CustomerServiceTests {
     void test_Create_WhenCustomerIsValid_CustomerIsSaved(){
         // arrange
         def customerService = new CustomerService()
-        def newCustomer = TestUtility.getValidCustomer()
-        def customerUnderTest = TestUtility.makeValidCustomer(newCustomer.username, newCustomer.password, newCustomer.emailAddress)
+        Customer newCustomer = TestUtility.getValidCustomer()
+        def customerUnderTest = TestUtility.makeCustomer(newCustomer.username, newCustomer.password, newCustomer.emailAddress)
         
         // act
         def saved = customerService.createNewCustomer(customerUnderTest)
