@@ -1,9 +1,6 @@
 package bitterbidder
 
-
-import bitterbidder.Customer
-import bitterbidder.Bid
-import bitterbidder.Listing
+import grails.plugins.springsecurity.SpringSecurityService
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,9 +19,6 @@ class TestUtility {
 
         validCustomer.springSecurityService = springSecurityService
 
-        def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
-                new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
-
         return new Listing(
                 description: "A test listing",
                 seller: validCustomer,
@@ -36,14 +30,30 @@ class TestUtility {
         )
     }
 
+    def static getValidListingWithBids(){
+        def listing = getValidListing()
+        def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
+                new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
+        listing.latestBid = bidSet.max {it->it.amount}
+        listing.bids = bidSet
+        return listing
+    }
     def static getValidCustomer() {
 
         return  new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
     }
 
-    def static makeValidCustomer(String username, String password, String email){
-        def customer = new Customer(username: username, password:password, emailAddress: email)
-        def springSecurityService = new Object()
+    def static makeCustomer(String username, String password, String email){
+        def params = new Object();
+        params.username=username
+        params.password=password
+        params.emailAddress=email
+        return makeCustomer(params)
+    }
+
+    def static makeCustomer(params){
+        def customer = new Customer(params)
+        def springSecurityService = new SpringSecurityService()
         springSecurityService.metaClass.encodePassword = {String pwd -> "ENCODED_PASSWORD"}
         customer.springSecurityService = springSecurityService
         return customer

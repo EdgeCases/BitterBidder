@@ -1,6 +1,8 @@
 package bitterbidder
 
 import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut
+import org.codehaus.jackson.annotate.JsonAnySetter
+import grails.converters.deep.JSON
 
 class Listing {
 
@@ -50,5 +52,24 @@ class Listing {
             def now = new Date();
             gt 'endDateTime', now
         };
+    }
+
+    def static fromXML(listingString){
+
+        def bidSet = new ArrayList<Bid>()
+        def root = new XmlSlurper().parseText(listingString)
+
+        def sellerNode = root.seller
+        def seller = new Customer(name:sellerNode.@username)
+
+        def nodes = root.bids
+
+
+        root.listing.bids.each {
+            bid -> bidSet.add(new Bid(bid.attributes()))
+        }
+
+       // listing.bids = bidSet
+        return new Listing()
     }
 }

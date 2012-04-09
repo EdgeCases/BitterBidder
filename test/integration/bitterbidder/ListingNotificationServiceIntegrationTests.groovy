@@ -8,6 +8,9 @@ import org.junit.Assume
 import org.junit.Before
 import grails.converters.deep.JSON
 import org.junit.Assert
+import org.junit.AfterClass
+import org.junit.After
+import grails.plugin.mail.MailService
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -17,9 +20,17 @@ import org.junit.Assert
 class ListingNotificationServiceIntegrationTests {
 
     void test_sendListingEndedNotifications_ForEndedListings_SendJMSMessage() {
-        //arrange
-        def ended1 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Brewskies")
-        def ended2 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Cohibas")
+
+        def ended1 = TestUtility.getValidListingWithBids()
+        ended1.wasNotificationSent=false;
+        ended1.endDateTime = new Date()-1
+        ended1.name = "Brewskies"
+
+        def ended2 = TestUtility.getValidListingWithBids()
+        ended2.wasNotificationSent=false;
+        ended2.endDateTime = new Date()-1
+        ended2.name = "Chohibas"
+
         def notEnded = new Listing(wasNotificationSent: false, endDateTime: new Date()+1, name: "notended")
 
         ended1.save(validate: false)
@@ -27,23 +38,18 @@ class ListingNotificationServiceIntegrationTests {
         notEnded.save(validate: false)
 
         Listing.getAll().each {Assume.assumeTrue !it.wasNotificationSent}
-
         def svc = new ListingNotificationService()
-
         //act
         svc.sendListingEndedNotifications();
-        //assert
 
         Listing.findAll {name!="notended"}
                 .each {Assert.assertTrue it.wasNotificationSent}
-
         Assert.assertFalse Listing.get(notEnded.id).wasNotificationSent
     }
 
 
     void test_sendListingEndedNotifications_WhenMessageHasBeenSent_JMSMessageNotSent() {
 
-        def wasCalled = false;
         //arrange
         def ended1 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name: "Beers")
         def ended2 = new Listing(wasNotificationSent: false, endDateTime: new Date()-1, name:"Cigars")

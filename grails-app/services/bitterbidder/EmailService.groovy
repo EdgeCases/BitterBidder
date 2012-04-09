@@ -1,7 +1,9 @@
 package bitterbidder
 
 import grails.plugin.mail.MailService
-import grails.converters.JSON
+import grails.converters.deep.JSON
+import grails.converters.deep.XML
+
 
 class EmailService {
 
@@ -10,15 +12,15 @@ class EmailService {
     static exposes = ['jms']
     static destination = "queue.listingended"
     def onMessage(it){
-        def listing = (JSON.parse(it) as Listing)
-        def message = "Congratulations you'vd won: $listing.name!  Please send your payment of usd"
+        def listingxml = it.toString()
         mailService.sendMail {
             to "EdgeCases@groups.live.com"
             from "bitterbidderdev@gmail.com"
             subject "You are a winner!"
-            body message
+            body EmailMessageHelper.MakeListingWinnerMessage(listingxml)
         }
-        println message
+
+        println "sent " + listingxml
     }
 }
 //to "fred@g2one.com","ginger@g2one.com"
