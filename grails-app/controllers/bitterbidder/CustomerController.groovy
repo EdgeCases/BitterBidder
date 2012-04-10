@@ -25,12 +25,15 @@ class CustomerController {
         [customerInstance: new Customer(params)]
     }
 
-    def save() {
-        def customerInstance = new Customer(params)
+    def save = { CustomerCreateCommand cmd ->
+        if (cmd.hasErrors()){
+            render(view: "create", model: [customerInstance: cmd])
+            return
+        }
 
         // SRV-1: Create a Grails service method that supports creating a new customer (unit test)
+        def customerInstance = new Customer(params)
         customerService.createNewCustomer(customerInstance)
-
         if (customerInstance.hasErrors()) {
             render(view: "create", model: [customerInstance: customerInstance])
             return
@@ -176,5 +179,19 @@ class CustomerController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "show", id: params.id)
         }
+    }
+}
+
+class CustomerCreateCommand {
+    String emailAddress
+    String username
+    String password
+
+    def errors
+
+    static constraints = {
+        emailAddress email: true, blank: false
+        username blank: false
+        password blank: false, size: 6..8
     }
 }
