@@ -10,7 +10,9 @@ package bitterbidder
 class EmailMessageHelper {
 
     def static MakeListingWinnerMessage(listing){
-//
+
+//        look into this:  XMLParsingParameterCreationListener.groovy. & XmlSlurper()
+
 //        def winningBidAmount = listing.latestBid.amount;
 //        def winner = listing.winner.username
 //        def seller = listing.seller.username

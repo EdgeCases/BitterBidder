@@ -6,6 +6,7 @@ class ListingService {
 
     def Create(Listing listing) {
 
+        //pattern from: http://grails.org/doc/latest/guide/services.html
         if (!listing.validate()){
             throw new ValidationException("listing is invalid", listing.errors)
         }

@@ -107,6 +107,8 @@ class BidServiceTests {
         assert !saved.hasErrors()
     }
 
+    //C-3: When a listing completes it can no longer accept any more bids.
+    // Verify this by testing through the service method created for SRV-3 (unit test).
     @Test
     void test_Create_WhenListingIsEnded_ValidationExceptionIsThrown() {
         BidService bidService = new BidService()

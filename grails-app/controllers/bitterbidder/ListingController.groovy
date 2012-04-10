@@ -52,10 +52,10 @@ class ListingController {
         def listing = new Listing(params)
 
         try{
-         def newListing = listingService.Create(listing)
-         listing=newListing
+            def newListing = listingService.Create(listing)
+            listing=newListing
+            //pattern from: http://grails.org/doc/latest/guide/services.html
         }catch (ValidationException ex){
-
             listing.errors=ex.errors
             render view:  "create", model:[listingInstance:listing]
         }

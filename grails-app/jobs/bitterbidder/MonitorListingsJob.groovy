@@ -11,6 +11,7 @@ class MonitorListingsJob {
 
     def execute() {
         print "checking for ended listings..."
-       // listingNotificationService.sendListingEndedNotifications()
+        //TODO: Make sure this uncommented out!
+       //listingNotificationService.sendListingEndedNotifications()
     }
 }

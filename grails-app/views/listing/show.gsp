@@ -7,21 +7,6 @@
         <meta name="layout" content="main">
         <g:set var="entityName" value="${message(code: 'listing.label', default: 'Listing')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
-        <g:javascript library="jquery" plugin="jquery" />
-
-        <script type="text/javascript">
-
-            //
-            //call out to the controller with the id of this listing and
-            //get back a json list of the last several bid amounts
-            //
-            $(document).ready(function(){
-
-                getLatestBids(${listingInstance.id});
-            });
-
-        </script>
-
     </head>
     <body>
         <a href="#show-listing" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -103,10 +88,26 @@
             </ol>
         </div>
         <div>
+
             <fieldset class="buttons">
-                <input id="newBidAmount" value="Bid Amount" onclick="this.value='';"/>
-                <button id="newBidButton" onclick="postNewBid(${listingInstance?.id});">Bid On Item</button>
+                <g:hiddenField name="hiddenId" value="${listingInstance.id}" id="listingId"></g:hiddenField>
+                <input id="newBidAmount" value="Enter Bid Amount"/>
+                %{--<g:textField name="newamount" value="Enter Bid Amount" id="newBidAmount"></g:textField>--}%
+                <g:submitButton name="Place Bid" id="newBidButton" class="save"></g:submitButton>
             </fieldset>
         </div>
+    <div id="resultsDialog">
+         <div id="resultsMessage"></div>
+    </div>
     </body>
 </html>
+
+<g:javascript>
+    $(document).ready(function(){
+        bindControls();
+        getLatestBids(${listingInstance.id});
+    });
+</g:javascript>
+
+
+​
