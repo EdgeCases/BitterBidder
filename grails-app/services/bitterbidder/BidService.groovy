@@ -16,8 +16,6 @@ class BidService {
 
             return bid.save(flush: true)
         }
-
-        [bidInstance: new Bid(params.id)]
     }
 
     //SRV-3: Create a Grails service method that supports creating a new bid for a listing (unit test)

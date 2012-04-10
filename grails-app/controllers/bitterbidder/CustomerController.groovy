@@ -2,6 +2,7 @@ package bitterbidder
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
+import grails.validation.ValidationException
 
 class CustomerController {
 
@@ -25,21 +26,21 @@ class CustomerController {
         [customerInstance: new Customer(params)]
     }
 
-    def save = { CustomerCreateCommand cmd ->
-        if (cmd.hasErrors()){
-            render(view: "create", model: [customerInstance: cmd])
+    def save() {
+        def customer = new Customer(params)
+
+        try{
+            def newCustomer = customerService.Create(customer)
+            customer = newCustomer
+        }catch (ValidationException ex){
+
+            customer.errors = ex.errors
+            render view:  "create", model:[customerInstance: customer]
             return
+
         }
 
-        // SRV-1: Create a Grails service method that supports creating a new customer (unit test)
-        def customerInstance = new Customer(params)
-        customerService.createNewCustomer(customerInstance)
-        if (customerInstance.hasErrors()) {
-            render(view: "create", model: [customerInstance: customerInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customerInstance.id])
+        flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customer.id])
         redirect(controller:'listing', action: 'list')
     }
 
@@ -179,19 +180,5 @@ class CustomerController {
             flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'customer.label', default: 'Customer'), params.id])
             redirect(action: "show", id: params.id)
         }
-    }
-}
-
-class CustomerCreateCommand {
-    String emailAddress
-    String username
-    String password
-
-    def errors
-
-    static constraints = {
-        emailAddress email: true, blank: false
-        username blank: false
-        password blank: false, size: 6..8
     }
 }

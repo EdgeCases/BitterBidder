@@ -1,8 +1,16 @@
 package bitterbidder
 
+import grails.validation.ValidationException
+
+// SRV-1: Create a Grails service method that supports creating a new customer (unit test)
 class CustomerService {
 
-    def createNewCustomer(Customer customer) {
-        customer.save(flush: true)
+    def Create(Customer customer) {
+
+        if (!customer.validate()){
+            throw new ValidationException("customer is invalid", customer.errors)
+        }
+
+        return customer.save(flush: true);
     }
 }
