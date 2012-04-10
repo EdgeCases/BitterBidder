@@ -14,7 +14,10 @@ class BidService {
 
         if(bid.validate()) {
             return bid.save(flush: true)
+        }else{
+            throw new ValidationException("Sorry this bid is invalid ended", bid.errors)
         }
+
     }
 
     //SRV-3: Create a Grails service method that supports creating a new bid for a listing (unit test)

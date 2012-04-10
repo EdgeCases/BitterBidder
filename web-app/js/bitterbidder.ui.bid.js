@@ -42,7 +42,7 @@ postNewBid = function(listingId, amount) {
             amount: amount
         },
         success: function(data, textStatus, jqXHR) {
-            showResults(textStatus, "Success!");
+            showResults("Congratulations ", "Success!");
             //getLatestBids(listingId);
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -90,14 +90,18 @@ showResults = function(message, caption){
     $("#resultsDialog").dialog({
         height:200,
         width:200,
+        modal:true,
         autoOpen:false,
         show:"pulsate",
         hide:"explode",
         title:caption,
         open:function(event, ui){
             $('#resultsMessage').html(message);
-            //this('open');
+        },
+        close:function(event, ui){
+            $("#resultsDialog").dialog('destroy');
         }
+
     });
     $("#resultsDialog").dialog('open');
 } ;

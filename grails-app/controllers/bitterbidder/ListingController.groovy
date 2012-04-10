@@ -149,7 +149,7 @@ class ListingController {
         //this id is for the listing we're bidding upon
         def id = params.int('id')
         def amt = params.int('amount')
-        def jsonMap
+        def jsonMap = [id];
 
         if(id){
             //L-7: The detail page for the listing allows a new bid to be placed
@@ -160,9 +160,12 @@ class ListingController {
             bid.bidder = springSecurityService.getCurrentUser()
             bid.amount = amt
 
-            bidService.Create(bid)
-
-            jsonMap = [success:"true"]
+            try{
+                bid = bidService.Create(bid)
+            }catch (ValidationException ex){
+                bid.errors=ex.errors
+            }
+            jsonMap = [success:"true", data:bid];
         }
         else {
 
