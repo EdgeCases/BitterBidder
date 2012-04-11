@@ -13,7 +13,7 @@ bindControls= function (){
         $bidAmount=$('#newBidAmount');
         var $listingId = null;
         $listingId = $('#listingId');
-        postNewBid($bidAmount.val(), $listingId.val());
+        postNewBid($listingId.val(), $bidAmount.val());
     });
 
     var $bidAmount=null;
@@ -42,11 +42,12 @@ postNewBid = function(listingId, amount) {
             amount: amount
         },
         success: function(data, textStatus, jqXHR) {
-            showResults("Congratulations ", "Success!");
-            //getLatestBids(listingId);
+            showResults("Congratulations your bid was accepted!", "Success");
+            getLatestBids(listingId);
         },
         error: function(jqXHR, textStatus, errorThrown){
-            showResults(errorThrown, "An Error Ocurred");
+            showResults("An unexpected system error occurred while processing your request.  Please try your request again later. " +
+                "Error Message - " + errorThrown, "Error");
         }
     });
 
@@ -88,13 +89,14 @@ processAndInsertBidAmounts = function(values) {
 showResults = function(message, caption){
 
     $("#resultsDialog").dialog({
-        height:200,
-        width:200,
+        height:130,
+        width:550,
         modal:true,
-        autoOpen:false,
-        show:"pulsate",
-        hide:"explode",
+        autoOpen:true,
+        show: {effect: 'fadeIn', duration: 400},
+        hide: {effect: 'fadeOut', duration: 500},
         title:caption,
+       // title:'<img src="http://localhost:8080/BitterBidder/static/images/skin/house.png"> Bitter Bidder </img>',
         open:function(event, ui){
             $('#resultsMessage').html(message);
         },

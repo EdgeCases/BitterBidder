@@ -160,3 +160,10 @@ grails.plugins.springsecurity.authority.className = 'bitterbidder.Role'
 //                "mail.smtp.socketFactory.fallback":"false"]
 //    }
 //}
+//grails.resources.modules = {
+//    overrides {
+//        'jquery-theme' {
+//            resource id:'theme', url:'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/overcast/jquery-ui.css'
+//        }
+//    }
+//}

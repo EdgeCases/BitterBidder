@@ -161,7 +161,8 @@ class ListingController {
             bid.amount = amt
 
             try{
-                bid = bidService.Create(bid)
+                def savedBid = bidService.Create(bid)
+                bid = savedBid
             }catch (ValidationException ex){
                 bid.errors=ex.errors
             }

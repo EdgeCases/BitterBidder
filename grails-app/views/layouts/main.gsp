@@ -5,10 +5,10 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/overcast/jquery-ui.css" type="text/css" rel="stylesheet"/>
+
 <head>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    %{--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>--}%
+    %{--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>--}%
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title><g:layoutTitle default="Grails"/></title>
@@ -18,6 +18,10 @@
     <link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+    %{--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/overcast/jquery-ui.css" type="text/css" rel="stylesheet"/>--}%
+    <g:javascript library="jquery" plugin="jquery"></g:javascript>
+    %{--<g:javascript library="jqueryui" plugin="jquery-ui"></g:javascript>--}%
+    <r:require module="jquery-ui"/>
     <r:layoutResources />
     <g:layoutHead/>
 </head>

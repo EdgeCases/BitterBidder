@@ -96,6 +96,7 @@
                 <g:submitButton name="Place Bid" id="newBidButton" class="save"></g:submitButton>
             </fieldset>
         </div>
+
     <div id="resultsDialog">
          <div id="resultsMessage"></div>
     </div>
