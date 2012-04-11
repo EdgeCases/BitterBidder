@@ -26,22 +26,29 @@ class CustomerController {
         [customerInstance: new Customer(params)]
     }
 
-    def save() {
-        def customer = new Customer(params)
+    def save = { CustomerCreateCommand cmd ->
 
-        try{
-            def newCustomer = customerService.Create(customer)
-            customer = newCustomer
-        }catch (ValidationException ex){
+        if (cmd.validate()){
+            def customer = new Customer(params)
 
-            customer.errors = ex.errors
-            render view:  "create", model:[customerInstance: customer]
-            return
+            try{
+                def newCustomer = customerService.Create(customer)
+                customer = newCustomer
+            }catch (ValidationException ex){
 
+                customer.errors = ex.errors
+                render view:  "create", model:[customerInstance: customer]
+                return
+
+            }
+
+            flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customer.id])
+            redirect(controller:'listing', action: 'list')
+        }
+        else {
+            render view:  "create", model:[customerInstance: cmd]
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'customer.label', default: 'Customer'), customer.id])
-        redirect(controller:'listing', action: 'list')
     }
 
     def passwordMinusDomain(){
