@@ -5,6 +5,7 @@ import static org.junit.Assert.*
 import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
+import org.codehaus.groovy.grails.validation.Validateable
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
@@ -37,10 +38,10 @@ class CustomerCreateCommandTests {
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore
     void test_Password_WhenGreaterThanMax_CustomerIsInvalid() {
         //arrange
         customerCreateCommandUnderTest.password = invalidPassword_TooLong
+
         mockForConstraintsTests(CustomerCreateCommand, [customerCreateCommandUnderTest])
 
         //act
@@ -48,8 +49,5 @@ class CustomerCreateCommandTests {
 
         //assert
         assert "size" == customerCreateCommandUnderTest.errors["password"]
-
-        // restore
-        customerCreateCommandUnderTest.password = validPassword
     }
 }
