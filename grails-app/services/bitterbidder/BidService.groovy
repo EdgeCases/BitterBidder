@@ -15,7 +15,7 @@ class BidService {
         if(bid.validate()) {
             return bid.save(flush: true)
         }else{
-            throw new ValidationException("Sorry this bid is invalid ended", bid.errors)
+            throw new ValidationException("Sorry this bid is invalid", bid.errors)
         }
     }
 

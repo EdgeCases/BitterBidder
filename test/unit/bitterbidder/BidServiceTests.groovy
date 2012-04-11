@@ -4,6 +4,7 @@ import grails.test.mixin.*
 import org.junit.*
 import grails.test.mixin.support.GrailsUnitTestMixin
 import grails.validation.ValidationException
+import org.springframework.test.AssertThrows
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -117,8 +118,7 @@ class BidServiceTests {
 
         listing.endDateTime = new Date()-1;
         listing.save(validate: false)
-        shouldFail(ValidationException){bidService.createBidForListing(listing, bidder, 200)};
-
+        shouldFail(ValidationException){ bidService.createBidForListing(listing, bidder, 200)};
 
     }
 }

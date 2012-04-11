@@ -161,15 +161,22 @@ class ListingController {
             bid.amount = amt
 
             try{
-                bid = bidService.Create(bid)
+                def savedBid = bidService.Create(bid)
+                bid = savedBid
+                def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
+                def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
+                jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:minAmount]
             }catch (ValidationException ex){
                 bid.errors=ex.errors
+                def msg = message(code: 'default.request.error.message')
+                def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
+                jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:minAmount]
             }
-            jsonMap = [success:"true", data:bid];
         }
         else {
+            def msg = message(code: 'default.request.error.message')
+            jsonMap = [status: "error", message: msg]
 
-            jsonMap = [success:"false"]
         }
 
         render jsonMap as JSON

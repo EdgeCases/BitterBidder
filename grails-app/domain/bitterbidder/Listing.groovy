@@ -20,7 +20,9 @@ class Listing {
 
     Boolean wasNotificationSent=false
     Bid latestBid
-    static transients = ['latestBid', 'isEnded']
+    Float minimumBid
+
+    static transients = ['latestBid', 'isEnded', 'minimumBid']
 
     static constraints = {
         description (nullable: true, blank: false, empty:false, size: 0..255)
@@ -47,29 +49,14 @@ class Listing {
         return now.after(endDateTime)
     }
 
+    def getHighestBidAmount(){
+        def amount = bids?.max{it->it.amount}?.amount
+    }
+
     static namedQueries = {
         findListingsEndingInTheFuture {
             def now = new Date();
             gt 'endDateTime', now
         };
-    }
-
-    def static fromXML(listingString){
-
-        def bidSet = new ArrayList<Bid>()
-        def root = new XmlSlurper().parseText(listingString)
-
-        def sellerNode = root.seller
-        def seller = new Customer(name:sellerNode.@username)
-
-        def nodes = root.bids
-
-
-        root.listing.bids.each {
-            bid -> bidSet.add(new Bid(bid.attributes()))
-        }
-
-       // listing.bids = bidSet
-        return new Listing()
     }
 }

@@ -35,6 +35,7 @@ class EmailServiceIntegrationTests {
         //TODO: fix this after we figure out the serialization problem
         emailService.onMessage("A Test Message");
         assertEquals(1, greenMail.getReceivedMessages().length)
+
         def message = greenMail.getReceivedMessages()[0]
         def expected =EmailMessageHelper.MakeListingWinnerMessage("A Test Message")
 
