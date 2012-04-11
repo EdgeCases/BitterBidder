@@ -6,7 +6,6 @@ import grails.validation.ValidationException
 class CustomerService {
 
     def Create(Customer customer) {
-
         if (!customer.validate()){
             throw new ValidationException("customer is invalid", customer.errors)
         }
