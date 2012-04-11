@@ -53,23 +53,4 @@ class Listing {
             gt 'endDateTime', now
         };
     }
-
-    def static fromXML(listingString){
-
-        def bidSet = new ArrayList<Bid>()
-        def root = new XmlSlurper().parseText(listingString)
-
-        def sellerNode = root.seller
-        def seller = new Customer(name:sellerNode.@username)
-
-        def nodes = root.bids
-
-
-        root.listing.bids.each {
-            bid -> bidSet.add(new Bid(bid.attributes()))
-        }
-
-       // listing.bids = bidSet
-        return new Listing()
-    }
 }
