@@ -166,11 +166,11 @@ class ListingController {
             }catch (ValidationException ex){
                 bid.errors=ex.errors
             }
-            jsonMap = [success:"true", data:bid];
+            def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
+            jsonMap = [success:"true", bid:bid, message:msg]
         }
         else {
-
-            jsonMap = [success:"false"]
+            jsonMap = [success:"false", data:"listing is required"]
         }
 
         render jsonMap as JSON

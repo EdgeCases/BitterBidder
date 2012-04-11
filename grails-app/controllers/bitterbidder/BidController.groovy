@@ -46,23 +46,7 @@ class BidController {
     // S-3: Bidding on an item requires that the user be logged in
     @Secured(['ROLE_USER'])
     def create() {
-
-        //TODO: I think we may need to change this.  I don't think we call create on the service here.
-
-        //this id is for the listing we're bidding upon
-        def id = params.id
-
-        if(id){
-            //L-7: The detail page for the listing allows a new bid to be placed
-            //if we have an id here, it's the id of a listing and we came from the
-            //show view of a listing
-           
-            //[bidInstance: new Bid(params.id)]
-            bidService.Create(new Bid(id))
-        }
-        else{
-            [bidInstance: new Bid(params)]
-        }
+        [bidInstance: new Bid(params)]
     }
 
     def save() {

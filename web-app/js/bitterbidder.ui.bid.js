@@ -46,7 +46,7 @@ postNewBid = function(listingId, amount) {
             getLatestBids(listingId);
         },
         error: function(jqXHR, textStatus, errorThrown){
-            showResults("An unexpected system error occurred while processing your request.  Please try your request again later. " +
+            showResults("" +
                 "Error Message - " + errorThrown, "Error");
         }
     });

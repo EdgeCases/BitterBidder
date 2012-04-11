@@ -23,4 +23,14 @@ class ListingService {
         def listing = Listing.get(id)
         return listing.isEnded()
     }
+
+    def getMinimumBidAmount(long id){
+        def listing = Listing.get(id)
+
+        def highestAmount = listing.getHighestBidAmount()
+        if (highestAmount>0){
+            return highestAmount + Listing.MINIMUM_BID_INCREMENT
+        }
+        return listing.startingPrice
+    }
 }

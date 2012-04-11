@@ -47,6 +47,10 @@ class Listing {
         return now.after(endDateTime)
     }
 
+    def getHighestBidAmount(){
+        def amount = bids?.max{it->it.amount}?.amount
+    }
+
     static namedQueries = {
         findListingsEndingInTheFuture {
             def now = new Date();
