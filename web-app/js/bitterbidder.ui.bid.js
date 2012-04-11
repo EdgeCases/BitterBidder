@@ -42,8 +42,13 @@ postNewBid = function(listingId, amount) {
             amount: amount
         },
         success: function(data, textStatus, jqXHR) {
-            showResults("Congratulations your bid was accepted!", "Success");
+            if (data.status=='success'){
+                showResults(data.message, data.status);
+            }else{
+                showResults(data.errors[0], data.status)
+            }
             getLatestBids(listingId);
+            $('#minimumBid').html(data.minBidAmount)
         },
         error: function(jqXHR, textStatus, errorThrown){
             showResults("" +

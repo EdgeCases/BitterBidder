@@ -11,7 +11,9 @@ class ListingService {
             throw new ValidationException("listing is invalid", listing.errors)
         }
 
-        return listing.save(flush: true);
+        listing = listing.save(flush: true)
+        listing.minimumBid = getMinimumBidAmount(listing)
+        return listing
     }
 
     def getMyListings(String userName){
@@ -26,7 +28,10 @@ class ListingService {
 
     def getMinimumBidAmount(long id){
         def listing = Listing.get(id)
+        return getMinimumBidAmount(listing)
+    }
 
+    def getMinimumBidAmount(Listing listing){
         def highestAmount = listing.getHighestBidAmount()
         if (highestAmount>0){
             return highestAmount + Listing.MINIMUM_BID_INCREMENT

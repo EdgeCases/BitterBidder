@@ -85,6 +85,28 @@
                     </li>
                 </g:if>
 
+                %{--<g:if test="${listingInstance?.minimumBid}">--}%
+                    %{--<li class="fieldcontain">--}%
+                        %{--<span id="minimumBid-label" class="property-label">--}%
+                            %{--<g:message code="listing.minimum.label" default="Minimum Bid" /></span>--}%
+                        %{--<span class="property-value" aria-labelledby="minimumBid-label">--}%
+                            %{--<g:formatNumber number="${listingInstance.minimumBid}" type="currency" currencyCode="USD" /><span/>--}%
+                    %{--</li>--}%
+                %{--</g:if>--}%
+                %{--<g:else>--}%
+                    %{--<li class="fieldcontain">--}%
+                        %{--<span id="minimumBid-label" class="property-label">--}%
+                            %{--<g:message code="listing.minimum.label" default="Minimum Bid" /></span>--}%
+                        %{--<span class="property-value" aria-labelledby="minimumBid-label">--}%
+                            %{--<g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" /><span/>--}%
+                    %{--</li>--}%
+                %{--</g:else>--}%
+                <li class="fieldcontain">
+                    <span class="property-label">
+                        <label>Minimum Bid</label></span>
+                    <div class="property-value" id="minimumBid">
+                    </div>
+                </li>
             </ol>
         </div>
         <div>
