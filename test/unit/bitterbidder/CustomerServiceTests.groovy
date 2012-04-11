@@ -18,7 +18,7 @@ class CustomerServiceTests {
         def customerUnderTest = TestUtility.makeCustomer(newCustomer.username, newCustomer.password, newCustomer.emailAddress)
         
         // act
-        def saved = customerService.createNewCustomer(customerUnderTest)
+        def saved = customerService.Create(customerUnderTest)
         
         // assert
         assert customerUnderTest.id

@@ -97,7 +97,6 @@ class CustomerTests {
         assert customer.displayEmailAddress==null;
     }
 
-
     @Test   // C-3: Email address must be of a valid form (@.*) (unit test)
     void test_Email_WhenNoAtSign_CustomerIsInvalid(){
         //arrange
@@ -128,23 +127,6 @@ class CustomerTests {
 
         // restore
         customerUnderTest.emailAddress = validEmail
-    }
-
-    @Test   // C-4: Password must be between 6-8 characters (unit test)
-    @Ignore("Password length no longer applies because of spring security.  Need to validate password length during customer creation.")
-    void test_Password_WhenGreaterThanMax_CustomerIsInvalid() {
-        //arrange
-        customerUnderTest.password = invalidPassword_TooLong
-        mockForConstraintsTests(Customer, [customerUnderTest])
-
-        //act
-        customerUnderTest.validate()
-
-        //assert
-        assert "size" == customerUnderTest.errors["password"]
-
-        // restore
-        customerUnderTest.password = validPassword
     }
 
     @Test   // C-4: Password must be between 6-8 characters (unit test)
