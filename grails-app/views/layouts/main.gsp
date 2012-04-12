@@ -27,9 +27,7 @@
 </head>
 <body>
 <div id="bitterbidderLogo" role="banner">
-    <a href="http://grails.org">
-        <img src="${resource(dir: 'images', file: 'bitterbidder_logo.png')}" alt="BitterBidder"/>
-    </a>
+    <img src="${resource(dir: 'images', file: 'bitterbidder_logo.png')}" alt="BitterBidder"/>
 </div>
 <div>
     <sec:ifNotLoggedIn>
