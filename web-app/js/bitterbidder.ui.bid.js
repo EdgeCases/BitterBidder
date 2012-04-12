@@ -45,14 +45,13 @@ postNewBid = function(listingId, amount) {
             if (data.status=='success'){
                 showResults(data.message, data.status);
             }else{
-                showResults(data.errors[0], data.status)
+                showResults(data.message, data.status);
             }
             getLatestBids(listingId);
             $('#minimumBid').html(data.minBidAmount)
         },
         error: function(jqXHR, textStatus, errorThrown){
-            showResults("" +
-                "Error Message - " + errorThrown, "Error");
+            showResults("" + "Error Message - " + errorThrown, "Error");
         }
     });
 
@@ -108,7 +107,6 @@ showResults = function(message, caption){
         close:function(event, ui){
             $("#resultsDialog").dialog('destroy');
         }
-
     });
     $("#resultsDialog").dialog('open');
 } ;

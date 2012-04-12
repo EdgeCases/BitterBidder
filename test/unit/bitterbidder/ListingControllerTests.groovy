@@ -192,4 +192,30 @@ class ListingControllerTests {
         assert Listing.get(listing.id) == null
         assert response.redirectedUrl == '/listing/list'
     }
+
+//    void test_Add_WhenValidNewBidIsSubmitted_MessageIndicatingSuccessReturned() {
+//
+//        controller.delete()
+//        assert flash.message != null
+//        assert response.redirectedUrl == '/listing/list'
+//
+//        response.reset()
+//
+//        populateValidParams(params)
+//        def listing = new Listing(params)
+//
+//        assert listing.save() != null
+//        assert Listing.count() == 1
+//
+//        //...
+//        params["id"] = listing.id
+//        assert null != params.int('id')
+//
+//        params["amount"] = 200
+//        assert 200 == params.int('amount')
+//
+//        controller.newBid()
+//        def resp =response.getContentAsString()
+//        assert "" == response.getContentAsString()
+//    }
 }
