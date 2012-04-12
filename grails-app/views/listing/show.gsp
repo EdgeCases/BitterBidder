@@ -54,9 +54,11 @@
                 <g:if test="${listingInstance?.seller}">
                     <li class="fieldcontain">
                         <span id="seller-label" class="property-label">
-                            <g:message code="listing.seller.label" default="Seller" /></span>
+                            <g:message code="listing.seller.label" default="Seller" />
+                        </span>
                         <span class="property-value" aria-labelledby="seller-label">
-                            <g:link controller="customer" action="show" id="${listingInstance?.seller?.id}">${listingInstance?.seller?.displayEmailAddress?.encodeAsHTML()}</g:link></span>
+                            <g:link controller="customer" action="show" id="${listingInstance?.seller?.id}">${listingInstance?.seller?.displayEmailAddress?.encodeAsHTML()}</g:link>
+                        </span>
                     </li>
                 </g:if>
 
@@ -84,23 +86,6 @@
                             <g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" /><span/>
                     </li>
                 </g:if>
-
-                %{--<g:if test="${listingInstance?.minimumBid}">--}%
-                    %{--<li class="fieldcontain">--}%
-                        %{--<span id="minimumBid-label" class="property-label">--}%
-                            %{--<g:message code="listing.minimum.label" default="Minimum Bid" /></span>--}%
-                        %{--<span class="property-value" aria-labelledby="minimumBid-label">--}%
-                            %{--<g:formatNumber number="${listingInstance.minimumBid}" type="currency" currencyCode="USD" /><span/>--}%
-                    %{--</li>--}%
-                %{--</g:if>--}%
-                %{--<g:else>--}%
-                    %{--<li class="fieldcontain">--}%
-                        %{--<span id="minimumBid-label" class="property-label">--}%
-                            %{--<g:message code="listing.minimum.label" default="Minimum Bid" /></span>--}%
-                        %{--<span class="property-value" aria-labelledby="minimumBid-label">--}%
-                            %{--<g:formatNumber number="${listingInstance.startingPrice}" type="currency" currencyCode="USD" /><span/>--}%
-                    %{--</li>--}%
-                %{--</g:else>--}%
                 <li class="fieldcontain">
                     <span class="property-label">
                         <label>Minimum Bid</label></span>
@@ -110,18 +95,17 @@
             </ol>
         </div>
         <div>
-
             <fieldset class="buttons">
-                <g:hiddenField name="hiddenId" value="${listingInstance.id}" id="listingId"></g:hiddenField>
-                <input id="newBidAmount" value="Enter Bid Amount"/>
-                %{--<g:textField name="newamount" value="Enter Bid Amount" id="newBidAmount"></g:textField>--}%
-                <g:submitButton name="Place Bid" id="newBidButton" class="save"></g:submitButton>
+                <sec:ifLoggedIn>
+                    <g:hiddenField name="hiddenId" value="${listingInstance.id}" id="listingId"></g:hiddenField>
+                    <input id="newBidAmount" value="Enter Bid Amount"/>
+                    <g:submitButton name="Place Bid" id="newBidButton" class="save"></g:submitButton>
+                </sec:ifLoggedIn>
             </fieldset>
         </div>
-
-    <div id="resultsDialog">
-         <div id="resultsMessage"></div>
-    </div>
+        <div id="resultsDialog">
+            <div id="resultsMessage"></div>
+        </div>
     </body>
 </html>
 
