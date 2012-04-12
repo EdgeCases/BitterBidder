@@ -9,16 +9,19 @@ package bitterbidder
  */
 class EmailMessageHelper {
 
-    def static MakeListingWinnerMessage(listing){
+    def static MakeListingWinnerMessage(listingXML){
 
 //        look into this:  XMLParsingParameterCreationListener.groovy. & XmlSlurper()
+        def listing = new XmlSlurper().parseText(listingXML)
 
-//        def winningBidAmount = listing.latestBid.amount;
-//        def winner = listing.winner.username
-//        def seller = listing.seller.username
-//        //TODO: Don't know how else make the test pass
-//        def message = 'Congratulations' + winner + 'you are the winner of' + listing.description + '! Please send your payment of \$' + winningBidAmount + 'to:' + listing.seller.emailAddress
-//        return message.toString();
-        return listing
+        def winner = listing."winner"."username".text()
+        def description = listing."description".text()
+        //def amount = listing.bids.bid[listing.bids.size()].amount.text()    //todo - this isn't quite right
+        def amount = listing."startingPrice".text()
+        def sellerEmail = listing."seller"."emailAddress".text()
+
+        def message = "Congratulations $winner, You are the winner of $description! Please send your payment of \$$amount to: $sellerEmail"
+
+        return message.toString();
     }
 }
