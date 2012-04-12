@@ -94,6 +94,9 @@
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/BitterBidder/plugins/svn-1.0.1/src/groovy" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.0.3/projects/BitterBidder/plugins/tomcat-2.0.3" />
+    <content url="file://$USER_HOME$/.grails/2.0.3/projects/BitterBidder/plugins/webxml-1.4.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/BitterBidder/plugins/webxml-1.4.1/src/groovy" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Grails-2.0.3" level="project" />
