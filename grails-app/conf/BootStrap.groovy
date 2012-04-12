@@ -42,6 +42,7 @@ class BootStrap {
         def listing1 = new Listing(name: "Cars", startingPrice: 1.25, endDateTime: new Date(), description: "Cars the movie", seller: customer1, wasNotificationSent: false).save(flush: true)
         def listing2 = new Listing(name: "Iphone", startingPrice: 2.25, endDateTime: new Date(), description: "Most overpriced device", seller: customer2 , wasNotificationSent: false).save(flush: true)
         def listing3 = new Listing(name: "cell", startingPrice: 3.25, endDateTime: new Date(), description: "for sale", seller: customer3 , wasNotificationSent: false).save(flush: true)
+
         def listing4 = new Listing(name: "docs", startingPrice: 4.25, endDateTime: new Date() + 1, description: "ww2 blue prints", seller: customer4 , wasNotificationSent: false).save(flush: true)
         def listing5 = new Listing(name: "shoes", startingPrice: 5.25, endDateTime: new Date() + 2, description: "chuck Ts", seller: customer5 , wasNotificationSent: false).save(flush: true)
         def listing6 = new Listing(name: "food", startingPrice: 6.25, endDateTime: new Date() + 3, description: "Free Soup", seller: customer6 , wasNotificationSent: false).save(flush: true)
@@ -57,6 +58,10 @@ class BootStrap {
         def listing16 = new Listing(name: "test4", startingPrice: 19.25, endDateTime: new Date() + 13, description: "Description 4", seller: customer1, wasNotificationSent: false).save(flush: true)
         def listing17 = new Listing(name: "test5", startingPrice: 20.25, endDateTime: new Date() + 14, description: "Description 5", seller: customer1, wasNotificationSent: false).save(flush: true)
         def listing18 = new Listing(name: "test6", startingPrice: 21.25, endDateTime: new Date() + 15, description: "Description 6", seller: customer1, wasNotificationSent: false).save(flush: true)
+
+        def date = new Date()
+        date.setMinutes(date.minutes+1)
+        def listing19 = new Listing(name: "mercedez", startingPrice: 3000.25, endDateTime: date, description: "mercedez for sale - hurry this ends soon", seller: customer3 , wasNotificationSent: false).save(flush: true)
 
         def bid1 = new Bid(amount: 22.00, listing: listing12, bidder: customer1, dateCreated: new Date()).save(flush: true)
         def bid2 = new Bid(amount: 23.00, listing: listing12, bidder: customer1, dateCreated: new Date()).save(flush: true)

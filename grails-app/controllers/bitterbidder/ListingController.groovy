@@ -65,11 +65,18 @@ class ListingController {
 
     def show() {
         def listingInstance = Listing.get(params.id)        
+
+
         if (!listingInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'listing.label', default: 'Listing'), params.id])
             redirect(action: "list")
             return
         }
+
+        if (listingInstance.isEnded()){
+
+        }
+
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
         [listingInstance: listingInstance]
     }
