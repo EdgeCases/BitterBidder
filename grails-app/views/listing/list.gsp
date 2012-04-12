@@ -88,29 +88,15 @@
                 <g:paginate total="${listingInstanceTotal}" />
 			</div>
 		</div>
-    <div id="resultsDialog">
-        <div id="resultsMessage"></div>
+    <div id="listingResultsDialog">
+        <div id="listingResultsDialogMessage"></div>
     </div>
 	</body>
 </html>
 
 <g:javascript>
     $(document).ready(function(){
-        $('a[href*="BitterBidder/listing/show"]').click(function(event) {
-            event.preventDefault();
-            alert("here");
-            $('#resultsDialog').dialog('open').delay(2000);
-            $('#resultsDialog').dialog('close');
-            window.location.href = this.href;
-            return false;
-
-//            $('#resultsDialog').dialog('open');
-//            var href = this.href;
-//            setTimeout(function() {
-//                $('#resultsDialog').dialog('close');
-//                window.open(href);
-//            }, 2000);
-//            return false;
-        });
+        initializeUI();
     });
 </g:javascript>
+

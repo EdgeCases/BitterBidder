@@ -7,7 +7,7 @@
  */
 
 bindControls= function (){
-
+    jQuery.ajaxSetup({cache: false});
     $('#newBidButton').live("click", function(){
         var $bidAmount=null;
         $bidAmount=$('#newBidAmount');
@@ -37,6 +37,7 @@ postNewBid = function(listingId, amount) {
         type: 'POST',
         url: '/BitterBidder/listing/newBid/',
         dataType: 'json',
+        cache:false,
         data: {
             id: listingId,
             amount: amount
@@ -45,14 +46,13 @@ postNewBid = function(listingId, amount) {
             if (data.status=='success'){
                 showResults(data.message, data.status);
             }else{
-                showResults(data.errors[0], data.status)
+                showResults(data.message, data.status);
             }
             getLatestBids(listingId);
             $('#minimumBid').html(data.minBidAmount)
         },
         error: function(jqXHR, textStatus, errorThrown){
-            showResults("" +
-                "Error Message - " + errorThrown, "Error");
+            showResults("" + "Error Message - " + errorThrown, "Error");
         }
     });
 
@@ -106,9 +106,9 @@ showResults = function(message, caption){
             $('#resultsMessage').html(message);
         },
         close:function(event, ui){
+            $('#resultsMessage').html("");
             $("#resultsDialog").dialog('destroy');
         }
-
     });
     $("#resultsDialog").dialog('open');
 } ;

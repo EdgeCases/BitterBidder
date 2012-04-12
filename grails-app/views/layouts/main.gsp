@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
     %{--<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/overcast/jquery-ui.css" type="text/css" rel="stylesheet"/>--}%
     <g:javascript library="jquery" plugin="jquery"></g:javascript>
-    %{--<g:javascript library="jqueryui" plugin="jquery-ui"></g:javascript>--}%
     <r:require module="jquery-ui"/>
     <r:layoutResources />
     <g:layoutHead/>
@@ -53,6 +52,7 @@
 <div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 <g:javascript library="application"/>
 <g:javascript src="bitterbidder.ui.bid.js"/>
+<g:javascript src="bitterbidder.ui.listing.js"/>
 <r:layoutResources />
 </body>
 </html>

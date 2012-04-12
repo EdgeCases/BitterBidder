@@ -17,18 +17,18 @@ class Customer {
     static transients = ['displayEmailAddress']
 
     String getDisplayEmailAddress(){
-
-        if (emailAddress == null) return null
-
-        def atSign = emailAddress.indexOf('@')
-        if (atSign<=0){
-            return emailAddress
-        }
-        return emailAddress.substring(0, atSign)
-
+        return Customer.formatEmail(emailAddress)
     }
 
+    static formatEmail(email){
+        if (email == null) return null
 
+        def atSign = email.indexOf('@')
+        if (atSign<=0){
+            return email
+        }
+        return email.substring(0, atSign)
+    }
     static constraints = {
         emailAddress unique: true, email: true, blank: false
         username blank: false, unique: true

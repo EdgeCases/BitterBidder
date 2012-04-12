@@ -164,7 +164,9 @@ class ListingController {
             //show view of a listing
             def bid = new Bid(id)   //pass in the listing id
 
-            bid.bidder = springSecurityService.getCurrentUser()
+            def customer =springSecurityService.getCurrentUser();
+            def email = customer==null?"Not-Logged-In":customer.emailAddress
+            bid.bidder = customer
             bid.amount = amt
 
             try{
@@ -175,7 +177,7 @@ class ListingController {
                 jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:minAmount]
             }catch (ValidationException ex){
                 bid.errors=ex.errors
-                def msg = message(code: 'default.bid.not.accepted.message', args:[bid.bidder?.displayEmailAddress, bid.amount])
+                def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), amt==null?'0':amt])
                 def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
                 jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:minAmount]
             }
