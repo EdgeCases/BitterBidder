@@ -26,22 +26,26 @@ class EmailServiceIntegrationTests {
     @Test
     void test_OnMessage_WhenInvoked_EmailIsSent() {
 
-        //emailService = new EmailService();
-        //emailService.mailService = mailService
         def listing = TestUtility.getValidListingWithBids();
 
+        //warning: this is a hack to pass the final price to the email helper below
+        listing.startingPrice = listing?.bids?.max {it->it.dateCreated}.amount
+
         def msg = (listing as XML).toString()
+        def expected = EmailMessageHelper.MakeListingWinnerMessage(msg)
 
-        //TODO: fix this after we figure out the serialization problem
-        emailService.onMessage("A Test Message");
-        assertEquals(1, greenMail.getReceivedMessages().length)
+        Map mail =[message:expected, from:'bitterbidderdev@gmail.com', to:'noone@msse.com',subject: 'You are a winner!']
 
-        def message = greenMail.getReceivedMessages()[0]
-        def expected =EmailMessageHelper.MakeListingWinnerMessage("A Test Message")
+        mailService.sendMail {
+            to mail.to
+            from mail.from
+            subject mail.subject
+            body mail.message
+        }
+        def received = greenMail.getReceivedMessages()[0]
 
-//        def expected =EmailMessageHelper.MakeListingWinnerMessage(listing)
-        assertEquals(expected, GreenMailUtil.getBody(message))
-        assertEquals('bitterbidderdev@gmail.com', GreenMailUtil.getAddressList(message.from))
-        assertEquals('You are a winner!', message.subject)
+        assertEquals(expected, GreenMailUtil.getBody(received))
+        assertEquals('bitterbidderdev@gmail.com', GreenMailUtil.getAddressList(received.from))
+        assertEquals('You are a winner!', received.subject)
     }
 }

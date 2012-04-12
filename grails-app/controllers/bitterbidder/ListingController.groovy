@@ -155,7 +155,7 @@ class ListingController {
 
         //this id is for the listing we're bidding upon
         def id = params.int('id')
-        def amt = params.int('amount')
+        def amt = params.float('amount')
         def jsonMap = [id];
 
         if(id){

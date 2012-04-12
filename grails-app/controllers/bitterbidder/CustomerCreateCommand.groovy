@@ -13,7 +13,7 @@ class CustomerCreateCommand {
     String username
 
     static constraints = {
-        importFrom Customer
+        //importFrom Customer
 
         password(size: 6..8, blank: false)
     }

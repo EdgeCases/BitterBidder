@@ -63,10 +63,6 @@ class BidIntegrationTests {
         customerUnderTestSpringSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
 
         sellerUnderTest.springSecurityService = customerUnderTestSpringSecurityService
-
-//        bidder.save(flush: true)
-//        seller.save(flush: true)
-//        listing.save(flush: true)
     }
 
     @After
@@ -160,14 +156,6 @@ class BidIntegrationTests {
         listing.addToBids(new Bid(listing: listing, bidder: bidder, amount: 12.50))
         listing.save(flush: true)
 
-//        def amt = 1
-//        for(i in 0..9) {
-//
-//            listing.addToBids(new Bid(listing: listing, bidder: bidder, amount: amt))
-//            listing.save(flush: true)
-//            amt += 1.50
-//        }
-        
         //act
         assert !listing.hasErrors()
         assert 12 == listing.bids.size()
