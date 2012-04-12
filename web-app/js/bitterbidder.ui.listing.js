@@ -43,10 +43,10 @@ showListingDetails=function(urlString){
             window.location.href = urlString
         },
         error: function(jqXHR, textStatus, errorThrown){
-            alert("got error")
+
         },
         complete: function(jqXHR, textStatus){
-            alert("got here")
+
         }
 
     })
