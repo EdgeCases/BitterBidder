@@ -1,17 +1,13 @@
-// MikeG: requirement B-4 does not have a test yet
 package bitterbidder
 
 import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
 
-/**
- * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
- */
 @TestMixin(GrailsUnitTestMixin)
 @TestFor(Bid)
 @Mock([Customer, Listing])
-class BidTests {//extends GrailsUnitTestCase{
+class BidTests {
 
     final static bidAmount = 2.20
     final static bidderEmail = "bidder@email.com"
@@ -59,12 +55,6 @@ class BidTests {//extends GrailsUnitTestCase{
         seller = null
         bidder = null
     }
-
-//    @Test //UI-1: named query
-//    void test_Bids_WhenMoreThanTenBids_GetLastTenNamedQueryReturnsMostRecentTenBids() {
-//
-//
-//    }
 
     @Test   // B-1: Bids have the following required fields: amount and date/time of bid (unit test)
     void test_Amount_WhenNull_BidIsInvalid() {
