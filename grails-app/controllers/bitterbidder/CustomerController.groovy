@@ -189,3 +189,16 @@ class CustomerController {
         }
     }
 }
+
+class CustomerCreateCommand {
+
+    String emailAddress
+    String password
+    String username
+
+    static constraints = {
+        importFrom Customer
+
+        password(size: 6..8, blank: false)
+    }
+}

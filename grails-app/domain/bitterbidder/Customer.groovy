@@ -28,7 +28,6 @@ class Customer {
 
     }
 
-
     static constraints = {
         emailAddress unique: true, email: true, blank: false
         username blank: false, unique: true

@@ -10,6 +10,7 @@ class CustomerService {
             throw new ValidationException("customer is invalid", customer.errors)
         }
 
+        customer.enabled = true;
         return customer.save(flush: true);
     }
 }
