@@ -75,6 +75,10 @@ class ListingController {
 
         if (listingInstance.isEnded()){
 
+            response.setStatus(410, "Sorry this listing has expired")
+            //[listingInstance: listingInstance]
+            //return
+            //redirect(action: "list")
         }
 
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}

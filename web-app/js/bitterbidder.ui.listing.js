@@ -37,12 +37,17 @@ showListingDetails=function(urlString){
     $.ajax({
         type:'GET',
         url:urlString,
-        dataType: 'json',
+        dataType: 'html',
         cache:false,
         success: function(data, textStatus, jqXHR) {
-            alert("succesfully got bid!!")
+            window.location.href = urlString
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert("got error")
+        },
+        complete: function(jqXHR, textStatus){
+            alert("got here")
         }
-
 
     })
 }
