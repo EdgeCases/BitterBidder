@@ -57,7 +57,13 @@
                             <g:message code="listing.seller.label" default="Seller" />
                         </span>
                         <span class="property-value" aria-labelledby="seller-label">
-                            <g:link controller="customer" action="show" id="${listingInstance?.seller?.id}">${listingInstance?.seller?.displayEmailAddress?.encodeAsHTML()}</g:link>
+                            <sec:ifAllGranted roles="ROLE_ADMIN">
+                                <g:link controller="customer" action="show" id="${listingInstance?.seller?.id}">${listingInstance?.seller?.displayEmailAddress?.encodeAsHTML()}</g:link>
+                            </sec:ifAllGranted>
+
+                            <sec:ifNotGranted roles="ROLE_ADMIN">
+                                <g:fieldValue bean="${listingInstance}" field="seller.username"/>
+                            </sec:ifNotGranted>
                         </span>
                     </li>
                 </g:if>
