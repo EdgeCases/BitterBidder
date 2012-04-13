@@ -214,7 +214,7 @@ class ListingControllerTests  {
         springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
         springSecurityService.metaClass.getCurrentUser = { Object user -> validCustomer}
         validCustomer.springSecurityService = springSecurityService
-
+        controller.springSecurityService = springSecurityService
 
         def listing = TestUtility.getListing();
         listing.seller = validCustomer
@@ -228,6 +228,7 @@ class ListingControllerTests  {
         controller.newBid()
         def resp =   JSON.parse(response.getContentAsString())
         def errors = resp.getAt("message")
+        print errors
         assert errors !=null
     }
 }
