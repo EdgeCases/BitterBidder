@@ -10,24 +10,26 @@ import grails.plugins.springsecurity.SpringSecurityService
  * To change this template use File | Settings | File Templates.
  */
 class TestUtility {
-    def static getValidListing() {
-        //Setup logic here
-        def validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
 
-        def springSecurityService = new Object()
-        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
-
-        validCustomer.springSecurityService = springSecurityService
-
+    def static getListing(){
         return new Listing(
                 description: "A test listing",
-                seller: validCustomer,
-                winner: validCustomer,
                 endDateTime: new Date()+1,
                 name: "Default",
                 startingPrice: 10,
                 wasNotificationSent: false
-        )
+        );
+    }
+    def static getValidListing() {
+        def listing = getListing()
+        //Setup logic here
+        def validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+        validCustomer.springSecurityService = springSecurityService
+        listing.seller = validCustomer;
+        listing.winner = validCustomer;
+        return listing
     }
 
     def static getValidListingWithBids(){

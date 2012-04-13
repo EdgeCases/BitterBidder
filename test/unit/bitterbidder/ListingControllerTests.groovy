@@ -6,10 +6,14 @@ import org.junit.*
 import grails.test.mixin.*
 import sun.security.util.Debug
 import groovy.mock.interceptor.MockFor
+import grails.plugins.springsecurity.SpringSecurityService
 
 @TestFor(ListingController)
-@Mock([Listing, ListingService, Bid, Customer])
+@Mock([Listing, ListingService, Bid, Customer, SpringSecurityService, BidService])
 class ListingControllerTests {
+
+    def listingService
+    def bidService
 
     def populateValidParams(params) {
         assert params != null
@@ -194,29 +198,37 @@ class ListingControllerTests {
     }
 
     
-//    void test_Add_WhenValidNewBidIsSubmitted_MessageIndicatingSuccessReturned() {
-//
-//        controller.delete()
-//        assert flash.message != null
-//        assert response.redirectedUrl == '/listing/list'
-//
-//        response.reset()
-//
-//        populateValidParams(params)
-//        def listing = new Listing(params)
-//
-//        assert listing.save() != null
-//        assert Listing.count() == 1
-//
-//        //...
-//        params["id"] = listing.id
-//        assert null != params.int('id')
-//
-//        params["amount"] = 200
-//        assert 200 == params.int('amount')
-//
-//        controller.newBid()
-//        def resp =response.getContentAsString()
-//        assert "" == response.getContentAsString()
-//    }
+    void test_Add_WhenValidNewBidFails_MessageIndicatingErrorReturned() {
+
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/listing/list'
+
+        response.reset()
+
+        def validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+        springSecurityService.metaClass.getCurrentUser = {user-> validCustomer}
+
+        validCustomer.springSecurityService = springSecurityService
+
+
+        def listing = TestUtility.getListing();
+        listing.seller = validCustomer
+        listing.winner = validCustomer
+        assert listing.save() != null
+        assert Listing.count() == 1
+
+        //...
+        params["id"] = listing.id
+        assert null != params.int('id')
+
+        params["amount"] = 200
+        assert 200 == params.int('amount')
+
+        controller.newBid()
+        def resp =response.getContentAsString()
+        assert "" == response.getContentAsString()
+    }
 }
