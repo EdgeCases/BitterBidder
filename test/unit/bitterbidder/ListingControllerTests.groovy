@@ -193,6 +193,7 @@ class ListingControllerTests {
         assert response.redirectedUrl == '/listing/list'
     }
 
+    
 //    void test_Add_WhenValidNewBidIsSubmitted_MessageIndicatingSuccessReturned() {
 //
 //        controller.delete()
