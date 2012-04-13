@@ -37,7 +37,7 @@ class ListingService {
             return highestAmount + Listing.MINIMUM_BID_INCREMENT
         }
 
-        //return listing.startingPrice
-        return listing.startingPrice + Listing.MINIMUM_BID_INCREMENT    //ecs
+        return listing.startingPrice
+        //return listing.startingPrice + Listing.MINIMUM_BID_INCREMENT    //ecs
     }
 }

@@ -43,7 +43,7 @@ class ListingServiceTests {
     }
 
     @Test
-    void test_getMinimumBidAmount_WhenListingHasBids_Returns(){
+    void test_getMinimumBidAmount_WhenListingHasBids_ReturnsMaxPlusMinimumIncrement(){
         //arrange
         def service = new ListingService();
         def listing = TestUtility.getValidListingWithBids()
