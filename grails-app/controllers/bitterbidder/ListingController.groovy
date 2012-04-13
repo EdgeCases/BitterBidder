@@ -181,12 +181,20 @@ class ListingController {
                 def savedBid = bidService.Create(bid)
                 bid = savedBid
                 def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
-                jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:amt+Listing.MINIMUM_BID_INCREMENT]
+                jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:g.formatNumber(number:amt+Listing.MINIMUM_BID_INCREMENT, type:'currency', currencyCode: 'USD')]
             }catch (ValidationException ex){
 
                 bid.errors=ex.errors
-                def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), amt==null?'0':amt])
-                //def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
+                def price
+
+                if (null==amt) {
+                    price = g.formatNumber(number:0, type:'currency', currencyCode: 'USD')
+                }
+                else {
+                    price = g.formatNumber(number:amt, type:'currency', currencyCode: 'USD')
+                }
+
+                def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), price])
                 jsonMap = [status:"error", errors:ex.errors, message:msg]
             }
         }
