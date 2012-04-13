@@ -51,6 +51,7 @@ class Listing {
 
     def getHighestBidAmount(){
         def amount = bids?.max{it->it.amount}?.amount
+        return amount
     }
 
     static namedQueries = {

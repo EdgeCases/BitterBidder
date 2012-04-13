@@ -95,8 +95,8 @@
                 <li class="fieldcontain">
                     <span class="property-label">
                         <label>Minimum Bid</label></span>
-                    <div class="property-value" id="minimumBid">
-                    </div>
+                    <span class="property-value" aria-labelledby="startingPrice-label" id="minimumBid">
+                        <g:formatNumber number="${listingInstance.minimumBid}" type="currency" currencyCode="USD" /><span/>
                 </li>
             </ol>
         </div>

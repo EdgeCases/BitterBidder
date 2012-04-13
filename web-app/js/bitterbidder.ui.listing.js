@@ -40,10 +40,11 @@ showListingDetails=function(urlString){
         dataType: 'html',
         cache:false,
         success: function(data, textStatus, jqXHR) {
-            window.location.href = urlString
+            window.location.replace(urlString);
         },
         error: function(jqXHR, textStatus, errorThrown){
-
+            alert(errorThrown);
+            alert(textStatus);
         },
         complete: function(jqXHR, textStatus){
 
