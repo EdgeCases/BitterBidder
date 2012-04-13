@@ -35,8 +35,7 @@ showListingDetails=function(urlString){
     })
 };
 
-//We were trying to get this message and redirect URl to come from the controller but had no luck trying to
-//set a custom message on the response.setStatus was suppose to do it but it didn't work.
+
 showListingExpiredDialog=function(message){
 
     $("#listingResultsDialog").dialog({
@@ -45,6 +44,8 @@ showListingExpiredDialog=function(message){
         cache:false,
         modal: true,
         caption:"Listing Expired",
+        //We were trying to get this message and redirect URl to come from the controller but had no luck trying to
+//set a custom message on the response.setStatus was suppose to do it but it didn't work.
         open: function(event, ui){
             $expiredMessage = "We are sorry. This listing has expired. You'll now be redirected to an updated listings page."
             $('#listingResultsDialogMessage').html($expiredMessage);

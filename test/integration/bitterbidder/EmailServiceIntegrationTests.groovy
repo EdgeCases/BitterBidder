@@ -27,8 +27,6 @@ class EmailServiceIntegrationTests {
     void test_OnMessage_WhenInvoked_EmailIsSent() {
 
         def listing = TestUtility.getValidListingWithBids();
-
-        //warning: this is a hack to pass the final price to the email helper below
         listing.startingPrice = listing?.bids?.max {it->it.dateCreated}.amount
 
         def msg = (listing as XML).toString()

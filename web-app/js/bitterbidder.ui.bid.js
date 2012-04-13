@@ -30,7 +30,7 @@ bindControls= function (){
         }
     });
 
-    startPolling();
+    //startPolling();
 };
 
 postNewBid = function(listingId, amount) {
@@ -47,7 +47,7 @@ postNewBid = function(listingId, amount) {
         success: function(data, textStatus, jqXHR) {
             showResults(data.message, data.status);
             if (data.status=="success")    {
-                updateMinimumBidAmunt(data.minBidAmount);
+                updateMinimumBidAmount(data.minBidAmount);
             }
             getLatestBids(listingId);
         },
@@ -119,15 +119,16 @@ updateMinimumBidAmount = function(amount){
 
 startPolling = (function poll(){
     var $listingId = null;
-    $listingId = $('#listingId');
+    $listingId = $('#listingId').val();
     $.ajax({
         type:'GET',
-        url: "http://localhost:8080/BitterBidder/listing/minimumBidAmount/18",
+        url: "/BitterBidder/listing/minimumBidAmount/" + $listingId,
         async:true,
         cache:false,
 
         success: function(data, textStatus, jqXHR) {
             updateMinimumBidAmount(data.minBidAmount);
+            getLatestBids($listingId);
             setTimeout('startPolling()',5000);
         },
         dataType:'json'
