@@ -103,7 +103,6 @@ showResults = function(message, caption){
         show: {effect: 'fadeIn', duration: 400},
         hide: {effect: 'fadeOut', duration: 500},
         title:caption,
-       // title:'<img src="http://localhost:8080/BitterBidder/static/images/skin/house.png"> Bitter Bidder </img>',
         open:function(event, ui){
             $('#resultsMessage').html(message);
         },

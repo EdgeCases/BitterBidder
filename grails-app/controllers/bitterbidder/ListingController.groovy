@@ -75,12 +75,12 @@ class ListingController {
         }
 
         if (listingInstance.isEnded()){
-
-            response.setStatus(410, "Sorry this listing has expired")
-            forward controller:"login", action:"auth"
-            //[listingInstance: listingInstance]
-            //return
-            //redirect(action: "list")
+            def customer =springSecurityService.getCurrentUser();
+            def email = Customer.formatEmail(customer?.emailAddress)
+            def message =message(code:'default.listing.expired.message', args:[email]).toString()
+            response.setStatus(301, message)
+            forward action:"list"
+            return
         }
 
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
