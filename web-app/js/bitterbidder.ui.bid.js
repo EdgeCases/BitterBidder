@@ -118,16 +118,19 @@ updateMinimumBidAmount = function(amount){
 }
 
 startPolling = (function poll(){
+    var $listingId = null;
     $listingId = $('#listingId');
     $.ajax({
-        url: "/BitterBidder/listing/minimumBidAmount/"+$listingId.val(),
+        type:'GET',
+        url: "http://localhost:8080/BitterBidder/listing/minimumBidAmount/18",
+        async:true,
+        cache:false,
+
         success: function(data, textStatus, jqXHR) {
             updateMinimumBidAmount(data.minBidAmount);
+            setTimeout('startPolling()',5000);
         },
-        dataType:'json',
-        complete:poll,
-        timeout:30000
-
+        dataType:'json'
     });
 
 });
