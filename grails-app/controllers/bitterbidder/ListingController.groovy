@@ -54,6 +54,7 @@ class ListingController {
         try{
             def newListing = listingService.Create(listing)
             listing=newListing
+            listing.minimumBid = listingService.getMinimumBidAmount(listing)
             //pattern from: http://grails.org/doc/latest/guide/services.html
         }catch (ValidationException ex){
             listing.errors=ex.errors
@@ -76,12 +77,14 @@ class ListingController {
         if (listingInstance.isEnded()){
 
             response.setStatus(410, "Sorry this listing has expired")
+            forward controller:"login", action:"auth"
             //[listingInstance: listingInstance]
             //return
             //redirect(action: "list")
         }
 
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
+        listingInstance.minimumBid = listingService.getMinimumBidAmount(listingInstance)
         [listingInstance: listingInstance]
     }
 
@@ -177,13 +180,12 @@ class ListingController {
                 def savedBid = bidService.Create(bid)
                 bid = savedBid
                 def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
-                def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
-                jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:minAmount]
+                jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:amt+Listing.MINIMUM_BID_INCREMENT]
             }catch (ValidationException ex){
                 bid.errors=ex.errors
                 def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), amt==null?'0':amt])
-                def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
-                jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:minAmount]
+                //def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
+                jsonMap = [status:"error", errors:ex.errors, message:msg]
             }
         }
         else {

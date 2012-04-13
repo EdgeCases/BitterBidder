@@ -43,13 +43,15 @@ postNewBid = function(listingId, amount) {
             amount: amount
         },
         success: function(data, textStatus, jqXHR) {
-            if (data.status=='success'){
-                showResults(data.message, data.status);
-            }else{
-                showResults(data.message, data.status);
+
+            showResults(data.message, data.status);
+            if (data.status=="success")    {
+                $('#minimumBid').text;("");
+                $('#minimumBid').text(data.minBidAmount);
             }
+
             getLatestBids(listingId);
-            $('#minimumBid').html(data.minBidAmount)
+
         },
         error: function(jqXHR, textStatus, errorThrown){
             showResults("" + "Error Message - " + errorThrown, "Error");
