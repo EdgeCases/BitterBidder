@@ -2,6 +2,7 @@ package bitterbidder
 
 import grails.test.mixin.*
 import org.junit.*
+import grails.validation.ValidationException
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
@@ -23,5 +24,19 @@ class CustomerServiceTests {
         // assert
         assert customerUnderTest.id
         assert !saved.hasErrors()
+    }
+
+    // SRV-1: Create a Grails service method that supports creating a new customer (unit test)
+    void test_Create_WhenCustomerIsInValid_CustomerIsNotSaved(){
+        // arrange
+        def customerService = new CustomerService()
+        def customerUnderTest = new Customer(username: "customer", emailAddress: "invalidemailaddress", password: "password")
+
+        // act
+
+        // assert
+        shouldFail(ValidationException) {
+            customerService.Create(customerUnderTest)
+        }
     }
 }
