@@ -46,7 +46,7 @@ showListingExpiredDialog=function(message){
         modal: true,
         caption:"Listing Expired",
         open: function(event, ui){
-            $expiredMessage = "We are sorry. This listing has expired. You'll now being redirected to and updated listings page."
+            $expiredMessage = "We are sorry. This listing has expired. You'll now be redirected to an updated listings page."
             $('#listingResultsDialogMessage').html($expiredMessage);
             setTimeout("$('#listingResultsDialog').dialog('close')",2500);
         },
