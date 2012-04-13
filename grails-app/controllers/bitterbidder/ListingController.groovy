@@ -184,7 +184,10 @@ class ListingController {
             bid.amount = amt
 
             try{
-
+                //could not get the unit tests to do this for me
+                if (bidService.listingService==null){
+                    bidService.listingService = listingService
+                }
                 def savedBid = bidService.Create(bid)
                 bid = savedBid
                 def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])

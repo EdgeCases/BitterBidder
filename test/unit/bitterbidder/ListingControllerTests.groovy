@@ -7,12 +7,15 @@ import grails.test.mixin.*
 import sun.security.util.Debug
 import groovy.mock.interceptor.MockFor
 import grails.plugins.springsecurity.SpringSecurityService
+import org.codehaus.jackson.annotate.JsonAnySetter
+import grails.converters.deep.JSON
 
 @TestFor(ListingController)
-@Mock([Listing, ListingService, Bid, Customer, SpringSecurityService, BidService])
-class ListingControllerTests {
+@Mock([Listing, Bid, Customer, ListingService, SpringSecurityService, BidService])
+class ListingControllerTests  {
 
     def listingService
+    def springSecurityService
     def bidService
 
     def populateValidParams(params) {
@@ -209,8 +212,7 @@ class ListingControllerTests {
         def validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
         def springSecurityService = new Object()
         springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
-        springSecurityService.metaClass.getCurrentUser = {user-> validCustomer}
-
+        springSecurityService.metaClass.getCurrentUser = { Object user -> validCustomer}
         validCustomer.springSecurityService = springSecurityService
 
 
@@ -222,13 +224,10 @@ class ListingControllerTests {
 
         //...
         params["id"] = listing.id
-        assert null != params.int('id')
-
-        params["amount"] = 200
-        assert 200 == params.int('amount')
-
+        params["amount"] = 0
         controller.newBid()
-        def resp =response.getContentAsString()
-        assert "" == response.getContentAsString()
+        def resp =   JSON.parse(response.getContentAsString())
+        def errors = resp.getAt("message")
+        assert errors !=null
     }
 }
