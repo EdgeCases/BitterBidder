@@ -14,6 +14,7 @@ bindControls= function (){
         var $listingId = null;
         $listingId = $('#listingId');
         postNewBid($listingId.val(), $bidAmount.val());
+        $('#newBidAmount').val("Enter Bid Amount");
     });
 
     var $bidAmount=null;
@@ -30,7 +31,7 @@ bindControls= function (){
         }
     });
 
-    //startPolling();
+    startPolling();
 };
 
 postNewBid = function(listingId, amount) {
@@ -80,7 +81,7 @@ processAndInsertBidAmounts = function(values) {
         $('#lastBids').html('');
 
         //reset the bid value
-        $('#newBidAmount').val('Bid Amount');
+        //$('#newBidAmount').val('Bid Amount');
 
         //add each of the results
         $.each(values.amounts, function(index, value) {
