@@ -168,28 +168,30 @@ class ListingController {
             //show view of a listing
             def bid = new Bid(id)   //pass in the listing id
 
-            def customer =springSecurityService.getCurrentUser();
-            def email = customer==null?"Not-Logged-In":customer.emailAddress
-            bid.bidder = customer
+            bid.bidder = springSecurityService.getCurrentUser()
             bid.amount = amt
 
             try{
+
                 def savedBid = bidService.Create(bid)
                 bid = savedBid
                 def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
                 def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
                 jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:minAmount]
             }catch (ValidationException ex){
+
                 bid.errors=ex.errors
-                def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), amt==null?'0':amt])
-                def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
-                jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:minAmount]
+                def msg = "We're sorry, your bid was not accepted. Please check your bid amount."//message(code: 'default.request.error.message')
+                def minAmount = listingService.getMinimumBidAmount(bid.listing.id)  //unused
+                def tmp = g.formatNumber(number:listingService.getMinimumBidAmount(bid.listing.id), type:'currency', currencyCode: 'USD')
+                //jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:minAmount]
+
+                jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:tmp]
             }
         }
         else {
             def msg = message(code: 'default.request.error.message')
             jsonMap = [status: "error", message: msg]
-
         }
 
         render jsonMap as JSON

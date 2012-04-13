@@ -48,7 +48,6 @@ showListingDetails=function(urlString){
         complete: function(jqXHR, textStatus){
 
         }
-
     })
-}
+};
 

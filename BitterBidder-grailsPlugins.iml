@@ -99,11 +99,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3 " level="application" />
     <orderEntry type="library" scope="PROVIDED" name="Grails-2.0.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3 " level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (BitterBidder-grailsPlugins)">
         <CLASSES>
