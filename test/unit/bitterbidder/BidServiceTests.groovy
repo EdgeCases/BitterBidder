@@ -119,6 +119,24 @@ class BidServiceTests {
         listing.endDateTime = new Date()-1;
         listing.save(validate: false)
         shouldFail(ValidationException){ bidService.createBidForListing(listing, bidder, 200)};
+    }
 
+    @Test
+    void test_Create_WhenBidIsValid_BidIsCreate() {
+
+        BidService bidService = new BidService()
+        bidService.listingService = listingService
+        assert null != bidService
+        listing.save(validate: false)
+
+        assert null != bidService
+
+        bidUnderTest.amount = bidUnderTest.listing.startingPrice + 5
+
+        //listing.endDateTime = new Date()-1;
+        //listing.save(validate: false)
+        //shouldFail(ValidationException){ bidService.createBidForListing(listing, bidder, 200)};
+        def saved = bidService.createBidForListing(bidUnderTest.listing, bidder, (int)bidUnderTest.listing.startingPrice + 5)
+        assert !saved.hasErrors()
     }
 }
