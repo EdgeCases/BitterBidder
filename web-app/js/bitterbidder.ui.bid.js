@@ -29,6 +29,8 @@ bindControls= function (){
             $bidAmount.val("Enter Bid Amount");
         }
     });
+
+    startPolling();
 };
 
 postNewBid = function(listingId, amount) {
@@ -43,15 +45,11 @@ postNewBid = function(listingId, amount) {
             amount: amount
         },
         success: function(data, textStatus, jqXHR) {
-
             showResults(data.message, data.status);
             if (data.status=="success")    {
-                $('#minimumBid').text;("");
-                $('#minimumBid').text(data.minBidAmount);
+                updateMinimumBidAmunt(data.minBidAmount);
             }
-
             getLatestBids(listingId);
-
         },
         error: function(jqXHR, textStatus, errorThrown){
             showResults("" + "Error Message - " + errorThrown, "Error");
@@ -113,3 +111,23 @@ showResults = function(message, caption){
     });
     $("#resultsDialog").dialog('open');
 } ;
+
+updateMinimumBidAmount = function(amount){
+    $('#minimumBid').text("");
+    $('#minimumBid').text(amount);
+}
+
+startPolling = (function poll(){
+    $listingId = $('#listingId');
+    $.ajax({
+        url: "/BitterBidder/listing/minimumBidAmount/"+$listingId.val(),
+        success: function(data, textStatus, jqXHR) {
+            updateMinimumBidAmount(data.minBidAmount);
+        },
+        dataType:'json',
+        complete:poll,
+        timeout:30000
+
+    });
+
+});

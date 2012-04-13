@@ -64,6 +64,13 @@ class ListingController {
         redirect(action: "myListings")
     }
 
+    def minimumBidAmount(){
+        //def listing = Listing.get(params.id);
+        def bidAmount = listingService.getMinimumBidAmount(params.id);
+        def jsonMap = [status: "success", minBidAmount:bidAmount]
+        render jsonMap as JSON
+    }
+
     def show() {
         def listingInstance = Listing.get(params.id)        
 
