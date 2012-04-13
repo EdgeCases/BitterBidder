@@ -88,5 +88,15 @@
                 <g:paginate total="${listingInstanceTotal}" />
 			</div>
 		</div>
+    <div id="listingResultsDialog">
+        <div id="listingResultsDialogMessage"></div>
+    </div>
 	</body>
 </html>
+
+<g:javascript>
+    $(document).ready(function(){
+        initializeUI();
+    });
+</g:javascript>
+

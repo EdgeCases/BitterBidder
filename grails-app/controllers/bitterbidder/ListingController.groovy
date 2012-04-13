@@ -65,11 +65,22 @@ class ListingController {
 
     def show() {
         def listingInstance = Listing.get(params.id)        
+
+
         if (!listingInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'listing.label', default: 'Listing'), params.id])
             redirect(action: "list")
             return
         }
+
+        if (listingInstance.isEnded()){
+
+            response.setStatus(410, "Sorry this listing has expired")
+            //[listingInstance: listingInstance]
+            //return
+            //redirect(action: "list")
+        }
+
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
         [listingInstance: listingInstance]
     }
@@ -157,20 +168,20 @@ class ListingController {
             //show view of a listing
             def bid = new Bid(id)   //pass in the listing id
 
-            bid.bidder = springSecurityService.getCurrentUser()
+            def customer =springSecurityService.getCurrentUser();
+            def email = customer==null?"Not-Logged-In":customer.emailAddress
+            bid.bidder = customer
             bid.amount = amt
 
             try{
-
                 def savedBid = bidService.Create(bid)
                 bid = savedBid
                 def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
                 def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
                 jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:minAmount]
             }catch (ValidationException ex){
-
                 bid.errors=ex.errors
-                def msg = "We're sorry, your bid was not accepted. Please check your bid amount."//message(code: 'default.request.error.message')
+                def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), amt==null?'0':amt])
                 def minAmount = listingService.getMinimumBidAmount(bid.listing.id)
                 jsonMap = [status:"error", errors:ex.errors, message:msg, minBidAmount:minAmount]
             }

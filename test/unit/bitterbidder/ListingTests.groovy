@@ -58,6 +58,9 @@ class ListingTests {
     @Test
     void test_ValidListing_WithAllFieldsPopulated_HasNoValidationErrors() {
 
+        def date = new Date()
+        date.setMinutes(date.minutes+2)
+
         //arrange
         listingUnderTest.endDateTime = new Date()+1
 

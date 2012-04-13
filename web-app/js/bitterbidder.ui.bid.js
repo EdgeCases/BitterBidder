@@ -7,7 +7,7 @@
  */
 
 bindControls= function (){
-
+    jQuery.ajaxSetup({cache: false});
     $('#newBidButton').live("click", function(){
         var $bidAmount=null;
         $bidAmount=$('#newBidAmount');
@@ -37,6 +37,7 @@ postNewBid = function(listingId, amount) {
         type: 'POST',
         url: '/BitterBidder/listing/newBid/',
         dataType: 'json',
+        cache:false,
         data: {
             id: listingId,
             amount: amount
@@ -105,6 +106,7 @@ showResults = function(message, caption){
             $('#resultsMessage').html(message);
         },
         close:function(event, ui){
+            $('#resultsMessage').html("");
             $("#resultsDialog").dialog('destroy');
         }
     });
