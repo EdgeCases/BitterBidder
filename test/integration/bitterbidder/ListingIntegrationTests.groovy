@@ -34,6 +34,7 @@ class ListingIntegrationTests{
     }
 
     @Test
+    @Ignore('not reqd')
     void test_Save_WhenListingHasNewBids_BidsAreSaved() {
         
         //arrange
@@ -50,6 +51,7 @@ class ListingIntegrationTests{
     }
 
     @Test
+    @Ignore('not reqd')
     void test_Save_WhenBidAddingToExistingListing_BidIsSaved() {
         
         //arrange
