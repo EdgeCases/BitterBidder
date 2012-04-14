@@ -14,7 +14,7 @@ class CustomerService {
         customer.save(flush: true)
 
         def role = Role.findByAuthority('ROLE_USER')
-        CustomerRole.create(customer, Role, flush:true)
+        CustomerRole.create(customer, role, true)
 
         return customer.save(flush: true);
     }
