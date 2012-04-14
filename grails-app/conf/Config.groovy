@@ -148,22 +148,3 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'bitterbidder.Customer'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'bitterbidder.CustomerRole'
 grails.plugins.springsecurity.authority.className = 'bitterbidder.Role'
-//grails{
-//    mail {
-//        host = "smtp.gmail.com"
-//        port = 465
-//        username = "bitterbidderdev@gmail.com"
-//        password = "msse2012"
-//        props = ["mail.smtp.auth":"true",
-//                "mail.smtp.socketFactory.port":"465",
-//                "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-//                "mail.smtp.socketFactory.fallback":"false"]
-//    }
-//}
-//grails.resources.modules = {
-//    overrides {
-//        'jquery-theme' {
-//            resource id:'theme', url:'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/overcast/jquery-ui.css'
-//        }
-//    }
-//}

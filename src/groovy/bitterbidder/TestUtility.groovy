@@ -33,13 +33,27 @@ class TestUtility {
     }
 
     def static getValidListingWithBids(){
-        def listing = getValidListing()
+
         def bidSet = [new Bid(amount: 10, bidder: validCustomer, dateCreated: new Date()),
                 new Bid(amount: 10.50, bidder: validCustomer, dateCreated: new Date())] as Set
-        listing.latestBid = bidSet.max {it->it.amount}
-        listing.bids = bidSet
+        return getValidListingWithBids(validCustomer, bidSet)
+    }
+
+    def static getValidListingForCustomer(customer){
+        def listing = getValidListing()
+        listing.seller = customer
+        listing.winner = customer
         return listing
     }
+
+    def static getValidListingWithBids(customer, bids){
+        def listing = getValidListing()
+        listing.seller = customer
+        listing.winner = customer
+        listing.bids = bids
+        return listing
+    }
+
     def static getValidCustomer() {
 
         return  new Customer(emailAddress: "EdgeCases@groups.live.com", password: "secret", username: "validguy");

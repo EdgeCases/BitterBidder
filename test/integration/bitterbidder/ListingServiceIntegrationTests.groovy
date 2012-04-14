@@ -6,11 +6,10 @@ import org.junit.*
 class ListingServiceIntegrationTests {
 
     @Test
-    @Ignore("Wierd error: String-based queries like [find] are currently not supported in this implementation of GORM. Use criteria instead.")
     void test_getMyListings_WhenUserHasListings_ListingsAreReturned() {
         //arrange
         def nextweek = new Date()+7;
-        def aCustomer = TestUtility.makeValidCustomer("cliente123", "secrete", "danny123@pwd.com")
+        def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny1234@pwd.com")
         aCustomer.save(validate: false, flush:true);
 
         def myListing1 = new Listing(seller: aCustomer, endDateTime:nextweek, startingPrice: 10, name: "myListing1")
@@ -26,10 +25,9 @@ class ListingServiceIntegrationTests {
     }
 
     @Test
-    @Ignore("Wierd error: String-based queries like [find] are currently not supported in this implementation of GORM. Use criteria instead.")
     void test_getMyListings_WhenUserHasNoListings_NoListingsAreReturned() {
         //arrange
-        def aCustomer = TestUtility.makeValidCustomer("cliente123", "secrete", "danny123@pwd.com")
+        def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny12345@pwd.com")
         aCustomer.save(validate: false, flush:true);
 
         //act
@@ -41,11 +39,11 @@ class ListingServiceIntegrationTests {
     }
 
     @Test
-    @Ignore("Fail in grails test-app but not in the IDE")
+   // @Ignore("Fail in grails test-app but not in the IDE")
     void test_hasListingEnded_WhenListingIsEnded_ReturnsTrue() {
 
         def nextweek = new Date()+7;
-        def aCustomer = TestUtility.makeValidCustomer("cliente123", "secrete", "danny123@pwd.com")
+        def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny123456@pwd.com")
         aCustomer.save(validate: false, flush:true);
 
         def aListing = new Listing(seller: aCustomer, endDateTime:nextweek, startingPrice: 10, name: "myListing1")
@@ -56,10 +54,10 @@ class ListingServiceIntegrationTests {
     }
 
     @Test
-    @Ignore("Fail in grails test-app but not in the IDE")
+  //  @Ignore("Fail in grails test-app but not in the IDE")
     void test_hasListingEnded_WhenListingHasNotEnded_RetunsFalse() {
         def yesterday = new Date()-1;
-        def aCustomer = TestUtility.makeValidCustomer("cliente123", "secrete", "danny123@pwd.com")
+        def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny1234567@pwd.com")
         aCustomer.save(validate: false, flush:true);
 
         def aListing = new Listing(seller: aCustomer, endDateTime:yesterday, startingPrice: 10, name: "myListing1")
