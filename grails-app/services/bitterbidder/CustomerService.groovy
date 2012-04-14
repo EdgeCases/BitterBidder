@@ -11,9 +11,11 @@ class CustomerService {
         }
 
         customer.enabled = true;
-        customer.save(flush: true)
+        customer = customer.save(flush: true)
 
         def role = Role.findByAuthority('ROLE_USER')
+
+
         CustomerRole.create(customer, role, true)
 
         return customer.save(flush: true);
