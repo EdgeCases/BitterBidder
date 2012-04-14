@@ -67,7 +67,6 @@ class BidServiceTests {
         assert null != bidService
         listing.save(validate: false)
 
-
         def bid = bidService.createBidForListing(listing, bidder, 200);
 
         assert null != bid
@@ -133,9 +132,6 @@ class BidServiceTests {
 
         bidUnderTest.amount = bidUnderTest.listing.startingPrice + 5
 
-        //listing.endDateTime = new Date()-1;
-        //listing.save(validate: false)
-        //shouldFail(ValidationException){ bidService.createBidForListing(listing, bidder, 200)};
         def saved = bidService.createBidForListing(bidUnderTest.listing, bidder, (int)bidUnderTest.listing.startingPrice + 5)
         assert !saved.hasErrors()
     }

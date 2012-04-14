@@ -110,29 +110,30 @@ showResults = function(message, caption){
             $("#resultsDialog").dialog('destroy');
         }
     });
+
     $("#resultsDialog").dialog('open');
 } ;
 
 updateMinimumBidAmount = function(amount){
     $('#minimumBid').text("");
     $('#minimumBid').text(amount);
-}
+};
 
 startPolling = (function poll(){
     var $listingId = null;
     $listingId = $('#listingId').val();
+
     $.ajax({
         type:'GET',
         url: "/BitterBidder/listing/minimumBidAmount/" + $listingId,
         async:true,
         cache:false,
-
         success: function(data, textStatus, jqXHR) {
+
             updateMinimumBidAmount(data.minBidAmount);
             getLatestBids($listingId);
             setTimeout('startPolling()',5000);
         },
         dataType:'json'
     });
-
 });

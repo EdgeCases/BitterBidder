@@ -27,17 +27,22 @@ class ListingService {
     }
 
     def getMinimumBidAmount(long id){
+
         def listing = Listing.get(id)
+
         return getMinimumBidAmount(listing)
     }
 
     def getMinimumBidAmount(Listing listing){
         def highestAmount = listing.getHighestBidAmount()
+
         if (highestAmount>0){
+
             return highestAmount + Listing.MINIMUM_BID_INCREMENT
+            //return g.formatNumber(number:price, type:'currency', currencyCode: 'USD')
         }
 
+        //return g.formatNumber(number:listing.startingPrice, type:'currency', currencyCode: 'USD')
         return listing.startingPrice
-        //return listing.startingPrice + Listing.MINIMUM_BID_INCREMENT    //ecs
     }
 }
