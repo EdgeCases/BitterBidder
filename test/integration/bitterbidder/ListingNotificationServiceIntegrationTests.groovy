@@ -151,12 +151,14 @@ class ListingNotificationServiceIntegrationTests {
                 .save(validate: false,flush:true)
 
         alreadySent.wasNotificationSent=false;
-        alreadySent.endDateTime = new Date()-1
         alreadySent.name = "Brewskies-ended"
+        alreadySent.save(flush: true)
+
+        alreadySent.addToBids(new Bid(listing: alreadySent, bidder: winner, amount: 1000).save(validate: false, flush: true))
+        alreadySent.addToBids(new Bid(listing: alreadySent, bidder: winner1, amount: 1000.50).save(validate: false, flush: true))
+
+        alreadySent.endDateTime = new Date()-1
         alreadySent.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: winner1, dateCreated: new Date())] as Set
-        bids.each {b->b.listing=alreadySent; b.save(flush: true, validate:false)}
 
         Assume.assumeTrue(!alreadySent.wasNotificationSent)
         Assume.assumeTrue(alreadySent.isEnded())
