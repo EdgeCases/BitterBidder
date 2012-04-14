@@ -36,7 +36,7 @@ grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 //cloud foundry stuff
 grails.plugin.cloudfoundry.username = "danny.alcantara@gmail.com"
-grails.plugin.cloudfoundry.password = "bitterdanny"
+grails.plugin.cloudfoundry.password = "dannydev1"
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64

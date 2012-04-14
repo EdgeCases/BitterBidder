@@ -1,16 +1,17 @@
 package bitterbidder
 
 import grails.converters.deep.XML
+import grails.plugin.jms.JmsService
 
 class ListingNotificationService {
 
+    def callBack
     String listingEndedQueue = "queue.listingended";
 
     def sendListingEndedNotification(Listing listing) {
         listing.latestBid = listing?.bids?.max {it->it.dateCreated}
         def messageString = (listing as XML).toString()
-
-        sendJMSMessage listingEndedQueue, messageString
+        sendJMSMessage(listingEndedQueue, messageString)
         listing.wasNotificationSent=true;
         println "sent notification for: " + listing.description
         //don't care about this since this listing is already ended it was probably valid anyways.

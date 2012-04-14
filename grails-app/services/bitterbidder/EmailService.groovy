@@ -13,19 +13,15 @@ class EmailService {
     static destination = "queue.listingended"
     def onMessage(it){
         def listingxml = it.toString()
+        def listing = new XmlSlurper().parseText(listingxml)
+        def winner = listing."winner"."emailAddress".text()
+
         mailService.sendMail {
-            to "EdgeCases@groups.live.com"
+            to winner
             from "bitterbidderdev@gmail.com"
             subject "You are a winner!"
             body EmailMessageHelper.MakeListingWinnerMessage(listingxml)
         }
-
-        println "sent " + listingxml
+        return null
     }
 }
-//to "fred@g2one.com","ginger@g2one.com"
-//from "john@g2one.com"
-//cc "marge@g2one.com", "ed@g2one.com"
-//bcc "joe@g2one.com"
-//subject "Hello John"
-//body 'this is some text'

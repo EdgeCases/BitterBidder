@@ -11,12 +11,13 @@ import org.junit.Assert
 import org.junit.AfterClass
 import org.junit.After
 import grails.plugin.mail.MailService
+import grails.plugin.jms.JmsService
 
 /**
  * See the API for {@link grails.test.mixin.services.ServiceUnitTestMixin} for usage instructions
  */
 @TestFor(ListingNotificationService)
-@Mock(Listing)
+@Mock([Listing, JmsService])
 class ListingNotificationServiceIntegrationTests {
 
     void test_sendListingEndedNotifications_ForEndedListings_SendJMSMessage() {
