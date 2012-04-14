@@ -17,7 +17,7 @@ class BootStrap {
         def customer4 = new Customer(username: "eric", enabled: true, emailAddress: "eric@email.com", password: "password").save(flush: true)
         def customer5 = new Customer(username: "danny", enabled: true, emailAddress: "danny@email.com", password: "password").save(flush: true)
         def customer6 = new Customer(username: "mike", enabled: true, emailAddress: "mike@email.com", password: "password").save(flush: true)
-        def customer7 = new Customer(username: "michael", enabled: true, emailAddress: "michael@email.com", password: "password").save(flush: true)
+        def customer7 = new Customer(username: "michael", enabled: true, emailAddress: "michael_gressman@yahoo.com", password: "password").save(flush: true)
         def customer8 = new Customer(username: "jeff", enabled: true, emailAddress: "jeff@email.com", password: "password").save(flush: true)
         def customer9 = new Customer(username: "todd", enabled: true, emailAddress: "todd@email.com", password: "password").save(flush: true)
         def customer10 = new Customer(username: "infoguy12", enabled: true, emailAddress: "infoguy12@email.com", password: "password").save(flush: true)
@@ -41,7 +41,7 @@ class BootStrap {
 
         def listing1 = new Listing(name: "Cars", startingPrice: 1.25, endDateTime: new Date(), description: "Cars the movie", seller: customer1, winner: customer2, wasNotificationSent: false).save(flush: true)
         def listing2 = new Listing(name: "Iphone", startingPrice: 2.25, endDateTime: new Date(), description: "Most overpriced device", seller: customer2, winner: customer3, wasNotificationSent: false).save(flush: true)
-        def listing3 = new Listing(name: "cell", startingPrice: 3.25, endDateTime: new Date(), description: "for sale", seller: customer3 , wasNotificationSent: false).save(flush: true)
+        def listing3 = new Listing(name: "cell", startingPrice: 3.25, endDateTime: new Date(), description: "for sale", seller: customer3, winner: customer4, wasNotificationSent: false).save(flush: true)
 
         def listing4 = new Listing(name: "docs", startingPrice: 4.25, endDateTime: new Date() + 1, description: "ww2 blue prints", seller: customer4 , wasNotificationSent: false).save(flush: true)
         def listing5 = new Listing(name: "shoes", startingPrice: 5.25, endDateTime: new Date() + 2, description: "chuck Ts", seller: customer5 , wasNotificationSent: false).save(flush: true)
