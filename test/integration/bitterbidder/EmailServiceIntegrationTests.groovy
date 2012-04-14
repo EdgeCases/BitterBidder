@@ -24,10 +24,10 @@ class EmailServiceIntegrationTests {
 
     //Extra credit!
     @Test
-    void test_OnMessage_WhenInvoked_EmailIsSent() {
+    void test_WhenMessageInQueue_EmailIsSentToWinner() {
 
         def listing = TestUtility.getValidListingWithBids();
-        listing.startingPrice = listing?.bids?.max {it->it.dateCreated}.amount
+        listing.winningPrice = listing?.bids?.max {it->it.dateCreated}.amount
 
         def listingxml = (listing as XML).toString()
         def expected = EmailMessageHelper.MakeListingWinnerMessage(listingxml)
@@ -37,5 +37,22 @@ class EmailServiceIntegrationTests {
         assertEquals(expected, GreenMailUtil.getBody(received))
         assertEquals('bitterbidderdev@gmail.com', GreenMailUtil.getAddressList(received.from))
         assertEquals('You are a winner!', received.subject)
+    }
+
+    @Test
+    void test_WhenMessageInQueue_EmailIsSentToSeller() {
+
+        def listing = TestUtility.getValidListingWithBids();
+        listing.winningPrice = listing?.bids?.max {it->it.dateCreated}.amount
+
+        def listingxml = (listing as XML).toString()
+        def expected = EmailMessageHelper.MakeListingSellerMessage(listingxml)
+
+        emailService.onMessage(listingxml)
+        def received = greenMail.getReceivedMessages()[1]
+        assertEquals(expected, GreenMailUtil.getBody(received))
+        assertEquals('bitterbidderdev@gmail.com', GreenMailUtil.getAddressList(received.from))
+        assertEquals('Your Item was Sold!', received.subject)
+
     }
 }

@@ -82,6 +82,8 @@ class ListingControllerTests  {
         populateValidParams(params)
         controller.save()
 
+        response.reset()
+
         assert response.redirectedUrl == '/listing/myListings'
         assert controller.flash.message != null
         assert Listing.count() == 1

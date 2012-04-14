@@ -56,6 +56,7 @@ class ListingController {
             if (customer==null){
                 flash.message= message(code:'default.listing.not.logged.in.message')
                 redirect(action: "list")
+                return
             }
 
             listing.seller = customer;
@@ -67,8 +68,8 @@ class ListingController {
             listing.errors=ex.errors
             render view:  "create", model:[listingInstance:listing]
         }
-        flash.message = message(code: 'default.created.message', args: [message(code: 'listing.label', default: 'Listing'), listing.id])
-        redirect(action: "myListings")
+            flash.message = message(code: 'default.created.message', args: [message(code: 'listing.label', default: 'Listing'), listing.id])
+            redirect(action: "myListings")
     }
 
     def minimumBidAmount(){
@@ -76,7 +77,6 @@ class ListingController {
         def listing = Listing.get(params.id);
         def bidAmount = listingService.getMinimumBidAmount(listing);
         def jsonMap = [status: "success", minBidAmount:g.formatNumber(number:bidAmount, type:'currency', currencyCode: 'USD')]
-
         render jsonMap as JSON
     }
 

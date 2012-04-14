@@ -12,15 +12,21 @@ class ListingNotificationService {
 
         //check for the highest bid and set the winner...
         //this should probably be in the listings service but that's a 2do for phase IV :)
+        def winningAmount = listing.startingPrice
         if (listing.bids!=null && listing.bids.size()>0){
-            def winner = listing.bids.max{b->b.amount}.bidder
+            def highestBid = listing.bids.max{b->b.amount}
+            def winner = highestBid.bidder
+            winningAmount = highestBid.amount
             listing.winner = winner;
+
         }else{
             //Set the winner to the seller and send him the email. Too bad no one bid on your listing.
             listing.winner =listing.seller
         }
 
-        listing.latestBid = listing?.bids?.max {it->it.dateCreated}
+        listing.winningPrice = winningAmount
+        listing.listingId = listing.id //had to do this with bc id wasn't serializing.
+
         def messageString = (listing as XML).toString()
         log.info "sending jms message to queue: $listingEndedQueue for listing: $listing.name to winner: $listing.winner"
         sendJMSMessage(listingEndedQueue, messageString)

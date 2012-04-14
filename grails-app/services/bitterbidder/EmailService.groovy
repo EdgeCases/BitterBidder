@@ -19,11 +19,23 @@ class EmailService {
         def listing = new XmlSlurper().parseText(listingxml)
         def winnerEmailAddress = listing."winner"."emailAddress".text()
         log.info("sending email to: $winnerEmailAddress")
+
+
         mailService.sendMail {
             to winnerEmailAddress
             from "bitterbidderdev@gmail.com"
             subject "You are a winner!"
             body EmailMessageHelper.MakeListingWinnerMessage(listingxml)
+        }
+
+
+        def sellerEmail = listing."seller"."emailAddress".text()
+
+        mailService.sendMail {
+            to sellerEmail
+            from "bitterbidderdev@gmail.com"
+            subject "Your Item was Sold!"
+            body EmailMessageHelper.MakeListingSellerMessage(listingxml)
         }
         log.info("Email sent!")
         return null
