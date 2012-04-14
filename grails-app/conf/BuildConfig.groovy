@@ -33,7 +33,6 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         compile 'org.apache.activemq:activemq-core:5.3.0'
-        compile 'webxml:1.4.1'
         // runtime 'mysql:mysql-connector-java:5.1.16'
     }
 
@@ -42,7 +41,6 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.7.1"
         runtime ":jquery-ui:1.8.15"
         runtime ":resources:1.1.5"
-
         build ":tomcat:$grailsVersion"
     }
 }
