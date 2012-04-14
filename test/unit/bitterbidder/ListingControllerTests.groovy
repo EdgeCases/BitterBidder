@@ -200,7 +200,8 @@ class ListingControllerTests  {
         assert response.redirectedUrl == '/listing/list'
     }
 
-    
+    //UI-4: The action of placing a new bid will display a message to the
+    //user indicating that the bid was successful (Controller Unit Test)
     void test_Add_WhenValidNewBidFails_MessageIndicatingErrorReturned() {
 
         controller.delete()
@@ -222,13 +223,42 @@ class ListingControllerTests  {
         assert listing.save() != null
         assert Listing.count() == 1
 
-        //...
         params["id"] = listing.id
         params["amount"] = 0
         controller.newBid()
-        def resp =   JSON.parse(response.getContentAsString())
+        def resp = JSON.parse(response.getContentAsString())
         def errors = resp.getAt("message")
         print errors
         assert errors !=null
+    }
+
+    //UI-4: The action of placing a new bid will display a message
+    //to the user indicating that the bid was successful (Controller Unit Test)
+    void test_Add_WhenValidNewBidFails_MessageIndicatingSuccessReturned() {
+
+        controller.delete()
+        assert flash.message != null
+        assert response.redirectedUrl == '/listing/list'
+
+        response.reset()
+
+        def validCustomer = new Customer(emailAddress: "validguy@valid.com", password: "secret", username: "validguy");
+        def springSecurityService = new Object()
+        springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
+        springSecurityService.metaClass.getCurrentUser = { Object user -> validCustomer}
+        validCustomer.springSecurityService = springSecurityService
+        controller.springSecurityService = springSecurityService
+
+        def listing = TestUtility.getListing();
+        listing.seller = validCustomer
+        listing.winner = validCustomer
+        assert listing.save() != null
+        assert Listing.count() == 1
+
+        params["id"] = listing.id
+        params["amount"] = 200
+        controller.newBid()
+        def resp = JSON.parse(response.getContentAsString())
+        assert "success" == resp.getAt("status")
     }
 }

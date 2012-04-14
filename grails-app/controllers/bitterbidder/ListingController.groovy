@@ -177,8 +177,15 @@ class ListingController {
             //if we have an id here, it's the id of a listing and we came from the
             //show view of a listing
             def bid = new Bid(id)   //pass in the listing id
+            def customer
 
-            def customer =springSecurityService.getCurrentUser();
+            if(params['customer']) {
+                customer = params.Customer('customer')
+            }
+            else {
+                customer = springSecurityService.getCurrentUser();
+            }
+
             def email = customer==null?"Not-Logged-In":customer.emailAddress
             bid.bidder = customer
             bid.amount = amt
