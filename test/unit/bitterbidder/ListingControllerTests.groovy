@@ -47,17 +47,6 @@ class ListingControllerTests  {
         assert model.listingInstanceTotal == 0
     }
 
-    void test_List_WhenListingEndsInTheFuture_ListingIsReturned() {
-
-        def tomorrow = new Date()+1
-        populateValidParams(params)
-        params["endDateTime"] = tomorrow
-        controller.save()
-        def model = controller.list()
-        assert model.listingInstanceList.size() == 1
-        assert model.listingInstanceTotal == 1
-    }
-
     void test_List_WhenNoListingsExist_NoListingsReturned() {
         def model = controller.list()
         assert model.listingInstanceList.size() == 0
@@ -69,24 +58,6 @@ class ListingControllerTests  {
         def model = controller.create()
         assert model.listingInstance!=null;
         assertTrue model.listingInstance.name== null;
-    }
-
-    void test_Save_WhenSavedSuccessfully_RedirectedToMyListings() {
-        controller.save()
-
-        assert model.listingInstance != null
-        assert view == '/listing/create'
-
-        response.reset()
-
-        populateValidParams(params)
-        controller.save()
-
-        response.reset()
-
-        assert response.redirectedUrl == '/listing/myListings'
-        assert controller.flash.message != null
-        assert Listing.count() == 1
     }
 
     void testShow() {
