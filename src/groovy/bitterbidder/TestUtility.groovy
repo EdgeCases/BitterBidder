@@ -39,10 +39,10 @@ class TestUtility {
         return getValidListingWithBids(validCustomer, bidSet)
     }
 
-    def static getValidListingForCustomer(customer){
+    def static getValidListingForCustomer(seller, winner){
         def listing = getValidListing()
-        listing.seller = customer
-        listing.winner = customer
+        listing.seller =seller
+        listing.winner = winner
         return listing
     }
 

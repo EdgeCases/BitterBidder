@@ -14,10 +14,10 @@ class EmailService {
     def onMessage(it){
         def listingxml = it.toString()
         def listing = new XmlSlurper().parseText(listingxml)
-        def winner = listing."winner"."emailAddress".text()
+        def winnerEmailAddress = listing."winner"."emailAddress".text()
 
         mailService.sendMail {
-            to winner
+            to winnerEmailAddress
             from "bitterbidderdev@gmail.com"
             subject "You are a winner!"
             body EmailMessageHelper.MakeListingWinnerMessage(listingxml)

@@ -21,47 +21,53 @@ import org.junit.Test
 
 
 class ListingNotificationServiceIntegrationTests {
-    def customer
+    def seller
+    def winner
     def bids
     @Before
     void init(){
-        customer = TestUtility
-                    .makeCustomer("bitter", "secret", "EdgeCases@groups.live.com" )
+        seller = TestUtility
+                    .makeCustomer("bitter", "secret", "bitterbidderdev@google.com" )
                     .save(validate: false,flush:true)
+
+        winner = TestUtility
+                .makeCustomer("bitterbuyer", "secret", "EdgeCases@groups.live.com" )
+                .save(validate: false,flush:true)
+
     }
 
     @Test
     void test_sendListingEndedNotifications_ForEndedListings_SendJMSMessage() {
 
         //create and save ended listing 1
-        def ended1 = TestUtility.getValidListingForCustomer(customer)
+        def ended1 = TestUtility.getValidListingForCustomer(seller, winner);
         ended1.wasNotificationSent=false;
         ended1.endDateTime = new Date()-1
         ended1.name = "Brewskies-ended"
         ended1.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: customer, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: customer, dateCreated: new Date())] as Set
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner, dateCreated: new Date())] as Set
         bids.each {b->b.listing=ended1; b.save(flush: true, validate:false)}
 
         //create and save ended listing 2
-        def ended2 =  TestUtility.getValidListingForCustomer(customer)
+        def ended2 =  TestUtility.getValidListingForCustomer(seller, winner);
         ended2.wasNotificationSent=false;
         ended2.endDateTime = new Date()-1
         ended2.name = "Chohibas-ended"
         ended2.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: customer, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: customer, dateCreated: new Date())] as Set
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner, dateCreated: new Date())] as Set
         bids.each {b->b.listing=ended2; b.save(flush: true, validate:false)}
 
         //create and save not ended
-        def notEnded = TestUtility.getValidListingForCustomer(customer);
+        def notEnded = TestUtility.getValidListingForCustomer(seller, winner);
         notEnded.name= "notended"
         notEnded.endDateTime=new Date()+1
         notEnded.wasNotificationSent=false
 
         notEnded.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: customer, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: customer, dateCreated: new Date())] as Set
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner, dateCreated: new Date())] as Set
         bids.each {b->b.listing=notEnded; b.save(flush: true, validate:false)}
 
 
@@ -78,26 +84,26 @@ class ListingNotificationServiceIntegrationTests {
     @Test
     void test_sendListingEndedNotifications_WhenMessageHasBeenSent_JMSMessageNotSent() {
 
-        //Not very DRY sorry...
+        //The ctrl+c / ctrl+v re-usability pattern heard of it? :)  Not very DRY sorry...
         //arrange
         //create and save ended listing 1
-        def ended1 = TestUtility.getValidListingForCustomer(customer)
+        def ended1 = TestUtility.getValidListingForCustomer(seller, winner);
         ended1.wasNotificationSent=false;
         ended1.endDateTime = new Date()-1
         ended1.name = "Brewskies-ended"
         ended1.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: customer, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: customer, dateCreated: new Date())] as Set
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner, dateCreated: new Date())] as Set
         bids.each {b->b.listing=ended1; b.save(flush: true, validate:false)}
 
         //create and save ended listing 2
-        def ended2 =  TestUtility.getValidListingForCustomer(customer)
+        def ended2 =  TestUtility.getValidListingForCustomer(seller, winner);
         ended2.wasNotificationSent=false;
         ended2.endDateTime = new Date()-1
         ended2.name = "Chohibas-ended"
         ended2.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: customer, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: customer, dateCreated: new Date())] as Set
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner, dateCreated: new Date())] as Set
         bids.each {b->b.listing=ended2; b.save(flush: true, validate:false)}
 
         Listing.findAll()
@@ -105,20 +111,21 @@ class ListingNotificationServiceIntegrationTests {
 
         def svc = new ListingNotificationService()
         svc.sendListingEndedNotifications();
-        Listing.getAll().each {Assume.assumeTrue it.wasNotificationSent}
 
+        Listing.findAll {name=="Brewskies-ended" || name=="Chohibas-ended"}
+                .each {Assert.assertTrue it.wasNotificationSent}
     }
 
     @Test
     void test_sendListingEndedNotifications_WhenMessageHasBeenSent_ListingNotificationSentSetToTrue() {
         //arrange
-        def alreadySent = TestUtility.getValidListingForCustomer(customer)
+        def alreadySent = TestUtility.getValidListingForCustomer(seller, winner);
         alreadySent.wasNotificationSent=false;
         alreadySent.endDateTime = new Date()-1
         alreadySent.name = "Brewskies-ended"
         alreadySent.save(validate: false, flush: true)
-        bids = [new Bid(amount: 1000, bidder: customer, dateCreated: new Date()),
-                new Bid(amount: 1000.50, bidder: customer, dateCreated: new Date())] as Set
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner, dateCreated: new Date())] as Set
         bids.each {b->b.listing=alreadySent; b.save(flush: true, validate:false)}
 
 
@@ -134,6 +141,33 @@ class ListingNotificationServiceIntegrationTests {
         Assert.assertTrue alreadySent.wasNotificationSent
     }
 
+    @Test
+    void test_sendListingEndedNotifications_WhenWinnerIsNotSet_SetWinner() {
+        //arrange
+        def alreadySent = TestUtility.getValidListingForCustomer(seller, null);
+
+        Customer winner1 = TestUtility
+                .makeCustomer("winner1", "secret", "EdgeCases1234@groups.live.com" )
+                .save(validate: false,flush:true)
+
+        alreadySent.wasNotificationSent=false;
+        alreadySent.endDateTime = new Date()-1
+        alreadySent.name = "Brewskies-ended"
+        alreadySent.save(validate: false, flush: true)
+        bids = [new Bid(amount: 1000, bidder: winner, dateCreated: new Date()),
+                new Bid(amount: 1000.50, bidder: winner1, dateCreated: new Date())] as Set
+        bids.each {b->b.listing=alreadySent; b.save(flush: true, validate:false)}
+
+        Assume.assumeTrue(!alreadySent.wasNotificationSent)
+        Assume.assumeTrue(alreadySent.isEnded())
+        def svc = new ListingNotificationService()
+
+        //act
+        svc.sendListingEndedNotifications();
+        //assert
+        alreadySent = Listing.get(alreadySent.id)
+        Assert.assertTrue "winner1"==alreadySent.winner.username
+    }
 }
 
 
