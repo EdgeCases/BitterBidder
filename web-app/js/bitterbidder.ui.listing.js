@@ -17,7 +17,7 @@ initializeUI=function(){
             return false;
         });
     });
-}
+};
 
 showListingDetails=function(urlString){
     jQuery.ajaxSetup({cache: false});
@@ -45,18 +45,19 @@ showListingExpiredDialog=function(message){
         modal: true,
         caption:"Listing Expired",
         //We were trying to get this message and redirect URl to come from the controller but had no luck trying to
-//set a custom message on the response.setStatus was suppose to do it but it didn't work.
+        //set a custom message on the response.setStatus was suppose to do it but it didn't work.
         open: function(event, ui){
+
             $expiredMessage = "We are sorry. This listing has expired. You'll now be redirected to an updated listings page."
             $('#listingResultsDialogMessage').html($expiredMessage);
             setTimeout("$('#listingResultsDialog').dialog('close')",2500);
         },
         close:function(event, ui){
+
             $listingList= "http://"+document.location.host +"/BitterBidder/listing/list"
             window.location.replace($listingList);
             $('#listingResultsDialogMessage').html("");
             $("#listingResultsDialog").dialog('destroy');
-
         }
     });
-}
+};

@@ -65,15 +65,17 @@ class ListingController {
     }
 
     def minimumBidAmount(){
+
         def listing = Listing.get(params.id);
         def bidAmount = listingService.getMinimumBidAmount(listing);
-        def jsonMap = [status: "success", minBidAmount:bidAmount]
+        //def jsonMap = [status: "success", minBidAmount:bidAmount]
+        def jsonMap = [status: "success", minBidAmount:g.formatNumber(number:bidAmount, type:'currency', currencyCode: 'USD')]
+
         render jsonMap as JSON
     }
 
     def show() {
-        def listingInstance = Listing.get(params.id)        
-
+        def listingInstance = Listing.get(params.id)
 
         if (!listingInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'listing.label', default: 'Listing'), params.id])
@@ -84,7 +86,7 @@ class ListingController {
         if (listingInstance.isEnded()){
             def customer =springSecurityService.getCurrentUser();
             def email = Customer.formatEmail(customer?.emailAddress)
-            def message =message(code:'default.listing.expired.message', args:[email]).toString()
+            def message = message(code:'default.listing.expired.message', args:[email]).toString()
             response.setStatus(301, message)
             forward action:"list"
             return
