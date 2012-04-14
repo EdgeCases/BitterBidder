@@ -52,6 +52,13 @@ class ListingController {
         def listing = new Listing(params)
 
         try{
+            def customer =springSecurityService.getCurrentUser();
+            if (customer==null){
+                flash.message= message(code:'default.listing.not.logged.in.message')
+                redirect(action: "list")
+            }
+
+            listing.seller = customer;
             def newListing = listingService.Create(listing)
             listing=newListing
             listing.minimumBid = listingService.getMinimumBidAmount(listing)

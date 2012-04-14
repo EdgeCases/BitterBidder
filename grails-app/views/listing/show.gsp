@@ -102,11 +102,17 @@
         </div>
         <div>
             <g:hiddenField name="hiddenId" value="${listingInstance.id}" id="listingId"></g:hiddenField>
+
             <fieldset class="buttons">
                 <sec:ifLoggedIn>
                     <input id="newBidAmount" value="Enter Bid Amount"/>
                     <g:submitButton name="Place Bid" id="newBidButton" class="save"></g:submitButton>
                 </sec:ifLoggedIn>
+                <sec:ifNotLoggedIn>
+                    <span class="property-label">
+                        You must be logged in to bid.
+                    </span>
+                </sec:ifNotLoggedIn>
             </fieldset>
         </div>
         <div id="resultsDialog">
