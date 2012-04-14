@@ -93,7 +93,7 @@ class CustomerController {
             return
         }
 
-        //L-6: The detail page for the listing shows only the user portion of the email address of the user who created the listing
+        // L-6: The detail page for the listing shows only the user portion of the email address of the user who created the listing
         customerInstance.emailAddress = passwordMinusDomain()
 
         [customerInstance: customerInstance]

@@ -1,4 +1,4 @@
-
+<!-- S-5: Create a view called "My Listings" that shows listings created by the logged in user -->
 <%@ page import="bitterbidder.Listing" %>
 <!doctype html>
 <html>

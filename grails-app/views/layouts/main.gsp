@@ -25,6 +25,7 @@
     <g:layoutHead/>
 </head>
 <body>
+<!-- L-1: A consistent header and footer will be displayed on every screen -->
 <div id="bitterbidderLogo" role="banner">
     <img src="${resource(dir: 'images', file: 'bitterbidder_logo.png')}" alt="BitterBidder"/>
 </div>
@@ -33,6 +34,7 @@
         <!-- L-2: If user is not logged in, show a "Login" link on every screen -->
         <g:link action="auth" controller="Login" >[Login]</g:link>
         <!-- L-3: If user is not logged in, show a "Register" link on every screen -->
+        <!-- S-1: A new visitor to the site can register themselves as a new user -->
         <g:link action="create" controller="Customer" >[Register]</g:link>
     </sec:ifNotLoggedIn>
 
@@ -44,6 +46,7 @@
     </sec:ifLoggedIn>
 </div>
 <g:layoutBody/>
+<!-- L-1: A consistent header and footer will be displayed on every screen -->
 <div class="footer" role="contentinfo">
     <p>&copy; EdgeCases</p>
 </div>
