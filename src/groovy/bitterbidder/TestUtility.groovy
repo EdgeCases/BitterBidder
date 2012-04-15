@@ -23,7 +23,7 @@ class TestUtility {
     def static getValidListing() {
         def listing = getListing()
         //Setup logic here
-        def validCustomer = new Customer(emailAddress: "EdgeCases@groups.live.com", password: "secret", username: "validguy");
+        def validCustomer = new Customer(emailAddress: "EdgeCases123@groups.live.com", password: "secret", username: "validguy");
         def springSecurityService = new Object()
         springSecurityService.metaClass.encodePassword = {String password -> "ENCODED_PASSWORD"}
         validCustomer.springSecurityService = springSecurityService
@@ -56,7 +56,7 @@ class TestUtility {
 
     def static getValidCustomer() {
 
-        return  new Customer(emailAddress: "EdgeCases@groups.live.com", password: "secret", username: "validguy");
+        return  new Customer(emailAddress: "EdgeCases143@groups.live.com", password: "secret", username: "validguy");
     }
 
     def static makeCustomer(String username, String password, String email){

@@ -10,7 +10,6 @@ class ListingService {
         if (!listing.validate()){
             throw new ValidationException("listing is invalid", listing.errors)
         }
-
         listing = listing.save(flush: true)
         listing.minimumBid = getMinimumBidAmount(listing)
         return listing
