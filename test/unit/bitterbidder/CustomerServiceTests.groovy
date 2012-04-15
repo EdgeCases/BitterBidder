@@ -17,7 +17,9 @@ class CustomerServiceTests {
         def customerService = new CustomerService()
         Customer newCustomer = TestUtility.getValidCustomer()
         def customerUnderTest = TestUtility.makeCustomer(newCustomer.username, newCustomer.password, newCustomer.emailAddress)
-        
+        def Role = new Object()
+        Role.metaClass.findByAuthority = {Role role -> new Role(authority: 'ROLE_USER')}
+
         // act
         def saved = customerService.Create(customerUnderTest)
         
