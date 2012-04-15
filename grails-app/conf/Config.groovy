@@ -123,13 +123,13 @@ log4j = {
 //    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
 //    //}
 //
-//    appenders {
-//        console name: "stdout", threshold: org.apache.log4j.Level.DEBUG
-//    }
-//
-//    root {
-//        debug 'stdout'
-//    }
+    appenders {
+        console name: "stdout", threshold: org.apache.log4j.Level.DEBUG
+    }
+
+    root {
+        info 'stdout'
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -142,6 +142,8 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    info    'bitterbidder'
 }
 
 // Added by the Spring Security Core plugin:

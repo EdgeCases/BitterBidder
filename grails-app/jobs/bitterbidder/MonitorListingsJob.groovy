@@ -1,17 +1,19 @@
 package bitterbidder
 
+import org.apache.commons.logging.LogFactory
+
 
 class MonitorListingsJob {
 
     def listingNotificationService
+    private static final log = LogFactory.getLog(this)
 
     static triggers = {
-      simple name: "endedListings", repeatInterval: 30000, repeatCount: 10// execute job once in 5 seconds
+      simple name: "endedListings", repeatInterval: 10000, repeatCount: 100000// execute job once in 5 seconds
     }
 
     def execute() {
-        //print "checking for ended listings..."
-        //TODO: Make sure this uncommented out!
-       // listingNotificationService.sendListingEndedNotifications()
+        log.info("checking for expired listings...")
+        listingNotificationService.sendListingEndedNotifications()
     }
 }

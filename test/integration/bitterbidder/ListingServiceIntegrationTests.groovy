@@ -41,21 +41,6 @@ class ListingServiceIntegrationTests {
     @Test
    // @Ignore("Fail in grails test-app but not in the IDE")
     void test_hasListingEnded_WhenListingIsEnded_ReturnsTrue() {
-
-        def nextweek = new Date()+7;
-        def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny123456@pwd.com")
-        aCustomer.save(validate: false, flush:true);
-
-        def aListing = new Listing(seller: aCustomer, endDateTime:nextweek, startingPrice: 10, name: "myListing1")
-        aListing.save(flush: true)
-
-        def listingService = new ListingService();
-        Assert.assertFalse(listingService.hasListingEnded(aListing.id))
-    }
-
-    @Test
-  //  @Ignore("Fail in grails test-app but not in the IDE")
-    void test_hasListingEnded_WhenListingHasNotEnded_RetunsFalse() {
         def yesterday = new Date()-1;
         def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny1234567@pwd.com")
         aCustomer.save(validate: false, flush:true);
@@ -65,5 +50,20 @@ class ListingServiceIntegrationTests {
 
         def listingService = new ListingService();
         Assert.assertTrue(listingService.hasListingEnded(aListing.id))
+    }
+
+    @Test
+  //  @Ignore("Fail in grails test-app but not in the IDE")
+    void test_hasListingEnded_WhenListingHasNotEnded_RetunsFalse() {
+        def nextweek = new Date()+7;
+        def aCustomer = TestUtility.makeCustomer("cliente123", "secrete", "danny123456@pwd.com")
+        aCustomer.save(validate: false, flush:true);
+
+        def aListing = new Listing(seller: aCustomer, endDateTime:nextweek, startingPrice: 10, name: "myListing1")
+        aListing.save(flush: true)
+
+        def listingService = new ListingService();
+        Assert.assertFalse(listingService.hasListingEnded(aListing.id))
+
     }
 }

@@ -27,11 +27,11 @@ class ListingNotificationServiceIntegrationTests {
     @Before
     void init(){
         seller = TestUtility
-                    .makeCustomer("bitter", "secret", "bitterbidderdev@google.com" )
+                    .makeCustomer("bitter", "secret", "bitterbidderdev-333@google.com" )
                     .save(validate: false,flush:true)
 
         winner = TestUtility
-                .makeCustomer("bitterbuyer", "secret", "EdgeCases@groups.live.com" )
+                .makeCustomer("bitterbuyer", "secret", "EdgeCases-231@groups.live.com" )
                 .save(validate: false,flush:true)
 
     }
