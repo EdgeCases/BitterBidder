@@ -22,6 +22,7 @@ class ListingServiceTests {
     }
 
     @Test
+    // SRV-2: Create a Grails service method that supports creating a new listing (unit test)
     void test_Create_WhenListingIsValid_ListingIsCreated(){
         //arrange
         def service = new ListingService();
@@ -34,6 +35,7 @@ class ListingServiceTests {
     }
 
     @Test
+    // SRV-2: Create a Grails service method that supports creating a new listing (unit test)
     void test_Create_WhenListingIsInvalid_ListingIsNotCreated() {
         //arrange
         def service = new ListingService();

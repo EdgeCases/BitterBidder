@@ -4,6 +4,7 @@ import grails.validation.ValidationException
 
 class ListingService {
 
+    // SRV-2: Create a Grails service method that supports creating a new listing
     def Create(Listing listing) {
 
         //pattern from: http://grails.org/doc/latest/guide/services.html

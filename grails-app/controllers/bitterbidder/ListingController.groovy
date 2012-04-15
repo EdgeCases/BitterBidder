@@ -82,6 +82,7 @@ class ListingController {
             return
         }
 
+        // UI-7: Attempting to view the listing detail page for a listing that has expired will display a "Listing Expired" message instead of showing the details of the listing
         if (listingInstance.isEnded()){
             def customer =springSecurityService.getCurrentUser();
             def email = Customer.formatEmail(customer?.emailAddress)
