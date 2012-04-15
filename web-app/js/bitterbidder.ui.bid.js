@@ -49,6 +49,8 @@ postNewBid = function(listingId, amount) {
             showResults(data.message, data.status);
             if (data.status=="success")    {
                 updateMinimumBidAmount(data.minBidAmount);
+            }if(data.status=="expired"){
+                showExpiredDialog(data.message)
             }
             getLatestBids(listingId);
         },
@@ -137,3 +139,29 @@ startPolling = (function poll(){
         dataType:'json'
     });
 });
+
+showExpiredDialog=function(message){
+
+    $('#resultsDialog').dialog({
+        height:130,
+        width:550,
+        cache:false,
+        modal: true,
+        caption:"Listing Expired",
+        //We were trying to get this message and redirect URl to come from the controller but had no luck trying to
+        //set a custom message on the response.setStatus was suppose to do it but it didn't work.
+        open: function(event, ui){
+
+            $expiredMessage = "We are sorry. This listing has expired. You'll now be redirected to an updated listings page."
+            $('#resultsMessage').html($expiredMessage);
+            setTimeout("$('#listingResultsDialog').dialog('close')",2500);
+        },
+        close:function(event, ui){
+
+            $listingList= "http://"+document.location.host +"/BitterBidder/listing/list"
+            window.location.replace($listingList);
+            $('#resultsMessage').html("");
+            $("#resultsDialog").dialog('destroy');
+        }
+    });
+};
