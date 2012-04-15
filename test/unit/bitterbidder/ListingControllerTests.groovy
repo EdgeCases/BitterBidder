@@ -200,8 +200,7 @@ class ListingControllerTests  {
         assert response.redirectedUrl == '/listing/list'
     }
 
-    //UI-4: The action of placing a new bid will display a message to the
-    //user indicating that the bid was successful (Controller Unit Test)
+    // UI-5: An error message will be displayed if placing a new bid is unsuccessful (for instance if the new bid amount does not pass validation requirements) (Controller Unit Test)
     void test_Add_WhenValidNewBidFails_MessageIndicatingErrorReturned() {
 
         controller.delete()
@@ -232,8 +231,7 @@ class ListingControllerTests  {
         assert errors !=null
     }
 
-    //UI-4: The action of placing a new bid will display a message
-    //to the user indicating that the bid was successful (Controller Unit Test)
+    // UI-4: The action of placing a new bid will display a message to the user indicating that the bid was successful (Controller Unit Test)
     void test_Add_WhenValidNewBidFails_MessageIndicatingSuccessReturned() {
 
         controller.delete()

@@ -18,14 +18,13 @@ class BidController {
         [bidInstanceList: Bid.list(params), bidInstanceTotal: Bid.count()]
     }
 
-    //UI-1: The listing detail page will asynchronously load and display a list of the last
-    //10 bids placed on the item showing the user, date/time, and amount.
-    //The implementation of the lookup of these results must be done with a Named Query.
+    // UI-1: The listing detail page will asynchronously load and display a list of the last
+    // 10 bids placed on the item showing the user, date/time, and amount.
+    // The implementation of the lookup of these results must be done with a Named Query.
     def lastTen() {
 
         assert null != params
 
-        //def latest = Bid.getLastTen(params.id).list(max: 10, sort: "amount", order: "desc")
         def latest = Bid.getLastTen(params.id).list(sort: "amount", order: "desc")
 
         render(contentType: "text/json") {
@@ -54,9 +53,7 @@ class BidController {
 
         if (!bidInstance.save(flush: true)) {
 
-            //todo-add a good message
-
-            //L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
+            // L-8: Validation errors will be displayed on the listing detail page if an added bid does not pass validation
             flash.message = message(code: 'default.invalid.validator.message', args: [message(code: 'bid.label', default: 'Bid'), bidInstance.id])
             redirect action: "show", controller: "Listing", params: [id: bidInstance.listing.id]
 

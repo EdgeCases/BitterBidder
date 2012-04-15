@@ -68,7 +68,6 @@ class ListingController {
 
         def listing = Listing.get(params.id);
         def bidAmount = listingService.getMinimumBidAmount(listing);
-        //def jsonMap = [status: "success", minBidAmount:bidAmount]
         def jsonMap = [status: "success", minBidAmount:g.formatNumber(number:bidAmount, type:'currency', currencyCode: 'USD')]
 
         render jsonMap as JSON
@@ -93,6 +92,8 @@ class ListingController {
         }
 
         listingInstance.latestBid = listingInstance?.bids?.max {it->it.dateCreated}
+
+        // UI-3: The action of placing a new bid will update the new minimum bid price stored in the database and displayed to the user on the page
         listingInstance.minimumBid = listingService.getMinimumBidAmount(listingInstance)
         [listingInstance: listingInstance]
     }
@@ -165,7 +166,6 @@ class ListingController {
         [listingInstanceList: listingInstance]
     }
 
-    //todo - put these guts into create
     @Secured(['ROLE_USER'])
     def newBid() {
 
@@ -175,9 +175,11 @@ class ListingController {
         def jsonMap = [id];
 
         if(id){
-            //L-7: The detail page for the listing allows a new bid to be placed
-            //if we have an id here, it's the id of a listing and we came from the
-            //show view of a listing
+            // L-7: The detail page for the listing allows a new bid to be placed
+            // UI-2: The action of placing a new bid on a listing will happen asynchronously, without leaving the page
+
+            // if we have an id here, it's the id of a listing and we came from the
+            // show view of a listing
             def bid = new Bid(id)   //pass in the listing id
             def customer
 
@@ -199,6 +201,7 @@ class ListingController {
                 }
                 def savedBid = bidService.Create(bid)
                 bid = savedBid
+                // UI-4: The action of placing a new bid will display a message to the user indicating that the bid was successful
                 def msg = message(code: 'default.bid.accepted.message', args: [bid.bidder.displayEmailAddress, bid.amount])
                 jsonMap = [status: "success", bid:bid, message:msg, minBidAmount:g.formatNumber(number:amt+Listing.MINIMUM_BID_INCREMENT, type:'currency', currencyCode: 'USD')]
             }catch (ValidationException ex){
@@ -213,6 +216,7 @@ class ListingController {
                     price = g.formatNumber(number:amt, type:'currency', currencyCode: 'USD')
                 }
 
+                // UI-5: An error message will be displayed if placing a new bid is unsuccessful (for instance if the new bid amount does not pass validation requirements)
                 def msg = message(code: 'default.bid.not.accepted.message', args:[Customer.formatEmail(email), price])
                 jsonMap = [status:"error", errors:ex.errors, message:msg]
             }
