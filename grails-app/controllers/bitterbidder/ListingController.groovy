@@ -175,6 +175,7 @@ class ListingController {
         def amt = params.float('amount')
         def jsonMap = [id];
 
+
         if(id){
             // L-7: The detail page for the listing allows a new bid to be placed
             // UI-2: The action of placing a new bid on a listing will happen asynchronously, without leaving the page
@@ -182,6 +183,8 @@ class ListingController {
             // if we have an id here, it's the id of a listing and we came from the
             // show view of a listing
             def bid = new Bid(id)   //pass in the listing id
+            def listing = bid.listing
+
             def customer
 
             if(params['customer']) {
@@ -192,6 +195,15 @@ class ListingController {
             }
 
             def email = customer==null?"Not-Logged-In":customer.emailAddress
+
+            if (listing.isEnded()){
+                customer =springSecurityService.getCurrentUser();
+                email = Customer.formatEmail(customer?.emailAddress)
+                def expired = message(code:'default.listing.expired.message', args:[email]).toString()
+                jsonMap=[status: "expired", bid:bid, message:expired]
+                render jsonMap as JSON
+            }
+
             bid.bidder = customer
             bid.amount = amt
 

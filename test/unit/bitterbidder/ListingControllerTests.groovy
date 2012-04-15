@@ -226,9 +226,7 @@ class ListingControllerTests  {
         params["amount"] = 0
         controller.newBid()
         def resp = JSON.parse(response.getContentAsString())
-        def errors = resp.getAt("message")
-        print errors
-        assert errors !=null
+        assert "error" == resp.getAt("status")
     }
 
     // UI-4: The action of placing a new bid will display a message to the user indicating that the bid was successful (Controller Unit Test)
