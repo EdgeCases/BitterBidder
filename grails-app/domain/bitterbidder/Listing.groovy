@@ -14,6 +14,8 @@ class Listing {
     String name
     Float startingPrice
     Customer winner
+    Float winningPrice
+    String listingId
 
     static hasMany = [bids: Bid] // B-4
     static belongsTo = [seller: Customer]
@@ -29,7 +31,8 @@ class Listing {
         description (nullable: true, blank: false, empty:false, size: 0..255)
         name (size: 1..63, empty:false, blank: false)
         endDateTime(min: new Date());
-
+        winningPrice(nullable: true, )
+        listingId(nullable: true, blank: true, empty:true)
         seller(validator: {
                             def isValid = it.validate()
                             return isValid
